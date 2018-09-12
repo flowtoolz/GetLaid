@@ -1,5 +1,7 @@
 extension LayoutItem
 {
+    // MARK: - Absolute Positioning
+    
     @discardableResult
     public func constrain<Target: LayoutItem>(above target: Target,
                                               offset: CGFloat = 0) -> NSLayoutConstraint
@@ -61,6 +63,8 @@ extension LayoutItem
         }
     }
     
+    // MARK: - Relative Positioning
+    
     @discardableResult
     public func constrainTop<Target: LayoutItem>(to relativePosition: CGFloat,
                                                  of target: Target) -> NSLayoutConstraint
@@ -73,6 +77,13 @@ extension LayoutItem
                                                     of target: Target) -> NSLayoutConstraint
     {
         return constrain(.bottom, to: relativePosition, of: target)
+    }
+    
+    @discardableResult
+    public func constrainCenterY<Target: LayoutItem>(to relativePosition: CGFloat,
+                                                     of target: Target) -> NSLayoutConstraint
+    {
+        return constrain(.centerY, to: relativePosition, of: target)
     }
     
     @discardableResult
