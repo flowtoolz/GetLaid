@@ -4,16 +4,16 @@ extension LayoutItem
     
     @discardableResult
     public func constrain<Target: LayoutItem>(toTheLeftOf target: Target,
-                                              offset: CGFloat = 0) -> NSLayoutConstraint
+                                              gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        return constrain(.right, to: .left, of: target, offset: offset)
+        return constrain(.right, to: .left, of: target, offset: -gap)
     }
     
     @discardableResult
     public func constrain<Target: LayoutItem>(toTheRightOf target: Target,
-                                              offset: CGFloat = 0) -> NSLayoutConstraint
+                                              gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        return constrain(.left, to: .right, of: target, offset: offset)
+        return constrain(.left, to: .right, of: target, offset: gap)
     }
     
     @discardableResult
