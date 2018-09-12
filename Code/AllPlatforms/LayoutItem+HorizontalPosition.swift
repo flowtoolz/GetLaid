@@ -38,15 +38,16 @@ extension LayoutItem
     }
     
     @discardableResult
-    func constrain<Target: LayoutItem>(_ position: XPosition,
-                                       to targetPosition: XPosition,
-                                       of target: Target,
-                                       offset: CGFloat = 0) -> NSLayoutConstraint
+    public func constrain<Target: LayoutItem>(_ position: XPosition,
+                                              to targetPosition: XPosition,
+                                              of target: Target,
+                                              offset: CGFloat = 0) -> NSLayoutConstraint
     {
         let myAnchor = anchor(for: position)
         let targetAnchor = target.anchor(for: targetPosition)
         
-        let constraint = myAnchor.constraint(equalTo: targetAnchor, constant: offset)
+        let constraint = myAnchor.constraint(equalTo: targetAnchor,
+                                             constant: offset)
         
         constraint.isActive = true
         
@@ -105,7 +106,7 @@ extension LayoutItem
     }
 }
 
-enum XPosition
+public enum XPosition
 {
     case left, centerX, right
     
