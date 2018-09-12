@@ -70,4 +70,54 @@ extension NSView
         
         return constrainCenterX(to: parent, offset: offset)
     }
+    
+    // MARK: - Relative Positioning
+    
+    @discardableResult
+    public func constrainTopToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = superview else { return nil }
+        
+        return constrainTop(to: fraction, of: parent)
+    }
+    
+    @discardableResult
+    public func constrainBottomToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = superview else { return nil }
+        
+        return constrainBottom(to: fraction, of: parent)
+    }
+    
+    @discardableResult
+    public func constrainCenterYToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = superview else { return nil }
+        
+        return constrainCenterY(to: fraction, of: parent)
+    }
+    
+    @discardableResult
+    public func constrainLeftToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = superview else { return nil }
+        
+        return constrainLeft(to: fraction, of: parent)
+    }
+    
+    @discardableResult
+    public func constrainRightToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = superview else { return nil }
+        
+        return constrainRight(to: fraction, of: parent)
+    }
+    
+    @discardableResult
+    public func constrainCenterXToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = superview else { return nil }
+        
+        return constrainCenterX(to: fraction, of: parent)
+    }
 }
