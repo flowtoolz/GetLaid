@@ -1,3 +1,5 @@
+import AppKit.NSView
+
 extension NSView
 {
     // MARK: - Absolute Sizing
@@ -29,7 +31,7 @@ extension NSView
     // MARK: - Relative Sizing
     
     @discardableResult
-    public func constrainWidth(toParentWith relativeSize: CGFloat) -> NSLayoutConstraint?
+    public func constrainWidthToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
         guard let parent = superview else { return nil }
         
@@ -37,7 +39,7 @@ extension NSView
     }
     
     @discardableResult
-    public func constrainHeight(toParentWith relativeSize: CGFloat) -> NSLayoutConstraint?
+    public func constrainHeightToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
         guard let parent = superview else { return nil }
         
@@ -45,7 +47,7 @@ extension NSView
     }
     
     @discardableResult
-    public func constrainSize(toParentWith relativeWidth: CGFloat,
+    public func constrainSizeToParent(with relativeWidth: CGFloat,
                               _ relativeHeight: CGFloat) -> [NSLayoutConstraint]
     {
         guard let parent = superview else { return [] }
