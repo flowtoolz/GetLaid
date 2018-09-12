@@ -3,15 +3,21 @@ extension LayoutItem
     // MARK: - Height
     
     @discardableResult
-    public func constrainHeight(to height: CGFloat) -> NSLayoutConstraint
+    public func constrainHeight(to size: CGFloat) -> NSLayoutConstraint
     {
-        return constrain(.height, to: height)
+        return constrain(.height, to: size)
     }
     
     @discardableResult
     public func constrainHeight(toMinimum minimum: CGFloat) -> NSLayoutConstraint
     {
         return constrain(.height, toMinimum: minimum)
+    }
+    
+    @discardableResult
+    public func constrainHeight(toMaximum maximum: CGFloat) -> NSLayoutConstraint
+    {
+        return constrain(.height, toMaximum: maximum)
     }
     
     @discardableResult

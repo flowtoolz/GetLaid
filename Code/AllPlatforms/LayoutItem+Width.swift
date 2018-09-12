@@ -1,15 +1,21 @@
 extension LayoutItem
 {
     @discardableResult
-    public func constrainWidth(to width: CGFloat) -> NSLayoutConstraint
+    public func constrainWidth(to size: CGFloat) -> NSLayoutConstraint
     {
-        return constrain(.width, to: width)
+        return constrain(.width, to: size)
     }
     
     @discardableResult
     public func constrainWidth(toMinimum minimum: CGFloat) -> NSLayoutConstraint
     {
         return constrain(.width, toMinimum: minimum)
+    }
+    
+    @discardableResult
+    public func constrainWidth(toMaximum maximum: CGFloat) -> NSLayoutConstraint
+    {
+        return constrain(.width, toMaximum: maximum)
     }
     
     @discardableResult

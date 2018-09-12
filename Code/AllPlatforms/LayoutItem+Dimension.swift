@@ -25,6 +25,19 @@ extension LayoutItem
         
         return constraint
     }
+
+    @discardableResult
+    func constrain(_ dimension: Dimension,
+                   toMaximum maximum: CGFloat) -> NSLayoutConstraint
+    {
+        let myAnchor = anchor(for: dimension)
+        
+        let constraint = myAnchor.constraint(lessThanOrEqualToConstant: maximum)
+        
+        constraint.isActive = true
+        
+        return constraint
+    }
     
     @discardableResult
     func constrain<Target: LayoutItem>(_ dimension: Dimension,
