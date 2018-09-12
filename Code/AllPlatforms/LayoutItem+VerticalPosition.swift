@@ -110,7 +110,7 @@ public enum YPosition
 {
     case top, centerY, bottom
     
-    var attribute: NSLayoutConstraint.Attribute
+    var attribute: LayoutAttribute
     {
         switch self
         {

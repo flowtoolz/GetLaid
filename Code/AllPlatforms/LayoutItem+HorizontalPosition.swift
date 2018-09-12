@@ -110,7 +110,7 @@ public enum XPosition
 {
     case left, centerX, right
     
-    var attribute: NSLayoutConstraint.Attribute
+    var attribute: LayoutAttribute
     {
         switch self
         {

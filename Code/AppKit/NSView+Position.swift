@@ -13,7 +13,7 @@ extension NSView
     }
     
     @discardableResult
-    public func constrainToParent(insets: NSEdgeInsets = NSEdgeInsetsZero) -> [NSLayoutConstraint]
+    public func constrainToParent(insets: Insets = .zero) -> [NSLayoutConstraint]
     {
         guard let parent = superview else { return [] }
         

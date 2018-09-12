@@ -8,7 +8,7 @@ extension LayoutItem
     
     @discardableResult
     public func constrain<Target: LayoutItem>(to target: Target,
-                                              with insets: NSEdgeInsets = NSEdgeInsetsZero) -> [NSLayoutConstraint]
+                                              with insets: Insets = .zero) -> [NSLayoutConstraint]
     {
         return [ constrainTop(to: target, offset: insets.top),
                  constrainBottom(to: target, offset: -insets.bottom),

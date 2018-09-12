@@ -61,12 +61,4 @@ extension LayoutItem
     }
 }
 
-enum Dimension
-{
-    case width, height
-    
-    var attribute: NSLayoutConstraint.Attribute
-    {
-        return self == .width ? .width : .height
-    }
-}
+enum Dimension { case width, height }
