@@ -2,7 +2,7 @@
     
     # meta infos
     s.name             = "GetLaid"
-    s.version          = "0.1.0"
+    s.version          = "0.2.0"
     s.summary          = "AutoLayout Wrapper"
     s.description      = "The shortest most readable AutoLayout code you'll ever write"
     s.homepage         = "http://flowtoolz.com"
