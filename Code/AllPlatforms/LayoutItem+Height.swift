@@ -1,7 +1,5 @@
 extension LayoutItem
 {
-    // MARK: - Height
-    
     @discardableResult
     public func constrainHeight(to size: CGFloat) -> NSLayoutConstraint
     {
