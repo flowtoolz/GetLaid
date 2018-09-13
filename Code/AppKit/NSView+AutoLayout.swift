@@ -12,7 +12,6 @@ public extension NSView
         return view
     }
     
-    @available(OSX 10.11, *)
     func addLayoutGuide() -> NSLayoutGuide
     {
         let guide = NSLayoutGuide()
@@ -22,7 +21,6 @@ public extension NSView
         return guide
     }
     
-    @available(OSX 10.11, *)
     func addLayoutGuides(_ number: Int) -> [NSLayoutGuide]
     {
         guard number > 0 else { return [] }
