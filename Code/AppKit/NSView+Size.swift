@@ -35,7 +35,7 @@ extension NSView
     {
         guard let parent = superview else { return nil }
         
-        return constrain(.width, to: parent, multiplier: relativeSize)
+        return constrainWidth(to: relativeSize, of: parent)
     }
     
     @discardableResult
@@ -43,12 +43,12 @@ extension NSView
     {
         guard let parent = superview else { return nil }
         
-        return constrain(.height, to: parent, multiplier: relativeSize)
+        return constrainHeight(to: relativeSize, of: parent)
     }
     
     @discardableResult
     public func constrainSizeToParent(with relativeWidth: CGFloat,
-                              _ relativeHeight: CGFloat) -> [NSLayoutConstraint]
+                                      _ relativeHeight: CGFloat) -> [NSLayoutConstraint]
     {
         guard let parent = superview else { return [] }
         
