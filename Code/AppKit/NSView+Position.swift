@@ -13,14 +13,17 @@ extension NSView
     }
     
     @discardableResult
-    public func constrainToParent(insets: Insets = .zero) -> [NSLayoutConstraint]
+    public func constrainToParent(insetTop: CGFloat = 0,
+                                  insetLeft: CGFloat = 0,
+                                  insetBottom: CGFloat = 0,
+                                  insetRight: CGFloat = 0) -> [NSLayoutConstraint]
     {
         guard let parent = superview else { return [] }
         
-        return [ constrainTop(to: parent, offset: insets.top),
-                 constrainBottom(to: parent, offset: -insets.bottom),
-                 constrainLeft(to: parent, offset: insets.left),
-                 constrainRight(to: parent, offset: -insets.right) ]
+        return [ constrainTop(to: parent, offset: insetTop),
+                 constrainBottom(to: parent, offset: -insetBottom),
+                 constrainLeft(to: parent, offset: insetLeft),
+                 constrainRight(to: parent, offset: -insetRight) ]
     }
     
     @discardableResult

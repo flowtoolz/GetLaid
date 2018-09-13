@@ -7,12 +7,11 @@ extension LayoutItem
     }
     
     @discardableResult
-    public func constrain<Target: LayoutItem>(to target: Target,
-                                              with insets: Insets = .zero) -> [NSLayoutConstraint]
+    public func constrain<Target: LayoutItem>(to target: Target) -> [NSLayoutConstraint]
     {
-        return [ constrainTop(to: target, offset: insets.top),
-                 constrainBottom(to: target, offset: -insets.bottom),
-                 constrainLeft(to: target, offset: insets.left),
-                 constrainRight(to: target, offset: -insets.right) ]
+        return [ constrainTop(to: target),
+                 constrainBottom(to: target),
+                 constrainLeft(to: target),
+                 constrainRight(to: target) ]
     }
 }
