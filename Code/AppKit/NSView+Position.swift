@@ -27,6 +27,54 @@ extension NSView
     }
     
     @discardableResult
+    public func constrainToParentExcludingTop(insetLeft: CGFloat = 0,
+                                              insetBottom: CGFloat = 0,
+                                              insetRight: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = superview else { return [] }
+        
+        return [ constrainBottom(to: parent, offset: -insetBottom),
+                 constrainLeft(to: parent, offset: insetLeft),
+                 constrainRight(to: parent, offset: -insetRight) ]
+    }
+    
+    @discardableResult
+    public func constrainToParentExcludingLeft(insetTop: CGFloat = 0,
+                                               insetBottom: CGFloat = 0,
+                                               insetRight: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = superview else { return [] }
+        
+        return [ constrainBottom(to: parent, offset: -insetBottom),
+                 constrainTop(to: parent, offset: insetTop),
+                 constrainRight(to: parent, offset: -insetRight) ]
+    }
+    
+    @discardableResult
+    public func constrainToParentExcludingBottom(insetTop: CGFloat = 0,
+                                                 insetLeft: CGFloat = 0,
+                                                 insetRight: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = superview else { return [] }
+        
+        return [ constrainRight(to: parent, offset: -insetRight),
+                 constrainTop(to: parent, offset: insetTop),
+                 constrainLeft(to: parent, offset: insetLeft) ]
+    }
+    
+    @discardableResult
+    public func constrainToParentExcludingRight(insetTop: CGFloat = 0,
+                                                insetLeft: CGFloat = 0,
+                                                insetBottom: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = superview else { return [] }
+        
+        return [ constrainBottom(to: parent, offset: -insetBottom),
+                 constrainTop(to: parent, offset: insetTop),
+                 constrainLeft(to: parent, offset: insetLeft) ]
+    }
+    
+    @discardableResult
     public func constrainTopToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
     {
         guard let parent = superview else { return nil }
