@@ -1,13 +1,13 @@
 extension LayoutItem
 {
     @discardableResult
-    public func constrainCenter<Target: LayoutItem>(to target: Target) -> [NSLayoutConstraint]
+    public func constrainCenter(to target: LayoutItem) -> [NSLayoutConstraint]
     {
         return [constrainCenterX(to: target), constrainCenterY(to: target)]
     }
     
     @discardableResult
-    public func constrain<Target: LayoutItem>(to target: Target) -> [NSLayoutConstraint]
+    public func constrain(to target: LayoutItem) -> [NSLayoutConstraint]
     {
         return [ constrainTop(to: target),
                  constrainBottom(to: target),

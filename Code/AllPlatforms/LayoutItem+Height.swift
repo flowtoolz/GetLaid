@@ -19,14 +19,14 @@ extension LayoutItem
     }
     
     @discardableResult
-    public func constrainHeight<Target: LayoutItem>(to target: Target) -> NSLayoutConstraint
+    public func constrainHeight(to target: LayoutItem) -> NSLayoutConstraint
     {
         return constrain(.height, to: target)
     }
     
     @discardableResult
-    public func constrainHeight<Target: LayoutItem>(to relativeSize: CGFloat,
-                                                    of target: Target) -> NSLayoutConstraint
+    public func constrainHeight(to relativeSize: CGFloat,
+                                of target: LayoutItem) -> NSLayoutConstraint
     {
         return constrain(.height, to: target, multiplier: relativeSize)
     }

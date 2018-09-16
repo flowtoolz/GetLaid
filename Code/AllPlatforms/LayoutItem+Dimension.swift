@@ -40,9 +40,9 @@ extension LayoutItem
     }
     
     @discardableResult
-    func constrain<Target: LayoutItem>(_ dimension: Dimension,
-                                       to target: Target,
-                                       multiplier: CGFloat = 1) -> NSLayoutConstraint
+    func constrain(_ dimension: Dimension,
+                   to target: LayoutItem,
+                   multiplier: CGFloat = 1) -> NSLayoutConstraint
     {
         let myAnchor = anchor(for: dimension)
         let targetAnchor = target.anchor(for: dimension)

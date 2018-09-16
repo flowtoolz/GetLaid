@@ -1,13 +1,11 @@
-import AppKit.NSView
-
-extension NSView
+extension LayoutChild
 {
     // MARK: - Absolute Sizing
     
     @discardableResult
     public func constrainSizeToParent() -> [NSLayoutConstraint]
     {
-        guard let parent = superview else { return [] }
+        guard let parent = parent else { return [] }
         
         return [constrainWidth(to: parent), constrainHeight(to: parent) ]
     }
@@ -15,7 +13,7 @@ extension NSView
     @discardableResult
     public func constrainWidthToParent() -> NSLayoutConstraint?
     {
-        guard let parent = superview else { return nil }
+        guard let parent = parent else { return nil }
         
         return constrainWidth(to: parent)
     }
@@ -23,7 +21,7 @@ extension NSView
     @discardableResult
     public func constrainHeightToParent() -> NSLayoutConstraint?
     {
-        guard let parent = superview else { return nil }
+        guard let parent = parent else { return nil }
         
         return constrainHeight(to: parent)
     }
@@ -33,7 +31,7 @@ extension NSView
     @discardableResult
     public func constrainWidthToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = superview else { return nil }
+        guard let parent = parent else { return nil }
         
         return constrainWidth(to: relativeSize, of: parent)
     }
@@ -41,7 +39,7 @@ extension NSView
     @discardableResult
     public func constrainHeightToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = superview else { return nil }
+        guard let parent = parent else { return nil }
         
         return constrainHeight(to: relativeSize, of: parent)
     }
@@ -50,7 +48,7 @@ extension NSView
     public func constrainSizeToParent(with relativeWidth: CGFloat,
                                       _ relativeHeight: CGFloat) -> [NSLayoutConstraint]
     {
-        guard let parent = superview else { return [] }
+        guard let parent = parent else { return [] }
         
         return [ constrainWidth(to: relativeWidth, of: parent),
                  constrainHeight(to: relativeHeight, of: parent) ]

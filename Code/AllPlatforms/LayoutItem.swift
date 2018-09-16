@@ -6,7 +6,7 @@ import UIKit
 typealias LayoutAttribute = NSLayoutAttribute
 #endif
 
-public protocol LayoutItem
+public protocol LayoutItem: AnyObject
 {
     var widthAnchor: NSLayoutDimension { get }
     var heightAnchor: NSLayoutDimension { get }

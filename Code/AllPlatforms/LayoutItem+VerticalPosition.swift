@@ -3,45 +3,45 @@ extension LayoutItem
     // MARK: - Absolute Positioning
     
     @discardableResult
-    public func constrain<Target: LayoutItem>(above target: Target,
-                                              gap: CGFloat = 0) -> NSLayoutConstraint
+    public func constrain(above target: LayoutItem,
+                          gap: CGFloat = 0) -> NSLayoutConstraint
     {
         return constrain(.bottom, to: .top, of: target, offset: -gap)
     }
     
     @discardableResult
-    public func constrain<Target: LayoutItem>(below target: Target,
-                                              gap: CGFloat = 0) -> NSLayoutConstraint
+    public func constrain(below target: LayoutItem,
+                          gap: CGFloat = 0) -> NSLayoutConstraint
     {
         return constrain(.top, to: .bottom, of: target, offset: gap)
     }
     
     @discardableResult
-    public func constrainTop<Target: LayoutItem>(to target: Target,
-                                                 offset: CGFloat = 0) -> NSLayoutConstraint
+    public func constrainTop(to target: LayoutItem,
+                             offset: CGFloat = 0) -> NSLayoutConstraint
     {
         return constrain(.top, to: .top, of: target, offset: offset)
     }
     
     @discardableResult
-    public func constrainBottom<Target: LayoutItem>(to target: Target,
-                                                    offset: CGFloat = 0) -> NSLayoutConstraint
+    public func constrainBottom(to target: LayoutItem,
+                                offset: CGFloat = 0) -> NSLayoutConstraint
     {
         return constrain(.bottom, to: .bottom, of: target, offset: offset)
     }
     
     @discardableResult
-    public func constrainCenterY<Target: LayoutItem>(to target: Target,
-                                                     offset: CGFloat = 0) -> NSLayoutConstraint
+    public func constrainCenterY(to target: LayoutItem,
+                                 offset: CGFloat = 0) -> NSLayoutConstraint
     {
         return constrain(.centerY, to: .centerY, of: target, offset: offset)
     }
     
     @discardableResult
-    public func constrain<Target: LayoutItem>(_ position: YPosition,
-                                              to targetPosition: YPosition,
-                                              of target: Target,
-                                              offset: CGFloat = 0) -> NSLayoutConstraint
+    public func constrain(_ position: YPosition,
+                          to targetPosition: YPosition,
+                          of target: LayoutItem,
+                          offset: CGFloat = 0) -> NSLayoutConstraint
     {
         let myAnchor = anchor(for: position)
         let targetAnchor = target.anchor(for: targetPosition)
@@ -67,30 +67,30 @@ extension LayoutItem
     // MARK: - Relative Positioning
     
     @discardableResult
-    public func constrainTop<Target: LayoutItem>(to relativePosition: CGFloat,
-                                                 of target: Target) -> NSLayoutConstraint
+    public func constrainTop(to relativePosition: CGFloat,
+                             of target: LayoutItem) -> NSLayoutConstraint
     {
         return constrain(.top, to: relativePosition, of: target)
     }
     
     @discardableResult
-    public func constrainBottom<Target: LayoutItem>(to relativePosition: CGFloat,
-                                                    of target: Target) -> NSLayoutConstraint
+    public func constrainBottom(to relativePosition: CGFloat,
+                                of target: LayoutItem) -> NSLayoutConstraint
     {
         return constrain(.bottom, to: relativePosition, of: target)
     }
     
     @discardableResult
-    public func constrainCenterY<Target: LayoutItem>(to relativePosition: CGFloat,
-                                                     of target: Target) -> NSLayoutConstraint
+    public func constrainCenterY(to relativePosition: CGFloat,
+                                 of target: LayoutItem) -> NSLayoutConstraint
     {
         return constrain(.centerY, to: relativePosition, of: target)
     }
     
     @discardableResult
-    func constrain<Target: LayoutItem>(_ position: YPosition,
-                                       to relativePosition: CGFloat,
-                                       of target: Target) -> NSLayoutConstraint
+    func constrain(_ position: YPosition,
+                   to relativePosition: CGFloat,
+                   of target: LayoutItem) -> NSLayoutConstraint
     {
         let constraint = NSLayoutConstraint(item: self,
                                             attribute: position.attribute,

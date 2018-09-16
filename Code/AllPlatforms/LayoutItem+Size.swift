@@ -8,9 +8,9 @@ extension LayoutItem
     }
     
     @discardableResult
-    public func constrainSize<Target: LayoutItem>(to relativeWidth: CGFloat,
-                                                  _ relativeHeight: CGFloat,
-                                                  of target: Target) -> [NSLayoutConstraint]
+    public func constrainSize(to relativeWidth: CGFloat,
+                              _ relativeHeight: CGFloat,
+                              of target: LayoutItem) -> [NSLayoutConstraint]
     {
         return [ constrainWidth(to: relativeWidth, of: target),
                  constrainHeight(to: relativeHeight, of: target) ]
