@@ -39,6 +39,7 @@ item1.autoSetDimensions(to: CGSize(width: 82, height: 42))
 item1.autoPinEdge(.bottom, to: .top, of: item2, withOffset: -20)
 item1.autoPinEdgesToSuperviewEdges(with: NSEdgeInsetsZero, excludingEdge: .top)
 item1.autoConstrainAttribute(.left, to: .right, of: item2, withMultiplier: 0.2)
+item1.autoPinEdgesToSuperViewEdges(with: NSEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
 ~~~
 
 The same examples using GetLaid:
@@ -53,4 +54,5 @@ item1.constrainSize(to: 82, 42)
 item1.constrain(above: item2, gap: 20)
 item1.constrainToParentExcludingTop()
 item1.constrainLeft(to: 0.2, of: item2)
+item1.constrainToParent(insetTop: 10)
 ~~~
