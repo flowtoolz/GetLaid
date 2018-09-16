@@ -46,11 +46,11 @@ The same examples using GetLaid:
 ~~~swift
 item1.constrainToParent()
 item1.constrainTopToParent()
-item2.constrainWidth(to: 42)
+item1.constrainWidth(to: 42)
 item1.constrainLeft(to: item2)
-item2.constrainCenterX(to: item2)
-item2.constrainSize(to: 82, 42)
+item1.constrainCenterX(to: item2)
+item1.constrainSize(to: 82, 42)
 item1.constrain(above: item2, gap: 20)
 item1.constrainToParentExcludingTop()
-item2.constrainLeft(to: 0.2, of: item2)
+item1.constrainLeft(to: 0.2, of: item2)
 ~~~
