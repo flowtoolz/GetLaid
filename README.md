@@ -7,6 +7,10 @@
 GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/PureLayout):
 
 * :white_check_mark: More Readable
+    - All functions are of the form `constrain<CONSTRAINED ATTRIBUTE>to<CONSTRAINING ATTRIBUTE>`
+    - The prefix `constrain` expresses best what the functions really do. They constrain some attribute and return the applied constraints.
+    - Helpful auto completion: If you want to constrain the left side, write `constrainLeft`. Auto completion will show all possible ways to do it.
+    - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
 * :white_check_mark: More Succinct
     - Less Lines of Code
     - Shorter Lines of Code
