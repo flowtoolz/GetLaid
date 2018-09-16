@@ -7,25 +7,25 @@
 GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/PureLayout):
 
 * :white_check_mark: Readability
- - Functions are of the principle form "constrain [constrained aspect] to [constraining aspect]"
- - This semantic naming makes auto completion more valuable: If you want to constrain the left side, write `constrainLeft`. Auto completion will show all possible ways to do it.
- - The prefix `constrain` expresses best what the functions really do: They constrain some attribute and return the resulting constraints.
- - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
+    - Functions are of the principle form "constrain [constrained aspect] to [constraining aspect]"
+    - This semantic naming makes auto completion more valuable: If you want to constrain the left side, write `constrainLeft`. Auto completion will show all possible ways to do it.
+    - The prefix `constrain` expresses best what the functions really do: They constrain some attribute and return the resulting constraints.
+    - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
 * :white_check_mark: Brevity
- - Fewer lines of code
- - Shorter lines of code
+    - Fewer lines of code
+    - Shorter lines of code
 * :white_check_mark: Applicable to Layout Guides
- - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
- - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
+    - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
+    - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
 * :white_check_mark: Easy Relative Layouting
- - Relative positioning: `item1.constrainLeft(to: 0.2, of: item2)`
- - Relative sizing: `item1.constrainWidth(to: 0.3, of: item2)`
+    - Relative positioning: `item1.constrainLeft(to: 0.2, of: item2)`
+    - Relative sizing: `item1.constrainWidth(to: 0.3, of: item2)`
 * :white_check_mark: Easy Positioning of Items Next to Each Other
- - `item1.constrain(above: item2, gap: 10)`
- - `item1.constrain(toTheLeftOf: item2)`
+    - `item1.constrain(above: item2, gap: 10)`
+    - `item1.constrain(toTheLeftOf: item2)`
 * :white_check_mark: Modern Swift Under the Hood
- - No Objective-c
- - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
+    - No Objective-c
+    - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
 
 ## How
 
