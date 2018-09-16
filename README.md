@@ -2,6 +2,8 @@
 
 [![Pod Version](https://img.shields.io/cocoapods/v/GetLaid.svg?longCache=true&style=flat-square)](http://cocoapods.org/pods/GetLaid)
 
+## Why
+
 GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/PureLayout):
 
 * :white_check_mark: More Readable
@@ -21,4 +23,34 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
     - No Objective-c
     - Extensive Use of Layout Anchors
 
+## How
 
+Let's compare GetLaid to [PureLayout](https://github.com/PureLayout/PureLayout). Notice how GetLaid is readable and succinct.
+
+Some examples using PureLayout:
+
+~~~swift
+item1.autoPinEdgesToSuperviewEdges()
+item1.autoPinEdge(toSuperviewEdge: .top)
+item1.autoSetDimension(.width, toSize: 42)
+item1.autoPinEdge(.left, to: .left, of: item2)
+item1.autoAlignAxis(.vertical, toSameAxisOf: item2)
+item1.autoSetDimensions(to: CGSize(width: 82, height: 42))
+item1.autoPinEdge(.bottom, to: .top, of: item2, withOffset: -20)
+item1.autoPinEdgesToSuperviewEdges(with: NSEdgeInsetsZero, excludingEdge: .top)
+item1.autoConstrainAttribute(.left, to: .right, of: item2, withMultiplier: 0.2)
+~~~
+
+The same examples using GetLaid:
+
+~~~swift
+item1.constrainToParent()
+item1.constrainTopToParent()
+item2.constrainWidth(to: 42)
+item1.constrainLeft(to: item2)
+item2.constrainCenterX(to: item2)
+item2.constrainSize(to: 82, 42)
+item1.constrain(above: item2, gap: 20)
+item1.constrainToParentExcludingTop()
+item2.constrainLeft(to: 0.2, of: item2)
+~~~
