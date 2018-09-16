@@ -11,8 +11,8 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
     - Less Lines of Code
     - Shorter Lines of Code
 * :white_check_mark: Applicable to Layout Guides
-    - UILayoutGuide
-    - NSLayoutGuide
+    - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
+    - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
 * :white_check_mark: Easy Relative Layouting
     - Relative Positioning: `item1.constrainLeft(to: 0.2, of: item2)`
     - Relative Sizing: `item1.constrainWidth(to: 0.3, of: item2)`
@@ -21,7 +21,7 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
     - `item1.constrain(toTheLeftOf: item2)`
 * :white_check_mark: Modern Swift Under the Hood
     - No Objective-c
-    - Extensive Use of Layout Anchors
+    - Extensive Use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
 
 ## How
 
