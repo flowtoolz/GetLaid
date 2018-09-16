@@ -9,7 +9,7 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
 * :white_check_mark: Readability
     - Functions are of the principle form "constrain [constrained aspect] to [constraining aspect]"
     - This semantic naming makes auto completion more valuable: If you want to constrain the left side, write `constrainLeft`. Auto completion will show all possible ways to do it.
-    - The prefix `constrain` expresses best what the functions really do: They constrain some attribute and return the resulting constraints.
+    - All functions have the prefix `constrain` which expresses best what they really do: They constrain some attributes and return the resulting constraints.
     - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
 * :white_check_mark: Brevity
     - Fewer lines of code
@@ -69,7 +69,7 @@ So, which is prettier, mh?
 
 Remember to set `translatesAutoresizingMaskIntoConstraints = false` on the views you incorporate in auto layout.
 
-The generic function `addForAutoLayout(...)` does that for you. It returns the exact view type that you pass into it. It's useful to initialize subview properties:
+The generic function `addForAutoLayout(...)` adds a subview and prepares it for auto layout. It returns the subview as its exact type. I use this function to initialize subview properties:
 
 ~~~swift
 class List: NSView
