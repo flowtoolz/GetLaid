@@ -27,6 +27,24 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
 
+### Why Would Anyone Not Use Interface Builder?
+
+The more appropriate question is: Why would any **professional** use Interface Builder? IB may help to build very simple rough prototypes. It is really no option for professional apps. So here is what you get using the Interface Builder:
+
+1. :x: The IB has slow performance. Opening and loading a storyboard usually has a significant delay.
+* :x: The IB does not make it obvious where configurations deviate from defaults, i.e. where they have been manipulated by a developer.
+* :x: Handleing complex interfaces through pointing, zooming, scrolling and selecting, intertwined with keyboard input is actually pretty fucking slow.
+* :x: Algorithmic (dynamic) layouts are impossible. Often, the mere existence of a view is determined at runtime, or layouts depend on data.
+* :x: What constraints are actually applied is less explicit, in particular in the context of the code.
+* :x: IB files create a mess with collaboration and version control systems like git.
+* :x: IB files mess up the architecture I: They entangle the logical definition of the interface (which constitute something like a "view model") with highly system specific file formats.
+* :x: IB files mess up the architecture II: They entangle the logical definition of screen flow (high level navigation) with highly system specific file formats.
+* :x: Coding animations often requires to access or even replace constraints. Good luck doing that when using the IB!
+* :x: There are more initializers to worry about as well as the generel interoperation between code and IB files.
+* :x: It is harder to build nested interfaces with container- and child view controllers.
+* :x: It is harder to turn views into reusable custom views when they exist in IB files.
+* :x: It is much harder to package IB files into frameworks and Cocoapods.
+
 ## How
 
 You know [Cocoapods](https://cocoapods.org), right? Then add this to your podfile: `pod 'GetLaid'`
