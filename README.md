@@ -4,6 +4,8 @@
 
 ## Why
 
+### Why Not Use Other Frameworks Like PureLayout?
+
 GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/PureLayout):
 
 * :white_check_mark: Readability
