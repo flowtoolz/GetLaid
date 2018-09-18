@@ -2,9 +2,7 @@
 
 [![Pod Version](https://img.shields.io/cocoapods/v/GetLaid.svg?longCache=true&style=flat-square)](http://cocoapods.org/pods/GetLaid)
 
-## Why
-
-### Why Not Use Other Frameworks Like PureLayout?
+## Why Not Use Other Frameworks Like PureLayout?
 
 GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/PureLayout):
 
@@ -29,7 +27,7 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
 
-### Why Not Use Interface Builder?
+## Why Not Use Interface Builder?
 
 The appropriate question is: Why would any **professional** use Interface Builder? IB may help to build very simple rough prototypes. It is really no option for professional apps.
 
@@ -52,9 +50,9 @@ So here is what you get using the Interface Builder:
 * :no_entry_sign: It is harder to turn views into reusable custom views when they exist in IB files.
 * :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
 
-## How
+## How to GetLaid
 
-You know [Cocoapods](https://cocoapods.org), right? Then add this to your podfile: `pod 'GetLaid'`
+You know [Cocoapods](https://cocoapods.org), right? Just add this to your podfile: `pod 'GetLaid'`
 
 Now, let's see how GetLaid can revamp code written with [PureLayout](https://github.com/PureLayout/PureLayout) ...
 
