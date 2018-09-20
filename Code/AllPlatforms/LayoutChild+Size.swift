@@ -1,3 +1,9 @@
+#if os(OSX)
+import AppKit
+#else
+import UIKit
+#endif
+
 extension LayoutChild
 {
     // MARK: - Absolute Sizing
