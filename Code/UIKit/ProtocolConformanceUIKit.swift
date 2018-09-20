@@ -4,5 +4,5 @@ extension UILayoutGuide: LayoutItem {}
 
 extension UIView: LayoutChild
 {
-    var parent: LayoutItem? { return superview }
+    public var parent: LayoutItem? { return superview }
 }
