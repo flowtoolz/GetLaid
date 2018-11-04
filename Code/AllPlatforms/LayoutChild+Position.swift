@@ -17,6 +17,15 @@ extension LayoutChild
     }
     
     @discardableResult
+    public func constrainToParent(inset: CGFloat) -> [NSLayoutConstraint]
+    {
+        return constrainToParent(insetTop: inset,
+                                 insetLeft: inset,
+                                 insetBottom: inset,
+                                 insetRight: inset)
+    }
+        
+    @discardableResult
     public func constrainToParent(insetTop: CGFloat = 0,
                                   insetLeft: CGFloat = 0,
                                   insetBottom: CGFloat = 0,
