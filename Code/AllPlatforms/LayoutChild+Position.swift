@@ -40,6 +40,14 @@ extension LayoutChild
     }
     
     @discardableResult
+    public func constrainToParentExcludingTop(inset: CGFloat) -> [NSLayoutConstraint]
+    {
+        return constrainToParentExcludingTop(insetLeft: inset,
+                                             insetBottom: inset,
+                                             insetRight: inset)
+    }
+    
+    @discardableResult
     public func constrainToParentExcludingTop(insetLeft: CGFloat = 0,
                                               insetBottom: CGFloat = 0,
                                               insetRight: CGFloat = 0) -> [NSLayoutConstraint]
@@ -49,6 +57,14 @@ extension LayoutChild
         return [ constrainBottom(to: parent, offset: -insetBottom),
                  constrainLeft(to: parent, offset: insetLeft),
                  constrainRight(to: parent, offset: -insetRight) ]
+    }
+    
+    @discardableResult
+    public func constrainToParentExcludingLeft(inset: CGFloat) -> [NSLayoutConstraint]
+    {
+        return constrainToParentExcludingLeft(insetTop: inset,
+                                              insetBottom: inset,
+                                              insetRight: inset)
     }
     
     @discardableResult
@@ -64,6 +80,14 @@ extension LayoutChild
     }
     
     @discardableResult
+    public func constrainToParentExcludingBottom(inset: CGFloat) -> [NSLayoutConstraint]
+    {
+        return constrainToParentExcludingBottom(insetTop: inset,
+                                                insetLeft: inset,
+                                                insetRight: inset)
+    }
+    
+    @discardableResult
     public func constrainToParentExcludingBottom(insetTop: CGFloat = 0,
                                                  insetLeft: CGFloat = 0,
                                                  insetRight: CGFloat = 0) -> [NSLayoutConstraint]
@@ -73,6 +97,14 @@ extension LayoutChild
         return [ constrainRight(to: parent, offset: -insetRight),
                  constrainTop(to: parent, offset: insetTop),
                  constrainLeft(to: parent, offset: insetLeft) ]
+    }
+    
+    @discardableResult
+    public func constrainToParentExcludingRight(inset: CGFloat) -> [NSLayoutConstraint]
+    {
+        return constrainToParentExcludingRight(insetTop: inset,
+                                               insetLeft: inset,
+                                               insetBottom: inset)
     }
     
     @discardableResult
