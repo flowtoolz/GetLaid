@@ -2,9 +2,9 @@
     
     # meta infos
     s.name             = "GetLaid"
-    s.version          = "1.1.2"
-    s.summary          = "AutoLayout Wrapper"
-    s.description      = "The shortest most readable AutoLayout code you'll ever write"
+    s.version          = "1.2.0"
+    s.summary          = "Swift AutoLayout Wrapper"
+    s.description      = "The Most Readable & Concise AutoLayout Swift Code"
     s.homepage         = "http://flowtoolz.com"
     s.license          = 'MIT'
     s.author           = { "Flowtoolz" => "contact@flowtoolz.com" }
@@ -13,7 +13,7 @@
     
     # compiler requirements
     s.requires_arc = true
-    s.swift_version = '4.1'
+    s.swift_version = '4.2'
     
     # minimum platform SDKs
     s.platforms = {:ios => "9.0", :osx => "10.11", :tvos => "9.0"}
