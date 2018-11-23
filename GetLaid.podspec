@@ -24,7 +24,7 @@
     s.tvos.deployment_target = '9.0'
 
     # sources
-    s.source_files = 'Code/Swift/**/*.swift'
+    s.source_files = 'Code/AllPlatforms/**/*.swift'
     s.ios.source_files = 'Code/UIKit/**/*.swift'
     s.tvos.source_files = 'Code/UIKit/**/*.swift'
     s.osx.source_files = 'Code/AppKit/**/*.swift'
