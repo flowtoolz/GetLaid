@@ -4,18 +4,18 @@
 
 ## Why Oh Why?
 
-GetLaid is a framework for defining complex view layouts through elegant code.
+GetLaid is a lean framework for defining complex view layouts through elegant code.
 
 ### Why AutoLayout Wrappers
 Programmatic AutoLayout without any such frameworks was never hard. It's all about creating objects of `NSLayoutConstraint`, which has only one [powerful initializer](https://developer.apple.com/documentation/uikit/nslayoutconstraint/1526954-init).
 
 Since iOS 9.0 and macOS 10.11, we also have `NSLayoutAnchor`, which adds a native abstraction layer on top of `NSLayoutConstraint`, further reducing the need for any AutoLayout wrappers at all.
 
-At this point, all an AutoLayout wrapper can do is to make the code more meaningful, readable and succinct at the point of use. GetLaid does exactly that and a few other things.
+At this point, all an AutoLayout wrapper can do is making the code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that and a few other tiny things.
 
 ### Why Not Other AutoLayout Wrappers
 
-Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) seem (to my taste) a bit too clever for the task at hand. A SnapKit example:
+Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) are almost too clever for the simple task at hand. A SnapKit example:
 
 ~~~swift
 box.snp.makeConstraints { (make) -> Void in
@@ -31,7 +31,7 @@ box.autoSetDimensions(to: CGSize(width: 50, height: 50))
 box.autoCenterInSuperView()
 ~~~
 
-GetLaid trims AutoLayout code down to its essence:
+GetLaid trims AutoLayout code down to the essence:
 
 ~~~swift
 box.constrainSize(to: 50, 50)
@@ -145,11 +145,11 @@ let guide = view.addLayoutGuide()
 let tenGuides = view.addLayoutGuides(10)
 ~~~
 
-## Why Not Use Interface Builder?
+## Side Note: Why Not Use Interface Builder?
 
-The appropriate question is: Why would any **professional** use Interface Builder? IB may help to build very simple rough prototypes. It is really no option for professional apps.
+I'm glad you ask! An even better question is: Why would any **professional** use Interface Builder? IB may help to build simple rough prototypes. It is really no option for professional apps.
 
-So here is what you get using the Interface Builder:
+So here is what you would get using the Interface Builder:
 
 * :no_entry_sign: The IB is slow. Opening and loading a storyboard usually has a significant delay.
 * :no_entry_sign: The IB does not make it obvious where configurations deviate from defaults, i.e. where they have been manipulated by a developer.
