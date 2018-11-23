@@ -1,10 +1,10 @@
 #if os(OSX)
 import AppKit
-typealias LayoutAttribute = NSLayoutConstraint.Attribute
 #else
 import UIKit
-typealias LayoutAttribute = NSLayoutAttribute
 #endif
+
+typealias LayoutAttribute = NSLayoutConstraint.Attribute
 
 public protocol LayoutItem: AnyObject
 {
