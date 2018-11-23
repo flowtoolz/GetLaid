@@ -2,7 +2,45 @@
 
 [![Pod Version](https://img.shields.io/cocoapods/v/GetLaid.svg?longCache=true&style=flat-square)](http://cocoapods.org/pods/GetLaid)
 
-## Why Not Use Other Frameworks Like PureLayout?
+## Why Oh Why?
+
+GetLaid is a framework for defining complex view layouts through elegant code.
+
+### Why AutoLayout Wrappers
+Programmatic AutoLayout without any such frameworks was never hard. It's all about creating objects of `NSLayoutConstraint`, which has only one [powerful initializer](https://developer.apple.com/documentation/uikit/nslayoutconstraint/1526954-init).
+
+Since iOS 9.0 and macOS 10.11, we also have `NSLayoutAnchor`, which adds a native abstraction layer on top of `NSLayoutConstraint`, further reducing the need for any AutoLayout wrappers at all.
+
+At this point, all an AutoLayout wrapper can do is to make the code more meaningful, readable and succinct at the point of use. GetLaid does exactly that and a few other things.
+
+### Why Not Other AutoLayout Wrappers
+
+Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) seem (to my taste) a bit too clever for the task at hand. A SnapKit example:
+
+~~~swift
+box.snp.makeConstraints { (make) -> Void in
+    make.width.height.equalTo(50)
+    make.center.equalTo(self.view)
+}
+~~~
+
+Classic AutroLayout wrappers like [PureLayout](https://github.com/PureLayout/PureLayout), have easier syntax but are still wordy:
+
+~~~swift
+box.autoSetDimensions(to: CGSize(width: 50, height: 50))
+box.autoCenterInSuperView()
+~~~
+
+GetLaid trims AutoLayout code down to its essence:
+
+~~~swift
+box.constrainSize(to: 50, 50)
+box.constrainCenterToParent()
+~~~
+
+If you can spare the fancyness but appreciate readability, GetLaid might be for you.
+
+### Why GetLaid
 
 GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/PureLayout):
 
@@ -12,8 +50,7 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
     - All functions have the prefix `constrain` which expresses best what they really do: They constrain some attributes and return the resulting constraints.
     - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
 * :white_check_mark: Brevity
-    - Fewer lines of code
-    - Shorter lines of code
+    - Shorter lines of code with less function arguments
 * :white_check_mark: Applicable to Layout Guides
     - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
     - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
@@ -27,34 +64,23 @@ GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/Pure
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
 
-## Why Not Use Interface Builder?
-
-The appropriate question is: Why would any **professional** use Interface Builder? IB may help to build very simple rough prototypes. It is really no option for professional apps.
-
-So here is what you get using the Interface Builder:
-
-* :no_entry_sign: The IB is slow. Opening and loading a storyboard usually has a significant delay.
-* :no_entry_sign: The IB does not make it obvious where configurations deviate from defaults, i.e. where they have been manipulated by a developer.
-* :no_entry_sign: Handleing complex interfaces through pointing, zooming, scrolling and selecting, intertwined with keyboard input is actually pretty fucking slow.
-* :no_entry_sign: Algorithmic (dynamic) layouts are impossible. However, often the mere existence of a view is determined at runtime, or layouts depend on data.
-* :no_entry_sign: What constraints are actually applied is less explicit, in particular in the context of the code.
-* :no_entry_sign: IB files create a mess with collaboration and version control systems like git.
-* :no_entry_sign: IB files mess up the architecture I: They entangle the logical definition of the interface (which constitutes something like a "view model") with highly system specific file formats.
-* :no_entry_sign: IB files mess up the architecture II: They entangle the logical definition of screen flow (high level navigation) with highly system specific file formats.
-* :no_entry_sign: Setting very specific constraints with multipliers etc. and also debugging layout issues are a nightmare with the IB.
-* :no_entry_sign: Coding animations often requires to access or even replace constraints. Good luck doing that when using the IB!
-* :no_entry_sign: There are more initializers to worry about as well as the general interoperation between code and IB files.
-* :no_entry_sign: Communicating with views requires to create outlets, which is actually quite cumbersome.
-* :no_entry_sign: Your app will be harder to port to other platforms, even within the Apple universe.
-* :no_entry_sign: It is harder to build nested interfaces with container- and child view controllers.
-* :no_entry_sign: It is harder to turn views into reusable custom views when they exist in IB files.
-* :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
-
 ## How to GetLaid
 
-You know [Cocoapods](https://cocoapods.org), right? Just add this to your podfile: `pod 'GetLaid'`
+### Installation
 
-Now, let's see how GetLaid can revamp code written with [PureLayout](https://github.com/PureLayout/PureLayout) ...
+GetLaid can be installed as a [Cocoapod](https://cocoapods.org). Add this to your pod file:
+
+~~~ruby
+pod 'GetLaid'
+~~~
+
+### Contraining Functions
+
+Almost all functions of GetLaid are called on objects of `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. Functions that constrain layout items to their parents are only available on the view classes. 
+
+All the constraining functions have the prefix `constrain` and are well discoverable via auto completion.
+
+Now, let's see how GetLaid would revamp code written with [PureLayout](https://github.com/PureLayout/PureLayout) ...
 
 ### Before (PureLayout)
 
@@ -118,3 +144,26 @@ There are two helper functions to add new layout guides to views:
 let guide = view.addLayoutGuide()
 let tenGuides = view.addLayoutGuides(10)
 ~~~
+
+## Why Not Use Interface Builder?
+
+The appropriate question is: Why would any **professional** use Interface Builder? IB may help to build very simple rough prototypes. It is really no option for professional apps.
+
+So here is what you get using the Interface Builder:
+
+* :no_entry_sign: The IB is slow. Opening and loading a storyboard usually has a significant delay.
+* :no_entry_sign: The IB does not make it obvious where configurations deviate from defaults, i.e. where they have been manipulated by a developer.
+* :no_entry_sign: Handleing complex interfaces through pointing, zooming, scrolling and selecting, intertwined with keyboard input is actually pretty fucking slow.
+* :no_entry_sign: Algorithmic (dynamic) layouts are impossible. However, often the mere existence of a view is determined at runtime, or layouts depend on data.
+* :no_entry_sign: What constraints are actually applied is less explicit, in particular in the context of the code.
+* :no_entry_sign: IB files create a mess with collaboration and version control systems like git.
+* :no_entry_sign: IB files mess up the architecture I: They entangle the logical definition of the interface (which constitutes something like a "view model") with highly system specific file formats.
+* :no_entry_sign: IB files mess up the architecture II: They entangle the logical definition of screen flow (high level navigation) with highly system specific file formats.
+* :no_entry_sign: Setting very specific constraints with multipliers etc. and also debugging layout issues are a nightmare with the IB.
+* :no_entry_sign: Coding animations often requires to access or even replace constraints. Good luck doing that when using the IB!
+* :no_entry_sign: There are more initializers to worry about as well as the general interoperation between code and IB files.
+* :no_entry_sign: Communicating with views requires to create outlets, which is actually quite cumbersome.
+* :no_entry_sign: Your app will be harder to port to other platforms, even within the Apple universe.
+* :no_entry_sign: It is harder to build nested interfaces with container- and child view controllers.
+* :no_entry_sign: It is harder to turn views into reusable custom views when they exist in IB files.
+* :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
