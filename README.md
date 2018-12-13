@@ -167,3 +167,4 @@ So here is what you would get using the Interface Builder:
 * :no_entry_sign: It is harder to build nested interfaces with container- and child view controllers.
 * :no_entry_sign: It is harder to turn views into reusable custom views when they exist in IB files.
 * :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
+* :no_entry_sign: IB files tend to lead to massive view controllers because having corresponding custom view classes for the contained views is more cumbersome.
