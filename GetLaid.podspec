@@ -13,7 +13,7 @@
     
     # compiler requirements
     s.requires_arc = true
-    s.swift_version = '4.2'
+    s.swift_version = '5.0'
     
     # minimum platform SDKs
     s.platforms = {:ios => "9.0", :osx => "10.11", :tvos => "9.0"}

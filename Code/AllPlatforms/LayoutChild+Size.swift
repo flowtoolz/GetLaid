@@ -4,12 +4,12 @@ import AppKit
 import UIKit
 #endif
 
-extension LayoutChild
+public extension LayoutChild
 {
     // MARK: - Absolute Sizing
     
     @discardableResult
-    public func constrainSizeToParent() -> [NSLayoutConstraint]
+    func constrainSizeToParent() -> [NSLayoutConstraint]
     {
         guard let parent = parent else { return [] }
         
@@ -17,7 +17,7 @@ extension LayoutChild
     }
     
     @discardableResult
-    public func constrainWidthToParent() -> NSLayoutConstraint?
+    func constrainWidthToParent() -> NSLayoutConstraint?
     {
         guard let parent = parent else { return nil }
         
@@ -25,7 +25,7 @@ extension LayoutChild
     }
     
     @discardableResult
-    public func constrainHeightToParent() -> NSLayoutConstraint?
+    func constrainHeightToParent() -> NSLayoutConstraint?
     {
         guard let parent = parent else { return nil }
         
@@ -35,7 +35,7 @@ extension LayoutChild
     // MARK: - Relative Sizing
     
     @discardableResult
-    public func constrainWidthToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
+    func constrainWidthToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
         guard let parent = parent else { return nil }
         
@@ -43,7 +43,7 @@ extension LayoutChild
     }
     
     @discardableResult
-    public func constrainHeightToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
+    func constrainHeightToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
         guard let parent = parent else { return nil }
         
@@ -51,8 +51,8 @@ extension LayoutChild
     }
     
     @discardableResult
-    public func constrainSizeToParent(with relativeWidth: CGFloat,
-                                      _ relativeHeight: CGFloat) -> [NSLayoutConstraint]
+    func constrainSizeToParent(with relativeWidth: CGFloat,
+                               _ relativeHeight: CGFloat) -> [NSLayoutConstraint]
     {
         guard let parent = parent else { return [] }
         
