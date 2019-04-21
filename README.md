@@ -149,7 +149,7 @@ let tenGuides = view.addLayoutGuides(10)
 
 I'm glad you ask! An even better question is: Why would any **professional** use Interface Builder? IB may help to build simple rough prototypes. It is really no option for professional apps.
 
-So here is what you would get using the Interface Builder:
+So here is what you would get using the Interface Builder, according to my experience among many professional projects:
 
 * :no_entry_sign: The IB is slow. Opening and loading a storyboard usually has a significant delay.
 * :no_entry_sign: The IB does not make it obvious where configurations deviate from defaults, i.e. where they have been manipulated by a developer.
@@ -167,4 +167,5 @@ So here is what you would get using the Interface Builder:
 * :no_entry_sign: It is harder to build nested interfaces with container- and child view controllers.
 * :no_entry_sign: It is harder to turn views into reusable custom views when they exist in IB files.
 * :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
-* :no_entry_sign: IB files tend to lead to massive view controllers because having corresponding custom view classes for the contained views is more cumbersome.
+* :no_entry_sign: IB files tend to lead to massive view controllers because extracting complex subviews into custom view classes is much more cumbersome.
+* :no_entry_sign: Subviews that you want to access are optional outlets. Either you unwrap them everytime or you make them implicitly unwrapped. The latter option is common practice but can (and did in client projects) lead to crashes.
