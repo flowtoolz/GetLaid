@@ -50,8 +50,17 @@ extension LayoutItem
                    to target: LayoutItem,
                    multiplier: CGFloat = 1) -> NSLayoutConstraint
     {
+        return constrain(dimension, to: dimension, of: target, multiplier: multiplier)
+    }
+    
+    @discardableResult
+    func constrain(_ dimension: Dimension,
+                   to targetDimension: Dimension,
+                   of target: LayoutItem,
+                   multiplier: CGFloat = 1) -> NSLayoutConstraint
+    {
         let myAnchor = anchor(for: dimension)
-        let targetAnchor = target.anchor(for: dimension)
+        let targetAnchor = target.anchor(for: targetDimension)
         
         let constraint = myAnchor.constraint(equalTo: targetAnchor,
                                              multiplier: multiplier)

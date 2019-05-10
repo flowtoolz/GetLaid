@@ -4,36 +4,55 @@ import AppKit
 import UIKit
 #endif
 
-extension LayoutItem
+public extension LayoutItem
 {
     @discardableResult
-    public func constrainWidth(to size: CGFloat) -> NSLayoutConstraint
+    func constrainWidth(to size: CGFloat) -> NSLayoutConstraint
     {
         return constrain(.width, to: size)
     }
     
     @discardableResult
-    public func constrainWidth(toMinimum minimum: CGFloat) -> NSLayoutConstraint
+    func constrainWidth(toMinimum minimum: CGFloat) -> NSLayoutConstraint
     {
         return constrain(.width, toMinimum: minimum)
     }
     
     @discardableResult
-    public func constrainWidth(toMaximum maximum: CGFloat) -> NSLayoutConstraint
+    func constrainWidth(toMaximum maximum: CGFloat) -> NSLayoutConstraint
     {
         return constrain(.width, toMaximum: maximum)
     }
     
     @discardableResult
-    public func constrainWidth(to target: LayoutItem) -> NSLayoutConstraint
+    func constrainWidth(to target: LayoutItem) -> NSLayoutConstraint
     {
         return constrain(.width, to: target)
     }
     
     @discardableResult
-    public func constrainWidth(to relativeSize: CGFloat,
-                               of target: LayoutItem) -> NSLayoutConstraint
+    func constrainWidth(to relativeSize: CGFloat,
+                        of target: LayoutItem) -> NSLayoutConstraint
     {
         return constrain(.width, to: target, multiplier: relativeSize)
+    }
+    
+    @discardableResult
+    func constrainAspectRatio(to ratio: CGFloat) -> NSLayoutConstraint
+    {
+        return constrainWidth(to: ratio, ofHeightOf: self)
+    }
+    
+    @discardableResult
+    func constrainWidthToHeight(of target: LayoutItem) -> NSLayoutConstraint
+    {
+        return constrain(.width, to: .height, of: target)
+    }
+    
+    @discardableResult
+    func constrainWidth(to relativeSize: CGFloat,
+                        ofHeightOf target: LayoutItem) -> NSLayoutConstraint
+    {
+        return constrain(.width, to: .height, of: target, multiplier: relativeSize)
     }
 }

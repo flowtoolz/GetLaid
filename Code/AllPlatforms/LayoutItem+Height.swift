@@ -36,4 +36,17 @@ public extension LayoutItem
     {
         return constrain(.height, to: target, multiplier: relativeSize)
     }
+    
+    @discardableResult
+    func constrainHeightToWidth(of target: LayoutItem) -> NSLayoutConstraint
+    {
+        return constrain(.height, to: .width, of: target)
+    }
+    
+    @discardableResult
+    func constrainHeight(to relativeSize: CGFloat,
+                         ofWidthOf target: LayoutItem) -> NSLayoutConstraint
+    {
+        return constrain(.height, to: .width, of: target, multiplier: relativeSize)
+    }
 }
