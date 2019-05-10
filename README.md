@@ -2,18 +2,42 @@
 
 [![Pod Version](https://img.shields.io/cocoapods/v/GetLaid.svg?longCache=true&style=flat-square)](http://cocoapods.org/pods/GetLaid)
 
-## Why Oh Why?
-
 GetLaid is a lean framework for defining complex view layouts through elegant code.
 
-### Why AutoLayout Wrappers
+## Features
+
+Some advantages even over classic simple frameworks like [PureLayout](https://github.com/PureLayout/PureLayout):
+
+* :white_check_mark: Readability
+    - Functions are of the principle form "constrain [constrained aspect] to [constraining aspect]"
+    - This semantic naming makes auto completion more valuable: If you want to constrain the left side, write `constrainLeft`. Auto completion will show all possible ways to do it.
+    - All functions have the prefix `constrain` which expresses best what they really do: They constrain some attributes and return the resulting constraints.
+    - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
+* :white_check_mark: Brevity
+    - Shorter lines of code with less function arguments (see comparison below)
+* :white_check_mark: Applicable to Layout Guides
+    - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
+    - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
+* :white_check_mark: Easy Relative Layouting
+    - Relative positioning: `item1.constrainLeft(to: 0.2, of: item2)`
+    - Relative sizing: `item1.constrainWidth(to: 0.3, of: item2)`
+    - Aspect ratio: `item.constrainAspectRatio(to: 16/9)`
+* :white_check_mark: Easy Positioning of Items Next to Each Other
+    - `item1.constrain(above: item2, gap: 10)`
+    - `item1.constrain(toTheLeftOf: item2)`
+* :white_check_mark: Modern Swift Under the Hood
+    - No Objective-c
+    - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
+
+## Why AutoLayout Wrappers?
+
 Programmatic AutoLayout without any such frameworks was never hard. It's all about creating objects of `NSLayoutConstraint`, which has only one [powerful initializer](https://developer.apple.com/documentation/uikit/nslayoutconstraint/1526954-init).
 
 Since iOS 9.0 and macOS 10.11, we also have `NSLayoutAnchor`, which adds a native abstraction layer on top of `NSLayoutConstraint`, further reducing the need for any AutoLayout wrappers at all.
 
 At this point, all an AutoLayout wrapper can do is making the code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that and a few other tiny things.
 
-### Why Not Other AutoLayout Wrappers
+## Why Not Other AutoLayout Wrappers?
 
 Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) are almost too clever for the simple task at hand. A SnapKit example:
 
@@ -24,63 +48,14 @@ box.snp.makeConstraints { (make) -> Void in
 }
 ~~~
 
-Classic AutroLayout wrappers like [PureLayout](https://github.com/PureLayout/PureLayout), have easier syntax but are still wordy:
+Classic AutoLayout wrappers like [PureLayout](https://github.com/PureLayout/PureLayout), have easier syntax but are still wordy:
 
 ~~~swift
 box.autoSetDimensions(to: CGSize(width: 50, height: 50))
 box.autoCenterInSuperView()
 ~~~
 
-GetLaid trims AutoLayout code down to the essence:
-
-~~~swift
-box.constrainSize(to: 50, 50)
-box.constrainCenterToParent()
-~~~
-
-If you can spare the fancyness but appreciate readability, GetLaid might be for you.
-
-### Why GetLaid
-
-GetLaid has some advantages over [PureLayout](https://github.com/PureLayout/PureLayout):
-
-* :white_check_mark: Readability
-    - Functions are of the principle form "constrain [constrained aspect] to [constraining aspect]"
-    - This semantic naming makes auto completion more valuable: If you want to constrain the left side, write `constrainLeft`. Auto completion will show all possible ways to do it.
-    - All functions have the prefix `constrain` which expresses best what they really do: They constrain some attributes and return the resulting constraints.
-    - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
-* :white_check_mark: Brevity
-    - Shorter lines of code with less function arguments
-* :white_check_mark: Applicable to Layout Guides
-    - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
-    - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
-* :white_check_mark: Easy Relative Layouting
-    - Relative positioning: `item1.constrainLeft(to: 0.2, of: item2)`
-    - Relative sizing: `item1.constrainWidth(to: 0.3, of: item2)`
-* :white_check_mark: Easy Positioning of Items Next to Each Other
-    - `item1.constrain(above: item2, gap: 10)`
-    - `item1.constrain(toTheLeftOf: item2)`
-* :white_check_mark: Modern Swift Under the Hood
-    - No Objective-c
-    - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
-
-## How to GetLaid
-
-### Installation
-
-GetLaid can be installed as a [Cocoapod](https://cocoapods.org). Add this to your pod file:
-
-~~~ruby
-pod 'GetLaid'
-~~~
-
-### Contraining Functions
-
-Almost all functions of GetLaid are called on objects of `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. Functions that constrain layout items to their parents are only available on the view classes. 
-
-All the constraining functions have the prefix `constrain` and are well discoverable via auto completion.
-
-Now, let's see how GetLaid would revamp code written with [PureLayout](https://github.com/PureLayout/PureLayout) ...
+GetLaid trims AutoLayout code even further down to the essence. Compare for yourself:
 
 ### Before (PureLayout)
 
@@ -95,6 +70,7 @@ item1.autoPinEdge(.bottom, to: .top, of: item2, withOffset: -20)
 item1.autoSetDimension(.height, toSize: 64, relation: .greaterThanOrEqual)
 item1.autoPinEdgesToSuperviewEdges(with: NSEdgeInsetsZero, excludingEdge: .top)
 item1.autoConstrainAttribute(.left, to: .right, of: item2, withMultiplier: 0.2)
+item1.autoConstrainAttribute(.width, to: .height, of: item1, withMultiplier: 16/9)
 item1.autoPinEdgesToSuperViewEdges(with: NSEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
 ~~~
 
@@ -111,10 +87,29 @@ item1.constrain(above: item2, gap: 20)
 item1.constrainHeight(toMinimum: 64)
 item1.constrainToParentExcludingTop()
 item1.constrainLeft(to: 0.2, of: item2)
+item1.constrainAspectRatio(to: 16/9)
 item1.constrainToParent(insetTop: 10)
 ~~~
 
 So, which is prettier, mh?
+
+If you can spare the fancyness but appreciate readability, GetLaid might be for you.
+
+## How to GetLaid
+
+### Installation
+
+GetLaid can be installed as a [Cocoapod](https://cocoapods.org). Add this to your pod file:
+
+~~~ruby
+pod 'GetLaid'
+~~~
+
+### Contraining Functions
+
+Almost all functions of GetLaid are called on objects of `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. Functions that constrain layout items to their parents are only available on the view classes. 
+
+All the constraining functions have the prefix `constrain` and are well discoverable via auto completion.
 
 ### Adding Subviews
 
@@ -149,7 +144,7 @@ let tenGuides = view.addLayoutGuides(10)
 
 I'm glad you ask! An even better question is: Why would any **professional** use Interface Builder? IB may help to build simple rough prototypes. It is really no option for professional apps.
 
-So here is what you would get using the Interface Builder, according to my experience among many professional projects:
+So here is what you get using the Interface Builder, according to my experience across multiple professional projects:
 
 * :no_entry_sign: The IB is slow. Opening and loading a storyboard usually has a significant delay.
 * :no_entry_sign: The IB does not make it obvious where configurations deviate from defaults, i.e. where they have been manipulated by a developer.
