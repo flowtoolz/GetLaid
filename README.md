@@ -165,7 +165,7 @@ So here is what you would get using the Interface Builder, according to my exper
 * :no_entry_sign: Communicating with views requires to create outlets, which is actually quite cumbersome.
 * :no_entry_sign: Your app will be harder to port to other platforms, even within the Apple universe.
 * :no_entry_sign: It is harder to build nested interfaces with container- and child view controllers.
-* :no_entry_sign: It is harder to turn views into reusable custom views when they exist in IB files.
+* :no_entry_sign: It is more cumbersome to turn views into reusable custom views when they live in IB files. This also leads to massive view controllers
 * :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
-* :no_entry_sign: IB files tend to lead to massive view controllers because extracting complex subviews into custom view classes is much more cumbersome.
 * :no_entry_sign: Subviews that you want to access are optional outlets. Either you unwrap them everytime or you make them implicitly unwrapped. The latter option is common practice but can (and did in client projects) lead to crashes.
+* :no_entry_sign: It is impossible to pass parameters to custom designated initializers of your views and view controllers. This stark limitation can compromise clean design and architecture.
