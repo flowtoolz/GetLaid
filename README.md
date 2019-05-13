@@ -159,8 +159,12 @@ So here is what you get using the Interface Builder, according to my experience 
 * :no_entry_sign: There are more initializers to worry about as well as the general interoperation between code and IB files.
 * :no_entry_sign: Communicating with views requires to create outlets, which is actually quite cumbersome.
 * :no_entry_sign: Your app will be harder to port to other platforms, even within the Apple universe.
-* :no_entry_sign: It is harder to build nested interfaces with container- and child view controllers.
 * :no_entry_sign: It is more cumbersome to turn views into reusable custom views when they live in IB files. This also leads to massive view controllers
 * :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
 * :no_entry_sign: Subviews that you want to access are optional outlets. Either you unwrap them everytime or you make them implicitly unwrapped. The latter option is common practice but can (and did in client projects) lead to crashes.
 * :no_entry_sign: It is impossible to pass parameters to custom designated initializers of your views and view controllers. This stark limitation can compromise clean design and architecture.
+* :no_entry_sign: The Refactor-Rename function in Xcode will not always rename all outlet connections in IB files, leading to crashes. You'll need to reconnect renamed outlets by hand.
+* :no_entry_sign: You'll deal with a whole new type of "compilation" error, which is also opaque and hard to debug:
+	![storyboard_compilation_error](Documentation/storyboard_compilation_error.png)
+* :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. And `@IB_Designable` is not well documented by Apple:
+	![ib_designable_search_result](Documentation/ib_designable_search_result.png)
