@@ -20,22 +20,4 @@ public extension UIView
         
         return guide
     }
-    
-    func addLayoutGuides(_ number: Int) -> [UILayoutGuide]
-    {
-        guard number > 0 else { return [] }
-        
-        var guides = [UILayoutGuide]()
-        
-        for _ in 0 ..< number
-        {
-            let guide = UILayoutGuide()
-            
-            addLayoutGuide(guide)
-            
-            guides.append(guide)
-        }
-        
-        return guides
-    }
 }

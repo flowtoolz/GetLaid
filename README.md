@@ -111,33 +111,26 @@ Almost all functions of GetLaid are called on objects of `UIView`, `NSView`, `UI
 
 All the constraining functions have the prefix `constrain` and are well discoverable via auto completion.
 
-### Adding Subviews
+### Adding Subviews and Layout Guides
 
-Remember to set `translatesAutoresizingMaskIntoConstraints = false` on the views you incorporate in auto layout.
+Remember to set `translatesAutoresizingMaskIntoConstraints = false` on the views you incorporate in AutoLayout.
 
-The generic function `addForAutoLayout(...)` adds a subview and prepares it for auto layout. It returns the subview as its exact type. I use this function to initialize subview properties:
+The generic function `addForAutoLayout` adds a subview and prepares it for AutoLayout. It returns the subview it takes as its exact type. I use this function to initialize subview properties:
 
 ~~~swift
-class List: NSView
-{
-    override init(frame frameRect: NSRect)
-    {
+class List: NSView {
+    override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        
         header.constrainToParentExcludingBottom()
     }
-    
-    private lazy var header = addForAutoLayout(Header())
+    private lazy var header = addForAutoLayout(Header()) // of type Header
 }
 ~~~
 
-### Adding Layout Guides
-
-There are two helper functions to add new layout guides to views:
+There's also a helper function for adding a new layout guide to a view:
 
 ~~~swift
 let guide = view.addLayoutGuide()
-let tenGuides = view.addLayoutGuides(10)
 ~~~
 
 ## Side Note: Why Not Use Interface Builder?
