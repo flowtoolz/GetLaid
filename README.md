@@ -25,6 +25,7 @@ Some advantages even over classic simple frameworks like [PureLayout](https://gi
 * :white_check_mark: Easy Positioning of Items Next to Each Other
     - `item1.constrain(above: item2, gap: 10)`
     - `item1.constrain(toTheLeftOf: item2)`
+* :white_check_mark: Applicabl​e on iOS, macOS and tvOS with the exact same syntax everywhere
 * :white_check_mark: Modern Swift Under the Hood
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
@@ -35,7 +36,7 @@ Programmatic AutoLayout without any such frameworks was never hard. It's all abo
 
 Since iOS 9.0 and macOS 10.11, we also have `NSLayoutAnchor`, which adds a native abstraction layer on top of `NSLayoutConstraint`, further reducing the need for any AutoLayout wrappers at all.
 
-At this point, all an AutoLayout wrapper can do is making the code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that and a few other tiny things.
+At this point, all an AutoLayout wrapper can do is to make code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that.
 
 ## Why Not Other AutoLayout Wrappers?
 
@@ -93,7 +94,7 @@ item1.constrainToParent(insetTop: 10)
 
 So, which is prettier, mh?
 
-If you can spare the fancyness but appreciate readability, GetLaid might be for you.
+If you can spare fancyness but appreciate readability, GetLaid might be for you.
 
 ## How to GetLaid
 
@@ -105,17 +106,9 @@ GetLaid can be installed as a [Cocoapod](https://cocoapods.org). Add this to you
 pod 'GetLaid'
 ~~~
 
-### Contraining Functions
+### Add Subviews and Layout Guides
 
-Almost all functions of GetLaid are called on objects of `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. Functions that constrain layout items to their parents are only available on the view classes. 
-
-All the constraining functions have the prefix `constrain` and are well discoverable via auto completion.
-
-### Adding Subviews and Layout Guides
-
-Remember to set `translatesAutoresizingMaskIntoConstraints = false` on the views you incorporate in AutoLayout.
-
-The generic function `addForAutoLayout` adds a subview and prepares it for AutoLayout. It returns the subview it takes as its exact type. I use this function to initialize subview properties:
+The generic function `addForAutoLayout` adds a subview and prepares it for AutoLayout. It returns the subview it takes as its exact type. Use this function to add subviews:
 
 ~~~swift
 class List: NSView {
@@ -127,11 +120,19 @@ class List: NSView {
 }
 ~~~
 
+If you don't use `addForAutoLayout`, remember to set `translatesAutoresizingMaskIntoConstraints = false` on the views you incorporate in AutoLayout.
+
 There's also a helper function for adding a new layout guide to a view:
 
 ~~~swift
 let guide = view.addLayoutGuide()
 ~~~
+
+### Contrain Subviews and Layout Guides
+
+Almost all functions of GetLaid are called on objects of `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. Functions that constrain layout items to their parents are only available on the view classes. 
+
+All the constraining functions have the prefix `constrain` and are well discoverable via auto completion.
 
 ## Side Note: Why Not Use Interface Builder?
 
@@ -159,5 +160,4 @@ So here is what you get using the Interface Builder, according to my experience 
 * :no_entry_sign: The Refactor-Rename function in Xcode will not always rename all outlet connections in IB files, leading to crashes. You'll need to reconnect renamed outlets by hand.
 * :no_entry_sign: You'll deal with a whole new type of "compilation" error, which is also opaque and hard to debug:
 	![storyboard_compilation_error](Documentation/storyboard_compilation_error.png)
-* :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. And `@IB_Designable` is not well documented by Apple:
-	![ib_designable_search_result](Documentation/ib_designable_search_result.png)
+* :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. And `@IB_Designable` is not well documented by Apple.
