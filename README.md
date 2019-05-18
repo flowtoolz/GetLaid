@@ -1,6 +1,6 @@
 # GetLaid
 
-[![Pod Version](https://img.shields.io/cocoapods/v/GetLaid.svg?longCache=true&style=flat-square)](http://cocoapods.org/pods/GetLaid)
+[![Pod Version](https://img.shields.io/cocoapods/v/GetLaid.svg?longCache=true&style=flat-square)](http://cocoapods.org/pods/GetLaid) ![badge-languages] ![badge-platforms] ![badge-mit]
 
 GetLaid is a lean framework for defining complex view layouts through elegant code.
 
@@ -19,13 +19,12 @@ Some advantages even over classic simple frameworks like [PureLayout](https://gi
     - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
     - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
 * :white_check_mark: Easy Relative Layouting
-    - Relative positioning: `item1.constrainLeft(to: 0.2, of: item2)`
+    - Relative positioning: `item1.constrainLeftToParent(at: 0.5)`
     - Relative sizing: `item1.constrainWidth(to: 0.3, of: item2)`
     - Aspect ratio: `item.constrainAspectRatio(to: 16/9)`
 * :white_check_mark: Easy Positioning of Items Next to Each Other
     - `item1.constrain(above: item2, gap: 10)`
     - `item1.constrain(toTheLeftOf: item2)`
-* :white_check_mark: Applicabl​e on iOS, macOS and tvOS with the exact same syntax everywhere
 * :white_check_mark: Modern Swift Under the Hood
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
@@ -70,7 +69,7 @@ item1.autoSetDimensions(to: CGSize(width: 82, height: 42))
 item1.autoPinEdge(.bottom, to: .top, of: item2, withOffset: -20)
 item1.autoSetDimension(.height, toSize: 64, relation: .greaterThanOrEqual)
 item1.autoPinEdgesToSuperviewEdges(with: NSEdgeInsetsZero, excludingEdge: .top)
-item1.autoConstrainAttribute(.left, to: .right, of: item2, withMultiplier: 0.2)
+item1.autoConstrainAttribute(.left, to: .right, of: parent, withMultiplier: 0.5)
 item1.autoConstrainAttribute(.width, to: .height, of: item1, withMultiplier: 16/9)
 item1.autoPinEdgesToSuperViewEdges(with: NSEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
 ~~~
@@ -87,7 +86,7 @@ item1.constrainSize(to: 82, 42)
 item1.constrain(above: item2, gap: 20)
 item1.constrainHeight(toMinimum: 64)
 item1.constrainToParentExcludingTop()
-item1.constrainLeft(to: 0.2, of: item2)
+item1.constrainLeftToParent(at: 0.5)
 item1.constrainAspectRatio(to: 16/9)
 item1.constrainToParent(insetTop: 10)
 ~~~
@@ -130,9 +129,9 @@ let guide = view.addLayoutGuide()
 
 ### Contrain Subviews and Layout Guides
 
-Almost all functions of GetLaid are called on objects of `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. Functions that constrain layout items to their parents are only available on the view classes. 
+You can constrain layout items of type `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. All constraining functions have the prefix `constrain` and are well discoverable via auto completion. Functions that constrain items to their parents are only available on the view classes. 
 
-All the constraining functions have the prefix `constrain` and are well discoverable via auto completion.
+
 
 ## Side Note: Why Not Use Interface Builder?
 
@@ -161,3 +160,7 @@ So here is what you get using the Interface Builder, according to my experience 
 * :no_entry_sign: You'll deal with a whole new type of "compilation" error, which is also opaque and hard to debug:
 	![storyboard_compilation_error](Documentation/storyboard_compilation_error.png)
 * :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. And `@IB_Designable` is not well documented by Apple.
+
+[badge-languages]: https://img.shields.io/badge/language-Swift-orange.svg?style=flat-square
+[badge-platforms]: https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg?style=flat-square
+[badge-mit]: https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat-square
