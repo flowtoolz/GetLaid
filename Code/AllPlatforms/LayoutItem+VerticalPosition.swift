@@ -73,37 +73,41 @@ extension LayoutItem
     // MARK: - Relative Positioning
     
     @discardableResult
-    public func constrainTop(to relativePosition: CGFloat,
+    public func constrainTop(to factor: CGFloat,
+                             of targetPosition: YPosition = .top,
                              of target: LayoutItem) -> NSLayoutConstraint
     {
-        return constrain(.top, to: relativePosition, of: target)
+        return constrain(.top, to: factor, of: targetPosition, of: target)
     }
     
     @discardableResult
-    public func constrainBottom(to relativePosition: CGFloat,
+    public func constrainBottom(to factor: CGFloat,
+                                of targetPosition: YPosition = .bottom,
                                 of target: LayoutItem) -> NSLayoutConstraint
     {
-        return constrain(.bottom, to: relativePosition, of: target)
+        return constrain(.bottom, to: factor, of: targetPosition, of: target)
     }
     
     @discardableResult
-    public func constrainCenterY(to relativePosition: CGFloat,
+    public func constrainCenterY(to factor: CGFloat,
+                                 of targetPosition: YPosition = .centerY,
                                  of target: LayoutItem) -> NSLayoutConstraint
     {
-        return constrain(.centerY, to: relativePosition, of: target)
+        return constrain(.centerY, to: factor, of: targetPosition, of: target)
     }
     
     @discardableResult
     func constrain(_ position: YPosition,
-                   to relativePosition: CGFloat,
+                   to factor: CGFloat,
+                   of targetPosition: YPosition,
                    of target: LayoutItem) -> NSLayoutConstraint
     {
         let constraint = NSLayoutConstraint(item: self,
                                             attribute: position.attribute,
                                             relatedBy: .equal,
                                             toItem: target,
-                                            attribute: .bottom,
-                                            multiplier: relativePosition,
+                                            attribute: targetPosition.attribute,
+                                            multiplier: factor,
                                             constant: 0)
         
         constraint.isActive = true

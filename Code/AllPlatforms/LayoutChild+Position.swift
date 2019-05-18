@@ -174,7 +174,7 @@ public extension LayoutChild
     {
         guard let parent = parent else { return nil }
         
-        return constrainTop(to: fraction, of: parent)
+        return constrainTop(to: fraction, of: .bottom, of: parent)
     }
     
     @discardableResult
@@ -182,7 +182,7 @@ public extension LayoutChild
     {
         guard let parent = parent else { return nil }
         
-        return constrainBottom(to: fraction, of: parent)
+        return constrainBottom(to: fraction, of: .bottom, of: parent)
     }
     
     @discardableResult
@@ -190,7 +190,7 @@ public extension LayoutChild
     {
         guard let parent = parent else { return nil }
         
-        return constrainCenterY(to: fraction, of: parent)
+        return constrainCenterY(to: fraction, of: .bottom, of: parent)
     }
     
     @discardableResult
@@ -198,7 +198,7 @@ public extension LayoutChild
     {
         guard let parent = parent else { return nil }
         
-        return constrainLeft(to: fraction, of: parent)
+        return constrainLeft(to: fraction, of: .right, of: parent)
     }
     
     @discardableResult
@@ -206,7 +206,7 @@ public extension LayoutChild
     {
         guard let parent = parent else { return nil }
         
-        return constrainRight(to: fraction, of: parent)
+        return constrainRight(to: fraction, of: .right, of: parent)
     }
     
     @discardableResult
@@ -214,6 +214,6 @@ public extension LayoutChild
     {
         guard let parent = parent else { return nil }
         
-        return constrainCenterX(to: fraction, of: parent)
+        return constrainCenterX(to: fraction, of: .right, of: parent)
     }
 }
