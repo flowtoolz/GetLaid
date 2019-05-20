@@ -6,7 +6,7 @@ GetLaid is a lean framework for defining complex view layouts through elegant co
 
 ## Features
 
-Some advantages even over classic simple frameworks like [PureLayout](https://github.com/PureLayout/PureLayout):
+GetLaid has some advantages even over classic simple frameworks like [PureLayout](https://github.com/PureLayout/PureLayout):
 
 * :white_check_mark: Readability
     - Functions are of the principle form "constrain [constrained aspect] to [constraining aspect]"
@@ -131,8 +131,6 @@ let guide = view.addLayoutGuide()
 
 You can constrain layout items of type `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. All constraining functions have the prefix `constrain` and are well discoverable via auto completion. Functions that constrain items to their parents are only available on the view classes. 
 
-
-
 ## Side Note: Why Not Use Interface Builder?
 
 I'm glad you ask! An even better question is: Why would any **professional** use Interface Builder? IB may help to build simple rough prototypes. It is really no option for professional apps.
@@ -142,7 +140,7 @@ So here is what you get using the Interface Builder, according to my experience 
 * :no_entry_sign: The IB is slow. Opening and loading a storyboard usually has a significant delay.
 * :no_entry_sign: The IB does not make it obvious where configurations deviate from defaults, i.e. where they have been manipulated by a developer.
 * :no_entry_sign: Handleing complex interfaces through pointing, zooming, scrolling and selecting, intertwined with keyboard input is actually pretty fucking slow.
-* :no_entry_sign: Algorithmic (dynamic) layouts are impossible. However, often the mere existence of a view is determined at runtime, or layouts depend on data.
+* :no_entry_sign: Algorithmic (dynamic/generic) layouts are impossible. However, often the mere existence of a view is determined at runtime, or layouts depend on data.
 * :no_entry_sign: What constraints are actually applied is less explicit, in particular in the context of the code.
 * :no_entry_sign: IB files create a mess with collaboration and version control systems like git.
 * :no_entry_sign: IB files mess up the architecture I: They entangle the logical definition of the interface (which constitutes something like a "view model") with highly system specific file formats.
@@ -154,12 +152,13 @@ So here is what you get using the Interface Builder, according to my experience 
 * :no_entry_sign: Your app will be harder to port to other platforms, even within the Apple universe.
 * :no_entry_sign: It is more cumbersome to turn views into reusable custom views when they live in IB files. This also leads to massive view controllers
 * :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
-* :no_entry_sign: Subviews that you want to access are optional outlets. Either you unwrap them everytime or you make them implicitly unwrapped. The latter option is common practice but can (and did in client projects) lead to crashes.
+* :no_entry_sign: Subviews are optional. Either you unwrap them everytime or you make them implicitly unwrapped. The latter option is common practice but can (and did in client projects) lead to crashes.
 * :no_entry_sign: It is impossible to pass parameters to custom designated initializers of your views and view controllers. This stark limitation can compromise clean design and architecture.
 * :no_entry_sign: The Refactor-Rename function in Xcode will not always rename all outlet connections in IB files, leading to crashes. You'll need to reconnect renamed outlets by hand.
 * :no_entry_sign: You'll deal with a whole new type of "compilation" error, which is also opaque and hard to debug:
 	![storyboard_compilation_error](Documentation/storyboard_compilation_error.png)
 * :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. And `@IB_Designable` is not well documented by Apple.
+* :no_entry_sign: IB will not recognize when you move a referenced class to another module​ (framework, cocoapod etc.). If you forget to adapt the module manually in IB, you'll be surprised by chrashes.
 
 [badge-languages]: https://img.shields.io/badge/language-Swift-orange.svg?style=flat-square
 [badge-platforms]: https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg?style=flat-square
