@@ -159,6 +159,7 @@ So here is what you get using the Interface Builder, according to my experience 
 	![storyboard_compilation_error](Documentation/storyboard_compilation_error.png)
 * :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. And `@IB_Designable` is not well documented by Apple.
 * :no_entry_sign: IB will not recognize when you move a referenced class to another module​ (framework, cocoapod etc.). If you forget to adapt the module manually in IB, you'll be surprised by chrashes.
+* :no_entry_sign: It's impossible to define insets, offsets, multipliers, sizes, colors, fonts etc. in one place as part of a style. Much less can you compute them dynamically, for instance to depend on screen size, device type or user preference.
 
 [badge-languages]: https://img.shields.io/badge/language-Swift-orange.svg?style=flat-square
 [badge-platforms]: https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg?style=flat-square
