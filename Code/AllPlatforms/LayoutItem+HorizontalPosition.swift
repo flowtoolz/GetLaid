@@ -16,10 +16,30 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrain(toTheLeftOf target: LayoutItem,
+                   minimumGap: CGFloat) -> NSLayoutConstraint
+    {
+        let constraint = rightAnchor.constraint(lessThanOrEqualTo: target.leftAnchor,
+                                                constant: -minimumGap)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
     func constrain(toTheRightOf target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
     {
         return constrain(.left, to: .right, of: target, offset: gap)
+    }
+    
+    @discardableResult
+    func constrain(toTheRightOf target: LayoutItem,
+                   minimumGap: CGFloat) -> NSLayoutConstraint
+    {
+        let constraint = leftAnchor.constraint(greaterThanOrEqualTo: target.rightAnchor,
+                                               constant: minimumGap)
+        constraint.isActive = true
+        return constraint
     }
     
     @discardableResult
