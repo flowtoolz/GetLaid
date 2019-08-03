@@ -128,11 +128,33 @@ public extension LayoutChild
     }
     
     @discardableResult
+    func constrainTopToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        let constraint = topAnchor.constraint(greaterThanOrEqualTo: parent.topAnchor,
+                                              constant: minimumInset)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
     func constrainBottomToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
     {
         guard let parent = parent else { return nil }
         
         return constrainBottom(to: parent, offset: -inset)
+    }
+    
+    @discardableResult
+    func constrainBottomToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        let constraint = bottomAnchor.constraint(lessThanOrEqualTo: parent.bottomAnchor,
+                                                 constant: -minimumInset)
+        constraint.isActive = true
+        return constraint
     }
     
     @discardableResult
@@ -152,11 +174,33 @@ public extension LayoutChild
     }
     
     @discardableResult
+    func constrainLeftToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        let constraint = leftAnchor.constraint(greaterThanOrEqualTo: parent.leftAnchor,
+                                               constant: minimumInset)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
     func constrainRightToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
     {
         guard let parent = parent else { return nil }
         
         return constrainRight(to: parent, offset: -inset)
+    }
+    
+    @discardableResult
+    func constrainRightToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        let constraint = rightAnchor.constraint(lessThanOrEqualTo: parent.rightAnchor,
+                                                constant: -minimumInset)
+        constraint.isActive = true
+        return constraint
     }
     
     @discardableResult
