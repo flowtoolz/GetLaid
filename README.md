@@ -150,16 +150,22 @@ So here is what you get using the Interface Builder, according to my experience 
 * :no_entry_sign: There are more initializers to worry about as well as the general interoperation between code and IB files.
 * :no_entry_sign: Communicating with views requires to create outlets, which is actually quite cumbersome.
 * :no_entry_sign: Your app will be harder to port to other platforms, even within the Apple universe.
-* :no_entry_sign: It is more cumbersome to turn views into reusable custom views when they live in IB files. This also leads to massive view controllers
+* :no_entry_sign: It is more cumbersome to turn views into reusable custom views when they live in IB files. This also leads to massive view controllers.
 * :no_entry_sign: You'll encounter a bunch of issues when trying to package IB files into frameworks and Cocoapods.
 * :no_entry_sign: Subviews are optional. Either you unwrap them everytime or you make them implicitly unwrapped. The latter option is common practice but can (and did in client projects) lead to crashes.
 * :no_entry_sign: It is impossible to pass parameters to custom designated initializers of your views and view controllers. This stark limitation can compromise clean design and architecture.
 * :no_entry_sign: The Refactor-Rename function in Xcode will not always rename all outlet connections in IB files, leading to crashes. You'll need to reconnect renamed outlets by hand.
 * :no_entry_sign: You'll deal with a whole new type of "compilation" error, which is also opaque and hard to debug:
 	![storyboard_compilation_error](Documentation/storyboard_compilation_error.png)
-* :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. And `@IB_Designable` is not well documented by Apple.
+* :no_entry_sign: Designing custom view classes through the IB is cumbersome and requires to use IB "designables". Plus:
+	* Also, IB must recompile your whole project in order to display these designables, which makes the IB performance problems even worse. 
+	* @IB_Designable` is not well documented by Apple.
+	* IB designable rendering causes its own type of build errors:
+		![storyboard_compilation_error](Documentation/ib_designable_rendering_error.png)
 * :no_entry_sign: IB will not recognize when you move a referenced class to another module​ (framework, cocoapod etc.). If you forget to adapt the module manually in IB, you'll be surprised by chrashes.
 * :no_entry_sign: It's impossible to define insets, offsets, multipliers, sizes, colors, fonts etc. in one place as part of a style. Much less can you compute them dynamically, for instance to depend on screen size, device type or user preference.
+* :no_entry_sign: Using the IB makes code harder to debug. For instance, ​setting a breakpoint in a view's or view controller's initializer won't tell you what triggered the creation of that object. Also, you can't search for a term like `MyView(` in your project to find all uses/clients of that view class.
+* :no_entry_sign: Using the IB will make it harder to migrate to more modern technologies like SwiftUI.
 
 [badge-languages]: https://img.shields.io/badge/language-Swift-orange.svg?style=flat-square
 [badge-platforms]: https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg?style=flat-square
