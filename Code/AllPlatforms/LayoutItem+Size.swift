@@ -10,13 +10,13 @@ extension LayoutItem
     public func constrainSize(to width: CGFloat,
                               _ height: CGFloat) -> [NSLayoutConstraint]
     {
-        return [constrainWidth(to: width), constrainHeight(to: height)]
+        [constrainWidth(to: width), constrainHeight(to: height)]
     }
     
     @discardableResult
     public func constrainSize(to target: LayoutItem) -> [NSLayoutConstraint]
     {
-        return [constrainWidth(to: target), constrainHeight(to: target)]
+        [constrainWidth(to: target), constrainHeight(to: target)]
     }
     
     @discardableResult
@@ -24,7 +24,7 @@ extension LayoutItem
                               _ relativeHeight: CGFloat,
                               of target: LayoutItem) -> [NSLayoutConstraint]
     {
-        return [ constrainWidth(to: relativeWidth, of: target),
-                 constrainHeight(to: relativeHeight, of: target) ]
+        [ constrainWidth(to: relativeWidth, of: target),
+          constrainHeight(to: relativeHeight, of: target) ]
     }
 }

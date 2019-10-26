@@ -12,7 +12,7 @@ public extension LayoutItem
     func constrain(toTheLeftOf target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        return constrain(.right, to: .left, of: target, offset: -gap)
+        constrain(.right, to: .left, of: target, offset: -gap)
     }
     
     @discardableResult
@@ -29,7 +29,7 @@ public extension LayoutItem
     func constrain(toTheRightOf target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        return constrain(.left, to: .right, of: target, offset: gap)
+        constrain(.left, to: .right, of: target, offset: gap)
     }
     
     @discardableResult
@@ -46,21 +46,21 @@ public extension LayoutItem
     func constrainLeft(to target: LayoutItem,
                        offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        return constrain(.left, to: .left, of: target, offset: offset)
+        constrain(.left, to: .left, of: target, offset: offset)
     }
     
     @discardableResult
     func constrainRight(to target: LayoutItem,
                         offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        return constrain(.right, to: .right, of: target, offset: offset)
+        constrain(.right, to: .right, of: target, offset: offset)
     }
     
     @discardableResult
     func constrainCenterX(to target: LayoutItem,
                           offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        return constrain(.centerX, to: .centerX, of: target, offset: offset)
+        constrain(.centerX, to: .centerX, of: target, offset: offset)
     }
     
     @discardableResult
@@ -97,7 +97,7 @@ public extension LayoutItem
                        of targetPosition: XPosition = .left,
                        of target: LayoutItem) -> NSLayoutConstraint
     {
-        return constrain(.left, to: factor, of: targetPosition, of: target)
+        constrain(.left, to: factor, of: targetPosition, of: target)
     }
     
     @discardableResult
@@ -105,7 +105,7 @@ public extension LayoutItem
                         of targetPosition: XPosition = .right,
                         of target: LayoutItem) -> NSLayoutConstraint
     {
-        return constrain(.right, to: factor, of: targetPosition, of: target)
+        constrain(.right, to: factor, of: targetPosition, of: target)
     }
     
     @discardableResult
@@ -113,7 +113,7 @@ public extension LayoutItem
                           of targetPosition: XPosition = .centerX,
                           of target: LayoutItem) -> NSLayoutConstraint
     {
-        return constrain(.centerX, to: factor, of: targetPosition, of: target)
+        constrain(.centerX, to: factor, of: targetPosition, of: target)
     }
     
     @discardableResult

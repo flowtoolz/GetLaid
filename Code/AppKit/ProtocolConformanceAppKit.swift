@@ -4,5 +4,5 @@ extension NSLayoutGuide: LayoutItem {}
 
 extension NSView: LayoutChild
 {
-    public var parent: LayoutItem? { return superview }
+    public var parent: LayoutItem? { superview }
 }

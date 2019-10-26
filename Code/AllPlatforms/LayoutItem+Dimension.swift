@@ -50,7 +50,7 @@ extension LayoutItem
                    to target: LayoutItem,
                    multiplier: CGFloat = 1) -> NSLayoutConstraint
     {
-        return constrain(dimension, to: dimension, of: target, multiplier: multiplier)
+        constrain(dimension, to: dimension, of: target, multiplier: multiplier)
     }
     
     @discardableResult
@@ -72,7 +72,7 @@ extension LayoutItem
     
     func anchor(for dimension: Dimension) -> NSLayoutDimension
     {
-        return dimension == .width ? widthAnchor : heightAnchor
+        dimension == .width ? widthAnchor : heightAnchor
     }
 }
 
