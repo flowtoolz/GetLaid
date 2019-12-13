@@ -2,7 +2,7 @@ import UIKit
 
 extension UILayoutGuide: LayoutItem {}
 
-extension UIView: LayoutChild
+extension UIView: LayoutView
 {
-    public var parent: LayoutItem? { return superview }
+    public var parent: LayoutView? { return superview }
 }

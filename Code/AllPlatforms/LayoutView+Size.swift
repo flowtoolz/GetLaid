@@ -4,7 +4,7 @@ import AppKit
 import UIKit
 #endif
 
-public extension LayoutChild
+public extension LayoutView
 {
     // MARK: - Absolute Sizing
     

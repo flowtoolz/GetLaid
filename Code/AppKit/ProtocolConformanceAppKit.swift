@@ -2,7 +2,7 @@ import AppKit
 
 extension NSLayoutGuide: LayoutItem {}
 
-extension NSView: LayoutChild
+extension NSView: LayoutView
 {
-    public var parent: LayoutItem? { superview }
+    public var parent: LayoutView? { superview }
 }
