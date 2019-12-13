@@ -3,6 +3,7 @@ import AppKit.NSLayoutGuide
 
 public extension NSView
 {
+    @discardableResult
     func addForAutoLayout<View>(_ view: View) -> View where View: NSView
     {
         view.translatesAutoresizingMaskIntoConstraints = false
