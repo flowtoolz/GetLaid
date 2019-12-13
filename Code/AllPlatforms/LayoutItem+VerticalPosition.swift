@@ -50,6 +50,13 @@ extension LayoutItem
     }
     
     @discardableResult
+    public func constrainTop(to target: LayoutItem,
+                             minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.top, to: .top, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
     public func constrainBottom(to target: LayoutItem,
                                 offset: CGFloat = 0) -> NSLayoutConstraint
     {
@@ -57,10 +64,24 @@ extension LayoutItem
     }
     
     @discardableResult
+    public func constrainBottom(to target: LayoutItem,
+                                minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.bottom, to: .bottom, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
     public func constrainCenterY(to target: LayoutItem,
                                  offset: CGFloat = 0) -> NSLayoutConstraint
     {
         constrain(.centerY, to: .centerY, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    public func constrainCenterY(to target: LayoutItem,
+                                 minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.centerY, to: .centerY, of: target, minimumOffset: minimumOffset)
     }
     
     @discardableResult
@@ -74,6 +95,23 @@ extension LayoutItem
         
         let constraint = myAnchor.constraint(equalTo: targetAnchor,
                                              constant: offset)
+        
+        constraint.isActive = true
+        
+        return constraint
+    }
+    
+    @discardableResult
+    public func constrain(_ position: YPosition,
+                          to targetPosition: YPosition,
+                          of target: LayoutItem,
+                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        let myAnchor = anchor(for: position)
+        let targetAnchor = target.anchor(for: targetPosition)
+        
+        let constraint = myAnchor.constraint(greaterThanOrEqualTo: targetAnchor,
+                                             constant: minimumOffset)
         
         constraint.isActive = true
         

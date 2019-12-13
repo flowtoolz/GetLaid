@@ -88,10 +88,24 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrainLeft(to target: LayoutItem,
+                       minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.left, to: .left, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
     func constrainRight(to target: LayoutItem,
                         offset: CGFloat = 0) -> NSLayoutConstraint
     {
         constrain(.right, to: .right, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainRight(to target: LayoutItem,
+                        minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.right, to: .right, of: target, minimumOffset: minimumOffset)
     }
     
     @discardableResult
@@ -102,6 +116,13 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrainCenterX(to target: LayoutItem,
+                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.centerX, to: .centerX, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
     func constrainLeading(to target: LayoutItem,
                           offset: CGFloat = 0) -> NSLayoutConstraint
     {
@@ -109,10 +130,24 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrainLeading(to target: LayoutItem,
+                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.leading, to: .leading, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
     func constrainTrailing(to target: LayoutItem,
                            offset: CGFloat = 0) -> NSLayoutConstraint
     {
         constrain(.trailing, to: .trailing, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainTrailing(to target: LayoutItem,
+                           minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.trailing, to: .trailing, of: target, minimumOffset: minimumOffset)
     }
     
     @discardableResult
@@ -126,6 +161,23 @@ public extension LayoutItem
         
         let constraint = myAnchor.constraint(equalTo: targetAnchor,
                                              constant: offset)
+        
+        constraint.isActive = true
+        
+        return constraint
+    }
+    
+    @discardableResult
+    func constrain(_ position: XPosition,
+                   to targetPosition: XPosition,
+                   of target: LayoutItem,
+                   minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        let myAnchor = anchor(for: position)
+        let targetAnchor = target.anchor(for: targetPosition)
+        
+        let constraint = myAnchor.constraint(greaterThanOrEqualTo: targetAnchor,
+                                             constant: minimumOffset)
         
         constraint.isActive = true
         

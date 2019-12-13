@@ -166,6 +166,14 @@ public extension LayoutView
     }
     
     @discardableResult
+    func constrainCenterYToParent(minimumOffset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        return constrainCenterY(to: parent, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
     func constrainLeftToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
     {
         guard let parent = parent else { return nil }
@@ -209,6 +217,14 @@ public extension LayoutView
         guard let parent = parent else { return nil }
         
         return constrainCenterX(to: parent, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainCenterXToParent(minimumOffset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        return constrainCenterX(to: parent, minimumOffset: minimumOffset)
     }
     
     // MARK: - Relative Positioning
