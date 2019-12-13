@@ -6,7 +6,7 @@ import UIKit
 
 public extension LayoutItem
 {
-    // MARK: - Absolute Positioning
+    // MARK: - Position Items Next to Each Other - Via Left/Right
     
     @discardableResult
     func constrain(toTheLeftOf target: LayoutItem,
@@ -42,6 +42,44 @@ public extension LayoutItem
         return constraint
     }
     
+    // MARK: - Position Items Next to Each Other - Via Leading/Trailing
+    
+    @discardableResult
+    func constrain(before target: LayoutItem,
+                   gap: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.trailing, to: .leading, of: target, offset: -gap)
+    }
+    
+    @discardableResult
+    func constrain(before target: LayoutItem,
+                   minimumGap: CGFloat) -> NSLayoutConstraint
+    {
+        let constraint = trailingAnchor.constraint(lessThanOrEqualTo: target.leadingAnchor,
+                                                   constant: -minimumGap)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
+    func constrain(after target: LayoutItem,
+                   gap: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.leading, to: .trailing, of: target, offset: gap)
+    }
+    
+    @discardableResult
+    func constrain(after target: LayoutItem,
+                   minimumGap: CGFloat) -> NSLayoutConstraint
+    {
+        let constraint = leadingAnchor.constraint(greaterThanOrEqualTo: target.trailingAnchor,
+                                                  constant: minimumGap)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    // MARK: - Absolute Positioning
+    
     @discardableResult
     func constrainLeft(to target: LayoutItem,
                        offset: CGFloat = 0) -> NSLayoutConstraint
@@ -61,6 +99,20 @@ public extension LayoutItem
                           offset: CGFloat = 0) -> NSLayoutConstraint
     {
         constrain(.centerX, to: .centerX, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainLeading(to target: LayoutItem,
+                          offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.leading, to: .leading, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainTrailing(to target: LayoutItem,
+                           offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.trailing, to: .trailing, of: target, offset: offset)
     }
     
     @discardableResult
@@ -87,6 +139,8 @@ public extension LayoutItem
         case .left: return leftAnchor
         case .centerX: return centerXAnchor
         case .right: return rightAnchor
+        case .leading: return leadingAnchor
+        case .trailing: return trailingAnchor
         }
     }
     
@@ -117,6 +171,22 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrainLeading(to factor: CGFloat,
+                          of targetPosition: XPosition = .leading,
+                          of target: LayoutItem) -> NSLayoutConstraint
+    {
+        constrain(.leading, to: factor, of: targetPosition, of: target)
+    }
+    
+    @discardableResult
+    func constrainTrailing(to factor: CGFloat,
+                           of targetPosition: XPosition = .trailing,
+                           of target: LayoutItem) -> NSLayoutConstraint
+    {
+        constrain(.trailing, to: factor, of: targetPosition, of: target)
+    }
+    
+    @discardableResult
     func constrain(_ position: XPosition,
                    to factor: CGFloat,
                    of targetPosition: XPosition,
@@ -138,14 +208,16 @@ public extension LayoutItem
 
 public enum XPosition
 {
-    case left, centerX, right
+    case left, centerX, right, leading, trailing
     
     var attribute: LayoutAttribute
     {
         switch self
         {
-        case .left: return .left
+        case .leading: return .leading
         case .centerX: return .centerX
+        case .trailing: return .trailing
+        case .left: return .left
         case .right: return .right
         }
     }
