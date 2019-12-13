@@ -27,9 +27,9 @@ public extension LayoutView
         
     @discardableResult
     func constrainToParent(insetTop: CGFloat = 0,
-                           insetLeft: CGFloat = 0,
+                           insetLeft: CGFloat,
                            insetBottom: CGFloat = 0,
-                           insetRight: CGFloat = 0) -> [NSLayoutConstraint]
+                           insetRight: CGFloat) -> [NSLayoutConstraint]
     {
         guard let parent = parent else { return [] }
         
@@ -37,6 +37,20 @@ public extension LayoutView
                  constrainBottom(to: parent, offset: -insetBottom),
                  constrainLeft(to: parent, offset: insetLeft),
                  constrainRight(to: parent, offset: -insetRight) ]
+    }
+    
+    @discardableResult
+    func constrainToParent(insetTop: CGFloat = 0,
+                           insetLeading: CGFloat = 0,
+                           insetBottom: CGFloat = 0,
+                           insetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = parent else { return [] }
+        
+        return [ constrainTop(to: parent, offset: insetTop),
+                 constrainBottom(to: parent, offset: -insetBottom),
+                 constrainLeading(to: parent, offset: insetLeading),
+                 constrainTrailing(to: parent, offset: -insetTrailing) ]
     }
     
     @discardableResult
@@ -48,15 +62,27 @@ public extension LayoutView
     }
     
     @discardableResult
-    func constrainToParentExcludingTop(insetLeft: CGFloat = 0,
+    func constrainToParentExcludingTop(insetLeft: CGFloat,
                                        insetBottom: CGFloat = 0,
-                                       insetRight: CGFloat = 0) -> [NSLayoutConstraint]
+                                       insetRight: CGFloat) -> [NSLayoutConstraint]
     {
         guard let parent = parent else { return [] }
         
         return [ constrainBottom(to: parent, offset: -insetBottom),
                  constrainLeft(to: parent, offset: insetLeft),
                  constrainRight(to: parent, offset: -insetRight) ]
+    }
+    
+    @discardableResult
+    func constrainToParentExcludingTop(insetLeading: CGFloat = 0,
+                                       insetBottom: CGFloat = 0,
+                                       insetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = parent else { return [] }
+        
+        return [ constrainBottom(to: parent, offset: -insetBottom),
+                 constrainLeading(to: parent, offset: insetLeading),
+                 constrainRight(to: parent, offset: -insetTrailing) ]
     }
     
     @discardableResult
@@ -70,13 +96,25 @@ public extension LayoutView
     @discardableResult
     func constrainToParentExcludingLeft(insetTop: CGFloat = 0,
                                         insetBottom: CGFloat = 0,
-                                        insetRight: CGFloat = 0) -> [NSLayoutConstraint]
+                                        insetRight: CGFloat) -> [NSLayoutConstraint]
     {
         guard let parent = parent else { return [] }
         
         return [ constrainBottom(to: parent, offset: -insetBottom),
                  constrainTop(to: parent, offset: insetTop),
                  constrainRight(to: parent, offset: -insetRight) ]
+    }
+    
+    @discardableResult
+    func constrainToParentExcludingLeft(insetTop: CGFloat = 0,
+                                        insetBottom: CGFloat = 0,
+                                        insetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = parent else { return [] }
+        
+        return [ constrainBottom(to: parent, offset: -insetBottom),
+                 constrainTop(to: parent, offset: insetTop),
+                 constrainTrailing(to: parent, offset: -insetTrailing) ]
     }
     
     @discardableResult
@@ -89,14 +127,26 @@ public extension LayoutView
     
     @discardableResult
     func constrainToParentExcludingBottom(insetTop: CGFloat = 0,
-                                          insetLeft: CGFloat = 0,
-                                          insetRight: CGFloat = 0) -> [NSLayoutConstraint]
+                                          insetLeft: CGFloat,
+                                          insetRight: CGFloat) -> [NSLayoutConstraint]
     {
         guard let parent = parent else { return [] }
         
         return [ constrainRight(to: parent, offset: -insetRight),
                  constrainTop(to: parent, offset: insetTop),
                  constrainLeft(to: parent, offset: insetLeft) ]
+    }
+    
+    @discardableResult
+    func constrainToParentExcludingBottom(insetTop: CGFloat = 0,
+                                          insetLeading: CGFloat = 0,
+                                          insetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = parent else { return [] }
+        
+        return [ constrainTrailing(to: parent, offset: -insetTrailing),
+                 constrainTop(to: parent, offset: insetTop),
+                 constrainLeading(to: parent, offset: insetLeading) ]
     }
     
     @discardableResult
@@ -109,7 +159,7 @@ public extension LayoutView
     
     @discardableResult
     func constrainToParentExcludingRight(insetTop: CGFloat = 0,
-                                         insetLeft: CGFloat = 0,
+                                         insetLeft: CGFloat,
                                          insetBottom: CGFloat = 0) -> [NSLayoutConstraint]
     {
         guard let parent = parent else { return [] }
@@ -117,6 +167,18 @@ public extension LayoutView
         return [ constrainBottom(to: parent, offset: -insetBottom),
                  constrainTop(to: parent, offset: insetTop),
                  constrainLeft(to: parent, offset: insetLeft) ]
+    }
+    
+    @discardableResult
+    func constrainToParentExcludingRight(insetTop: CGFloat = 0,
+                                         insetLeading: CGFloat = 0,
+                                         insetBottom: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        guard let parent = parent else { return [] }
+        
+        return [ constrainBottom(to: parent, offset: -insetBottom),
+                 constrainTop(to: parent, offset: insetTop),
+                 constrainLeading(to: parent, offset: insetLeading) ]
     }
     
     @discardableResult
