@@ -227,6 +227,46 @@ public extension LayoutView
         return constrainCenterX(to: parent, minimumOffset: minimumOffset)
     }
     
+    // MARK: - Horizontal Positioning - Via Leading/Trailing
+    
+    @discardableResult
+    func constrainLeadingToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        return constrainLeading(to: parent, offset: inset)
+    }
+    
+    @discardableResult
+    func constrainLeadingToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        let constraint = leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor,
+                                                  constant: minimumInset)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    @discardableResult
+    func constrainTrailingToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        return constrainTrailing(to: parent, offset: -inset)
+    }
+    
+    @discardableResult
+    func constrainTrailingToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        let constraint = trailingAnchor.constraint(lessThanOrEqualTo: parent.trailingAnchor,
+                                                   constant: -minimumInset)
+        constraint.isActive = true
+        return constraint
+    }
+    
     // MARK: - Relative Positioning
     
     @discardableResult
