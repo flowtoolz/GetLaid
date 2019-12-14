@@ -184,7 +184,7 @@ public extension LayoutItem
         return constraint
     }
     
-    func anchor(for xPosition: XPosition) -> NSLayoutXAxisAnchor
+    internal func anchor(for xPosition: XPosition) -> NSLayoutXAxisAnchor
     {
         switch xPosition
         {

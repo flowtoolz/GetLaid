@@ -9,15 +9,15 @@ public extension LayoutView
     // MARK: - Constrain First Baseline to View
     
     @discardableResult
-    public func constrainFirstBaseline(to target: LayoutView,
-                                       offset: CGFloat = 0) -> NSLayoutConstraint
+    func constrainFirstBaseline(to target: LayoutView,
+                                offset: CGFloat = 0) -> NSLayoutConstraint
     {
         constrain(.firstBaseline, to: .firstBaseline, of: target, offset: offset)
     }
     
     @discardableResult
-    public func constrainFirstBaseline(to target: LayoutView,
-                                       minimumOffset: CGFloat) -> NSLayoutConstraint
+    func constrainFirstBaseline(to target: LayoutView,
+                                minimumOffset: CGFloat) -> NSLayoutConstraint
     {
         constrain(.firstBaseline, to: .firstBaseline, of: target, minimumOffset: minimumOffset)
     }
@@ -25,15 +25,15 @@ public extension LayoutView
     // MARK: - Constrain Last Baseline to View
     
     @discardableResult
-    public func constrainLastBaseline(to target: LayoutView,
-                                      offset: CGFloat = 0) -> NSLayoutConstraint
+    func constrainLastBaseline(to target: LayoutView,
+                               offset: CGFloat = 0) -> NSLayoutConstraint
     {
         constrain(.lastBaseline, to: .lastBaseline, of: target, offset: offset)
     }
     
     @discardableResult
-    public func constrainLastBaseline(to target: LayoutView,
-                                      minimumOffset: CGFloat) -> NSLayoutConstraint
+    func constrainLastBaseline(to target: LayoutView,
+                               minimumOffset: CGFloat) -> NSLayoutConstraint
     {
         constrain(.lastBaseline, to: .lastBaseline, of: target, minimumOffset: minimumOffset)
     }
@@ -41,10 +41,10 @@ public extension LayoutView
     // MARK: - Constrain Baseline to Baseline
     
     @discardableResult
-    public func constrain(_ baseline: BaselinePosition,
-                          to targetBaseline: BaselinePosition,
-                          of target: LayoutView,
-                          offset: CGFloat = 0) -> NSLayoutConstraint
+    func constrain(_ baseline: BaselinePosition,
+                   to targetBaseline: BaselinePosition,
+                   of target: LayoutView,
+                   offset: CGFloat = 0) -> NSLayoutConstraint
     {
         let myAnchor = anchor(for: baseline)
         let targetAnchor = target.anchor(for: targetBaseline)
@@ -58,10 +58,10 @@ public extension LayoutView
     }
     
     @discardableResult
-    public func constrain(_ baseline: BaselinePosition,
-                          to targetBaseline: BaselinePosition,
-                          of target: LayoutView,
-                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    func constrain(_ baseline: BaselinePosition,
+                   to targetBaseline: BaselinePosition,
+                   of target: LayoutView,
+                   minimumOffset: CGFloat) -> NSLayoutConstraint
     {
         let myAnchor = anchor(for: baseline)
         let targetAnchor = target.anchor(for: targetBaseline)
@@ -77,10 +77,10 @@ public extension LayoutView
     // MARK: - Constrain Baseline to Y Position
     
     @discardableResult
-    public func constrain(_ baseline: BaselinePosition,
-                          to targetPosition: YPosition,
-                          of target: LayoutItem,
-                          offset: CGFloat = 0) -> NSLayoutConstraint
+    func constrain(_ baseline: BaselinePosition,
+                   to targetPosition: YPosition,
+                   of target: LayoutItem,
+                   offset: CGFloat = 0) -> NSLayoutConstraint
     {
         let myAnchor = anchor(for: baseline)
         let targetAnchor = target.anchor(for: targetPosition)
@@ -94,10 +94,10 @@ public extension LayoutView
     }
     
     @discardableResult
-    public func constrain(_ baseline: BaselinePosition,
-                          to targetPosition: YPosition,
-                          of target: LayoutItem,
-                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    func constrain(_ baseline: BaselinePosition,
+                   to targetPosition: YPosition,
+                   of target: LayoutItem,
+                   minimumOffset: CGFloat) -> NSLayoutConstraint
     {
         let myAnchor = anchor(for: baseline)
         let targetAnchor = target.anchor(for: targetPosition)
@@ -112,7 +112,7 @@ public extension LayoutView
     
     // MARK: - Get Anchor for Baseline
     
-    func anchor(for baselinePosition: BaselinePosition) -> NSLayoutYAxisAnchor
+    internal func anchor(for baselinePosition: BaselinePosition) -> NSLayoutYAxisAnchor
     {
         switch baselinePosition
         {
