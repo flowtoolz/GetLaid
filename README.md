@@ -101,13 +101,46 @@ If you can spare fancyness but appreciate readability, GetLaid might be for you.
 
 ## How to GetLaid
 
-### Installation
+### Install
 
-GetLaid can be installed as a [Cocoapod](https://cocoapods.org). Add this to your pod file:
+With the [**Swift Package Manager**](https://github.com/apple/swift-package-manager/tree/master/Documentation#swift-package-manager), you can just add the GetLaid package [via Xcode](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) (11+).
 
-~~~ruby
-pod 'GetLaid'
+Or you manually adjust the [Package.swift](https://github.com/apple/swift-package-manager/blob/master/Documentation/Usage.md#create-a-package) file of your project:
+
+~~~swift
+// swift-tools-version:5.1
+import PackageDescription
+
+let package = Package(
+    name: "MyApp",
+    dependencies: [
+        .package(url: "https://github.com/flowtoolz/GetLaid.git",
+                 .upToNextMajor(from: "2.0.0"))
+    ],
+    targets: [
+        .target(name: "MyAppTarget",
+                dependencies: ["GetLaid"])
+    ]
+)
 ~~~
+
+Then run `$ swift build` or `$ swift run`.
+
+With [**Cocoapods**](https://cocoapods.org), adjust your [Podfile](https://guides.cocoapods.org/syntax/podfile.html):
+
+```ruby
+target "MyAppTarget" do
+  pod "GetLaid", "~> 2.0"
+end
+```
+
+Then run `$ pod install`.
+
+Finally, in your **Swift** files:
+
+```swift
+import GetLaid
+```
 
 ### Add Subviews and Layout Guides
 
