@@ -289,7 +289,7 @@ public extension LayoutView
         return constrainCenterX(to: parent, minimumOffset: minimumOffset)
     }
     
-    // MARK: - Horizontal Positioning - Via Leading/Trailing
+    // MARK: - Absolute Horizontal Positioning - Via Leading/Trailing
     
     @discardableResult
     func constrainLeadingToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
@@ -376,6 +376,22 @@ public extension LayoutView
     {
         guard let parent = parent else { return nil }
         
-        return constrainCenterX(to: fraction, of: .right, of: parent)
+        return constrainCenterX(to: fraction, of: .trailing, of: parent)
+    }
+    
+    @discardableResult
+    func constrainLeadingToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        return constrainLeading(to: fraction, of: .trailing, of: parent)
+    }
+    
+    @discardableResult
+    func constrainTrailingToParent(at fraction: CGFloat) -> NSLayoutConstraint?
+    {
+        guard let parent = parent else { return nil }
+        
+        return constrainTrailing(to: fraction, of: .trailing, of: parent)
     }
 }
