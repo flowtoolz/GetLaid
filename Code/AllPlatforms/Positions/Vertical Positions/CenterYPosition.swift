@@ -33,19 +33,41 @@ public extension LayoutView
 
 public extension LayoutItem
 {
+    // MARK: - Offset
+    
     @discardableResult
     func constrainCenterY(to target: LayoutItem,
                           offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.centerY, to: .centerY, of: target, offset: offset)
+        constrainCenterY(to: .centerY, of: target, offset: offset)
     }
+    
+    @discardableResult
+    func constrainCenterY(to targetPosition: YPosition,
+                          of target: LayoutItem,
+                          offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.centerY, to: targetPosition, of: target, offset: offset)
+    }
+    
+    // MARK: - Minimum Offset
     
     @discardableResult
     func constrainCenterY(to target: LayoutItem,
                           minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.centerY, to: .centerY, of: target, minimumOffset: minimumOffset)
+        constrainCenterY(to: .centerY, of: target, minimumOffset: minimumOffset)
     }
+    
+    @discardableResult
+    func constrainCenterY(to targetPosition: YPosition,
+                          of target: LayoutItem,
+                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.centerY, to: targetPosition, of: target, minimumOffset: minimumOffset)
+    }
+    
+    // MARK: - Factor
     
     @discardableResult
     func constrainCenterY(to factor: CGFloat,
