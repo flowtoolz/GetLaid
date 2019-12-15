@@ -36,6 +36,8 @@ public extension LayoutView
 
 public extension LayoutItem
 {
+    // MARK: - Above
+    
     @discardableResult
     func constrain(above target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
@@ -53,19 +55,41 @@ public extension LayoutItem
         return constraint
     }
     
+    // MARK: - Offset
+    
     @discardableResult
     func constrainBottom(to target: LayoutItem,
                          offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.bottom, to: .bottom, of: target, offset: offset)
+        constrainBottom(to: .bottom, of: target, offset: offset)
     }
+    
+    @discardableResult
+    func constrainBottom(to targetPosition: YPosition,
+                         of target: LayoutItem,
+                         offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.bottom, to: targetPosition, of: target, offset: offset)
+    }
+    
+    // MARK: - Minimum Offset
     
     @discardableResult
     func constrainBottom(to target: LayoutItem,
                          minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.bottom, to: .bottom, of: target, minimumOffset: minimumOffset)
+        constrainBottom(to: .bottom, of: target, minimumOffset: minimumOffset)
     }
+    
+    @discardableResult
+    func constrainBottom(to targetPosition: YPosition,
+                         of target: LayoutItem,
+                         minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.bottom, to: targetPosition, of: target, minimumOffset: minimumOffset)
+    }
+    
+    // MARK: - Factor
     
     @discardableResult
     func constrainBottom(to factor: CGFloat,
