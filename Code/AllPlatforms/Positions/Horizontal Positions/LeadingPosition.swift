@@ -9,28 +9,23 @@ public extension LayoutView
     @discardableResult
     func constrainLeadingToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainLeading(to: parent, offset: inset)
+        parent.map { constrainLeading(to: $0, offset: inset) }
     }
     
     @discardableResult
     func constrainLeadingToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        let constraint = leadingAnchor.constraint(greaterThanOrEqualTo: parent.leadingAnchor,
-                                                  constant: minimumInset)
-        constraint.isActive = true
-        return constraint
+        parent.map
+        {
+            leadingAnchor.constraint(greaterThanOrEqualTo: $0.leadingAnchor,
+                                     constant: minimumInset)
+        }
     }
     
     @discardableResult
     func constrainLeadingToParent(at fraction: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainLeading(to: fraction, of: .trailing, of: parent)
+        parent.map { constrainLeading(to: fraction, of: .trailing, of: $0) }
     }
 }
 
@@ -58,10 +53,8 @@ public extension LayoutItem
     func constrain(after target: LayoutItem,
                    minimumGap: CGFloat) -> NSLayoutConstraint
     {
-        let constraint = leadingAnchor.constraint(greaterThanOrEqualTo: target.trailingAnchor,
-                                                  constant: minimumGap)
-        constraint.isActive = true
-        return constraint
+        leadingAnchor.constraint(greaterThanOrEqualTo: target.trailingAnchor,
+                                 constant: minimumGap).activate()
     }
     
     @discardableResult

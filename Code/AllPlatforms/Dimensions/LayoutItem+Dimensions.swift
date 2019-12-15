@@ -32,39 +32,21 @@ extension LayoutItem
     func constrain(_ dimension: Dimension,
                    to size: CGFloat) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: dimension)
-        
-        let constraint = myAnchor.constraint(equalToConstant: size)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: dimension).constraint(equalToConstant: size).activate()
     }
     
     @discardableResult
     func constrain(_ dimension: Dimension,
                    toMinimum minimum: CGFloat) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: dimension)
-        
-        let constraint = myAnchor.constraint(greaterThanOrEqualToConstant: minimum)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: dimension).constraint(greaterThanOrEqualToConstant: minimum).activate()
     }
 
     @discardableResult
     func constrain(_ dimension: Dimension,
                    toMaximum maximum: CGFloat) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: dimension)
-        
-        let constraint = myAnchor.constraint(lessThanOrEqualToConstant: maximum)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: dimension).constraint(lessThanOrEqualToConstant: maximum).activate()
     }
     
     @discardableResult
@@ -81,15 +63,8 @@ extension LayoutItem
                    of target: LayoutItem,
                    multiplier: CGFloat = 1) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: dimension)
-        let targetAnchor = target.anchor(for: targetDimension)
-        
-        let constraint = myAnchor.constraint(equalTo: targetAnchor,
-                                             multiplier: multiplier)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: dimension).constraint(equalTo: target.anchor(for: targetDimension),
+                                          multiplier: multiplier).activate()
     }
     
     func anchor(for dimension: Dimension) -> NSLayoutDimension

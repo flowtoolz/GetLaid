@@ -41,17 +41,13 @@ public extension LayoutView
     @discardableResult
     func constrainFirstBaselineToParent(at fraction: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrain(.firstBaseline, to: fraction, of: .bottom, of: parent)
+        parent.map { constrain(.firstBaseline, to: fraction, of: .bottom, of: $0) }
     }
 
     @discardableResult
     func constrainLastBaselineToParent(at fraction: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrain(.lastBaseline, to: fraction, of: .bottom, of: parent)
+        parent.map { constrain(.lastBaseline, to: fraction, of: .bottom, of: $0) }
     }
     
     // MARK: - Relative Positioning - Baseline to Baseline
@@ -98,15 +94,8 @@ public extension LayoutView
                    of target: LayoutView,
                    offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: baseline)
-        let targetAnchor = target.anchor(for: targetBaseline)
-        
-        let constraint = myAnchor.constraint(equalTo: targetAnchor,
-                                             constant: offset)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: baseline).constraint(equalTo: target.anchor(for: targetBaseline),
+                                         constant: offset).activate()
     }
     
     @discardableResult
@@ -115,15 +104,8 @@ public extension LayoutView
                    of target: LayoutView,
                    minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: baseline)
-        let targetAnchor = target.anchor(for: targetBaseline)
-        
-        let constraint = myAnchor.constraint(greaterThanOrEqualTo: targetAnchor,
-                                             constant: minimumOffset)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: baseline).constraint(greaterThanOrEqualTo: target.anchor(for: targetBaseline),
+                                         constant: minimumOffset).activate()
     }
     
     // MARK: - Constrain Baseline to Y Position
@@ -134,15 +116,8 @@ public extension LayoutView
                    of target: LayoutItem,
                    offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: baseline)
-        let targetAnchor = target.anchor(for: targetPosition)
-        
-        let constraint = myAnchor.constraint(equalTo: targetAnchor,
-                                             constant: offset)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: baseline).constraint(equalTo: target.anchor(for: targetPosition),
+                                         constant: offset).activate()
     }
     
     @discardableResult
@@ -151,15 +126,8 @@ public extension LayoutView
                    of target: LayoutItem,
                    minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: baseline)
-        let targetAnchor = target.anchor(for: targetPosition)
-        
-        let constraint = myAnchor.constraint(greaterThanOrEqualTo: targetAnchor,
-                                             constant: minimumOffset)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: baseline).constraint(greaterThanOrEqualTo: target.anchor(for: targetPosition),
+                                         constant: minimumOffset).activate()
     }
     
     // MARK: - Constrain Baseline to Factor of Position
@@ -170,17 +138,13 @@ public extension LayoutView
                    of targetPosition: YPosition,
                    of target: LayoutItem) -> NSLayoutConstraint
     {
-        let constraint = NSLayoutConstraint(item: self,
-                                            attribute: baseline.attribute,
-                                            relatedBy: .equal,
-                                            toItem: target,
-                                            attribute: targetPosition.attribute,
-                                            multiplier: factor,
-                                            constant: 0)
-        
-        constraint.isActive = true
-        
-        return constraint
+        NSLayoutConstraint(item: self,
+                           attribute: baseline.attribute,
+                           relatedBy: .equal,
+                           toItem: target,
+                           attribute: targetPosition.attribute,
+                           multiplier: factor,
+                           constant: 0).activate()
     }
     
     // MARK: - Constrain Baseline to Factor of Baseline
@@ -191,17 +155,13 @@ public extension LayoutView
                    of targetBaseline: BaselinePosition,
                    of target: LayoutView) -> NSLayoutConstraint
     {
-        let constraint = NSLayoutConstraint(item: self,
-                                            attribute: baseline.attribute,
-                                            relatedBy: .equal,
-                                            toItem: target,
-                                            attribute: targetBaseline.attribute,
-                                            multiplier: factor,
-                                            constant: 0)
-        
-        constraint.isActive = true
-        
-        return constraint
+        NSLayoutConstraint(item: self,
+                           attribute: baseline.attribute,
+                           relatedBy: .equal,
+                           toItem: target,
+                           attribute: targetBaseline.attribute,
+                           multiplier: factor,
+                           constant: 0).activate()
     }
     
     // MARK: - Get Anchor for Baseline

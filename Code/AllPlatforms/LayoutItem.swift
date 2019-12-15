@@ -4,8 +4,6 @@ import AppKit
 import UIKit
 #endif
 
-typealias LayoutAttribute = NSLayoutConstraint.Attribute
-
 public protocol LayoutItem: AnyObject
 {
     var widthAnchor: NSLayoutDimension { get }

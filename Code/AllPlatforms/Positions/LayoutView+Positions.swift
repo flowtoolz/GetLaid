@@ -11,9 +11,7 @@ public extension LayoutView
     @discardableResult
     func constrainCenterToParent() -> [NSLayoutConstraint]
     {
-        guard let parent = parent else { return [] }
-        
-        return [constrainCenterX(to: parent), constrainCenterY(to: parent)]
+        parent.map { [constrainCenterX(to: $0), constrainCenterY(to: $0)] } ?? []
     }
     
     @discardableResult

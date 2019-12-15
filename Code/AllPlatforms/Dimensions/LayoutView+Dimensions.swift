@@ -11,25 +11,19 @@ public extension LayoutView
     @discardableResult
     func constrainSizeToParent() -> [NSLayoutConstraint]
     {
-        guard let parent = parent else { return [] }
-        
-        return [constrainWidth(to: parent), constrainHeight(to: parent) ]
+        parent.map { [constrainWidth(to: $0), constrainHeight(to: $0) ] } ?? []
     }
     
     @discardableResult
     func constrainWidthToParent() -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainWidth(to: parent)
+        parent.map(constrainWidth(to:))
     }
     
     @discardableResult
     func constrainHeightToParent() -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainHeight(to: parent)
+        parent.map(constrainHeight(to:))
     }
     
     // MARK: - Relative Sizing
@@ -37,26 +31,20 @@ public extension LayoutView
     @discardableResult
     func constrainWidthToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainWidth(to: relativeSize, of: parent)
+        parent.map { constrainWidth(to: relativeSize, of: $0) }
     }
     
     @discardableResult
     func constrainHeightToParent(with relativeSize: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainHeight(to: relativeSize, of: parent)
+        parent.map { constrainHeight(to: relativeSize, of: $0) }
     }
     
     @discardableResult
     func constrainSizeToParent(with relativeWidth: CGFloat,
                                _ relativeHeight: CGFloat) -> [NSLayoutConstraint]
     {
-        guard let parent = parent else { return [] }
-        
-        return [ constrainWidth(to: relativeWidth, of: parent),
-                 constrainHeight(to: relativeHeight, of: parent) ]
+        parent.map { [ constrainWidth(to: relativeWidth, of: $0),
+                       constrainHeight(to: relativeHeight, of: $0) ] } ?? []
     }
 }

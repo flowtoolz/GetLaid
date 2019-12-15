@@ -9,25 +9,19 @@ public extension LayoutView
     @discardableResult
     func constrainCenterXToParent(offset: CGFloat = 0) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainCenterX(to: parent, offset: offset)
+        parent.map { constrainCenterX(to: $0, offset: offset) }
     }
     
     @discardableResult
     func constrainCenterXToParent(minimumOffset: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainCenterX(to: parent, minimumOffset: minimumOffset)
+        parent.map { constrainCenterX(to: $0, minimumOffset: minimumOffset) }
     }
     
     @discardableResult
     func constrainCenterXToParent(at fraction: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainCenterX(to: fraction, of: .trailing, of: parent)
+        parent.map { constrainCenterX(to: fraction, of: .trailing, of: $0) }
     }
 }
 

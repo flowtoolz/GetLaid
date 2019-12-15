@@ -13,15 +13,8 @@ extension LayoutItem
                    of target: LayoutItem,
                    offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: position)
-        let targetAnchor = target.anchor(for: targetPosition)
-        
-        let constraint = myAnchor.constraint(equalTo: targetAnchor,
-                                             constant: offset)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: position).constraint(equalTo: target.anchor(for: targetPosition),
+                                         constant: offset).activate()
     }
     
     func constrain(_ position: YPosition,
@@ -29,15 +22,8 @@ extension LayoutItem
                    of target: LayoutItem,
                    minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        let myAnchor = anchor(for: position)
-        let targetAnchor = target.anchor(for: targetPosition)
-        
-        let constraint = myAnchor.constraint(greaterThanOrEqualTo: targetAnchor,
-                                             constant: minimumOffset)
-        
-        constraint.isActive = true
-        
-        return constraint
+        anchor(for: position).constraint(greaterThanOrEqualTo: target.anchor(for: targetPosition),
+                                         constant: minimumOffset).activate()
     }
     
     // MARK: - Constrain Y Position to Factor of Y Position
@@ -47,16 +33,12 @@ extension LayoutItem
                    of targetPosition: YPosition,
                    of target: LayoutItem) -> NSLayoutConstraint
     {
-        let constraint = NSLayoutConstraint(item: self,
-                                            attribute: position.attribute,
-                                            relatedBy: .equal,
-                                            toItem: target,
-                                            attribute: targetPosition.attribute,
-                                            multiplier: factor,
-                                            constant: 0)
-        
-        constraint.isActive = true
-        
-        return constraint
+        NSLayoutConstraint(item: self,
+                           attribute: position.attribute,
+                           relatedBy: .equal,
+                           toItem: target,
+                           attribute: targetPosition.attribute,
+                           multiplier: factor,
+                           constant: 0).activate()
     }
 }

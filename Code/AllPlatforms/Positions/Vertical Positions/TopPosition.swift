@@ -9,25 +9,19 @@ public extension LayoutView
     @discardableResult
     func constrainTopToParent(inset: CGFloat = 0) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainTop(to: parent, offset: inset)
+        parent.map { constrainTop(to: $0, offset: inset) }
     }
     
     @discardableResult
     func constrainTopToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainTop(to: parent, minimumOffset: minimumInset)
+        parent.map { constrainTop(to: $0, minimumOffset: minimumInset) }
     }
     
     @discardableResult
     func constrainTopToParent(at fraction: CGFloat) -> NSLayoutConstraint?
     {
-        guard let parent = parent else { return nil }
-        
-        return constrainTop(to: fraction, of: .bottom, of: parent)
+        parent.map { constrainTop(to: fraction, of: .bottom, of: $0) }
     }
 }
 
