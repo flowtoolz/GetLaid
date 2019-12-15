@@ -1,6 +1,6 @@
 # GetLaid
 
-[![Pod Version](https://img.shields.io/cocoapods/v/GetLaid.svg?longCache=true&style=flat-square)](http://cocoapods.org/pods/GetLaid) ![badge-languages] ![badge-platforms] ![badge-mit]
+[![badge-pod]](http://cocoapods.org/pods/GetLaid) ![badge-pms] ![badge-languages] ![badge-platforms] ![badge-mit]
 
 GetLaid is a lean framework for defining complex view layouts through elegant code.
 
@@ -134,3 +134,14 @@ let guide = view.addLayoutGuide()
 ### Contrain Subviews and Layout Guides
 
 You can constrain layout items of type `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. All constraining functions have the prefix `constrain` and are well discoverable via auto completion. Functions that constrain items to their parents are only available on the view classes. 
+
+[badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
+
+[badge-pms]: https://img.shields.io/badge/supports-SPM%20%7C%20CocoaPods-green.svg?style=flat-square
+
+[badge-languages]: https://img.shields.io/badge/language-Swift-orange.svg?style=flat-square
+
+[badge-platforms]: https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg?style=flat-square
+
+[badge-mit]: https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat-square
+
