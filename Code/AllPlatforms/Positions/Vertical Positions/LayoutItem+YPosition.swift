@@ -4,11 +4,10 @@ import AppKit
 import UIKit
 #endif
 
-public extension LayoutItem
+extension LayoutItem
 {
     // MARK: - Constrain Y Position to Y Position
     
-    @discardableResult
     func constrain(_ position: YPosition,
                    to targetPosition: YPosition,
                    of target: LayoutItem,
@@ -25,7 +24,6 @@ public extension LayoutItem
         return constraint
     }
     
-    @discardableResult
     func constrain(_ position: YPosition,
                    to targetPosition: YPosition,
                    of target: LayoutItem,
@@ -44,7 +42,6 @@ public extension LayoutItem
     
     // MARK: - Constrain Y Position to Factor of Y Position
     
-    @discardableResult
     func constrain(_ position: YPosition,
                    to factor: CGFloat,
                    of targetPosition: YPosition,
