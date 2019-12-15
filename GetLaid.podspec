@@ -2,7 +2,7 @@
     
     # meta infos
     s.name             = "GetLaid"
-    s.version          = "1.6.0"
+    s.version          = "2.0.0"
     s.summary          = "Swift AutoLayout Wrapper"
     s.description      = "The Most Readable & Concise AutoLayout Swift Code"
     s.homepage         = "http://flowtoolz.com"
