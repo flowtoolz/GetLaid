@@ -4,11 +4,10 @@ import AppKit
 import UIKit
 #endif
 
-public extension LayoutItem
+extension LayoutItem
 {
     // MARK: - Constrain X Position to X Position
     
-    @discardableResult
     func constrain(_ position: XPosition,
                    to targetPosition: XPosition,
                    of target: LayoutItem,
@@ -18,7 +17,6 @@ public extension LayoutItem
                                          constant: offset).activate()
     }
     
-    @discardableResult
     func constrain(_ position: XPosition,
                    to targetPosition: XPosition,
                    of target: LayoutItem,
@@ -30,7 +28,6 @@ public extension LayoutItem
     
     // MARK: - Constrain X Position to Factor of X Position
     
-    @discardableResult
     func constrain(_ position: XPosition,
                    to factor: CGFloat,
                    of targetPosition: XPosition,
