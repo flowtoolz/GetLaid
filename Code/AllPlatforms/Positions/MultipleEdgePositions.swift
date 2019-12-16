@@ -7,13 +7,7 @@ import UIKit
 public extension LayoutView
 {
     // MARK: - Absolute Positioning
-    
-    @discardableResult
-    func constrainCenterToParent() -> [NSLayoutConstraint]
-    {
-        parent.map { [constrainCenterX(to: $0), constrainCenterY(to: $0)] } ?? []
-    }
-    
+
     @discardableResult
     func constrainToParent(inset: CGFloat) -> [NSLayoutConstraint]
     {
@@ -177,5 +171,17 @@ public extension LayoutView
         return [ constrainBottom(to: parent, offset: -insetBottom),
                  constrainTop(to: parent, offset: insetTop),
                  constrainLeading(to: parent, offset: insetLeading) ]
+    }
+}
+
+public extension LayoutItem
+{
+    @discardableResult
+    func constrain(to target: LayoutItem) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target),
+          constrainBottom(to: target),
+          constrainLeft(to: target),
+          constrainRight(to: target) ]
     }
 }
