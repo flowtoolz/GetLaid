@@ -5,7 +5,7 @@ import UIKit
 #endif
 
 public extension LayoutItem
-{
+{ 
     // MARK: - Absolute Positioning - Constrain Y Position to Baseline
     
     @discardableResult
@@ -28,31 +28,7 @@ public extension LayoutItem
                                           constant: minimumOffset).activate()
     }
     
-    // MARK: - Relative Positioning - Y Position to Factor of Baseline
-    
-    @discardableResult
-    func constrainTop(to factor: CGFloat,
-                      of targetBaseline: BaselinePosition,
-                      of target: LayoutView) -> NSLayoutConstraint
-    {
-        constrain(.top, to: factor, of: targetBaseline, of: target)
-    }
-    
-    @discardableResult
-    func constrainCenterY(to factor: CGFloat,
-                          of targetBaseline: BaselinePosition,
-                          of target: LayoutView) -> NSLayoutConstraint
-    {
-        constrain(.centerY, to: factor, of: targetBaseline, of: target)
-    }
-    
-    @discardableResult
-    func constrainBottom(to factor: CGFloat,
-                         of targetBaseline: BaselinePosition,
-                         of target: LayoutView) -> NSLayoutConstraint
-    {
-        constrain(.bottom, to: factor, of: targetBaseline, of: target)
-    }
+    // MARK: - Relative Positioning - Constrain Y Position to Factor of Baseline
     
     @discardableResult
     func constrain(_ yPosition: YPosition,
