@@ -15,11 +15,7 @@ public extension LayoutView
     @discardableResult
     func constrainLeadingToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
     {
-        parent.map
-        {
-            leadingAnchor.constraint(greaterThanOrEqualTo: $0.leadingAnchor,
-                                     constant: minimumInset)
-        }
+        parent.map { constrainLeading(to: $0, minimumOffset: minimumInset) }
     }
     
     @discardableResult
@@ -37,14 +33,22 @@ public extension LayoutItem
     func constrain(after target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.leading, to: .trailing, of: target, offset: gap)
+        constrainLeading(to: .trailing, of: target, offset: gap)
     }
     
     @discardableResult
     func constrainLeading(to target: LayoutItem,
                           offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.leading, to: .leading, of: target, offset: offset)
+        constrainLeading(to: .leading, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainLeading(to targetPosition: XPosition,
+                          of target: LayoutItem,
+                          offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.leading, to: targetPosition, of: target, offset: offset)
     }
     
     // MARK: - Minimum Offset
@@ -53,15 +57,22 @@ public extension LayoutItem
     func constrain(after target: LayoutItem,
                    minimumGap: CGFloat) -> NSLayoutConstraint
     {
-        leadingAnchor.constraint(greaterThanOrEqualTo: target.trailingAnchor,
-                                 constant: minimumGap).activate()
+        constrainLeading(to: .trailing, of: target, minimumOffset: minimumGap)
     }
     
     @discardableResult
     func constrainLeading(to target: LayoutItem,
                           minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.leading, to: .leading, of: target, minimumOffset: minimumOffset)
+        constrainLeading(to: .leading, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
+    func constrainLeading(to targetPosition: XPosition,
+                          of target: LayoutItem,
+                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.leading, to: targetPosition, of: target, minimumOffset: minimumOffset)
     }
     
     // MARK: - Factor

@@ -37,14 +37,22 @@ public extension LayoutItem
     func constrain(toTheLeftOf target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.right, to: .left, of: target, offset: -gap)
+        constrainRight(to: .left, of: target, offset: -gap)
     }
     
     @discardableResult
     func constrainRight(to target: LayoutItem,
                         offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.right, to: .right, of: target, offset: offset)
+        constrainRight(to: .right, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainRight(to targetPosition: XPosition,
+                        of target: LayoutItem,
+                        offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.right, to: targetPosition, of: target, offset: offset)
     }
     
     // MARK: - Minimum Offset
@@ -61,7 +69,15 @@ public extension LayoutItem
     func constrainRight(to target: LayoutItem,
                         minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.right, to: .right, of: target, minimumOffset: minimumOffset)
+        constrainRight(to: .right, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
+    func constrainRight(to targetPosition: XPosition,
+                        of target: LayoutItem,
+                        minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.right, to: targetPosition, of: target, minimumOffset: minimumOffset)
     }
     
     // MARK: - Factor

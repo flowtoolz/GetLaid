@@ -15,11 +15,7 @@ public extension LayoutView
     @discardableResult
     func constrainLeftToParent(minimumInset: CGFloat) -> NSLayoutConstraint?
     {
-        parent.map
-        {
-            leftAnchor.constraint(greaterThanOrEqualTo: $0.leftAnchor,
-                                  constant: minimumInset).activate()
-        }
+        parent.map { constrainLeft(to: $0, minimumOffset: minimumInset) }
     }
     
     @discardableResult
@@ -37,14 +33,22 @@ public extension LayoutItem
     func constrain(toTheRightOf target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.left, to: .right, of: target, offset: gap)
+        constrainLeft(to: .right, of: target, offset: gap)
     }
     
     @discardableResult
     func constrainLeft(to target: LayoutItem,
                        offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.left, to: .left, of: target, offset: offset)
+        constrainLeft(to: .left, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainLeft(to targetPosition: XPosition,
+                       of target: LayoutItem,
+                       offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.left, to: targetPosition, of: target, offset: offset)
     }
     
     // MARK: - Minimum Offset
@@ -53,15 +57,22 @@ public extension LayoutItem
     func constrain(toTheRightOf target: LayoutItem,
                    minimumGap: CGFloat) -> NSLayoutConstraint
     {
-        leftAnchor.constraint(greaterThanOrEqualTo: target.rightAnchor,
-                              constant: minimumGap).activate()
+        constrainLeft(to: .right, of: target, minimumOffset: minimumGap)
     }
     
     @discardableResult
     func constrainLeft(to target: LayoutItem,
                        minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.left, to: .left, of: target, minimumOffset: minimumOffset)
+        constrainLeft(to: .left, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
+    func constrainLeft(to targetPosition: XPosition,
+                       of target: LayoutItem,
+                       minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.left, to: targetPosition, of: target, minimumOffset: minimumOffset)
     }
     
     // MARK: - Factor

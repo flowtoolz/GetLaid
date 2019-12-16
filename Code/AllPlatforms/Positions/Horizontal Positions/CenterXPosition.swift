@@ -33,7 +33,15 @@ public extension LayoutItem
     func constrainCenterX(to target: LayoutItem,
                           offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.centerX, to: .centerX, of: target, offset: offset)
+        constrainCenterX(to: .centerX, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainCenterX(to targetPosition: XPosition,
+                          of target: LayoutItem,
+                          offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.centerX, to: targetPosition, of: target, offset: offset)
     }
     
     // MARK: - Minimum Offset
@@ -42,7 +50,15 @@ public extension LayoutItem
     func constrainCenterX(to target: LayoutItem,
                           minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.centerX, to: .centerX, of: target, minimumOffset: minimumOffset)
+        constrainCenterX(to: .centerX, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
+    func constrainCenterX(to targetPosition: XPosition,
+                          of target: LayoutItem,
+                          minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.centerX, to: targetPosition, of: target, minimumOffset: minimumOffset)
     }
     
     // MARK: - Factor

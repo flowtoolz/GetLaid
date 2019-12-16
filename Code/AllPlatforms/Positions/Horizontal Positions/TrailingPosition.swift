@@ -37,14 +37,22 @@ public extension LayoutItem
     func constrain(before target: LayoutItem,
                    gap: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.trailing, to: .leading, of: target, offset: -gap)
+        constrainTrailing(to: .leading, of: target, offset: -gap)
     }
     
     @discardableResult
     func constrainTrailing(to target: LayoutItem,
                            offset: CGFloat = 0) -> NSLayoutConstraint
     {
-        constrain(.trailing, to: .trailing, of: target, offset: offset)
+        constrainTrailing(to: .trailing, of: target, offset: offset)
+    }
+    
+    @discardableResult
+    func constrainTrailing(to targetPosition: XPosition,
+                           of target: LayoutItem,
+                           offset: CGFloat = 0) -> NSLayoutConstraint
+    {
+        constrain(.trailing, to: targetPosition, of: target, offset: offset)
     }
     
     // MARK: - Minimum Offset
@@ -61,7 +69,15 @@ public extension LayoutItem
     func constrainTrailing(to target: LayoutItem,
                            minimumOffset: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.trailing, to: .trailing, of: target, minimumOffset: minimumOffset)
+        constrainTrailing(to: .trailing, of: target, minimumOffset: minimumOffset)
+    }
+    
+    @discardableResult
+    func constrainTrailing(to targetPosition: XPosition,
+                           of target: LayoutItem,
+                           minimumOffset: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(.trailing, to: targetPosition, of: target, minimumOffset: minimumOffset)
     }
     
     // MARK: - Factor
