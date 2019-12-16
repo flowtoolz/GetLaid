@@ -6,7 +6,9 @@ import UIKit
 
 public extension LayoutItem
 { 
-    // MARK: - Absolute Positioning - Constrain Y Position to Baseline
+    // MARK: - Constrain Y Position to Baseline
+    
+    // MARK: Offset
     
     @discardableResult
     func constrain(_ yPosition: YPosition,
@@ -18,6 +20,8 @@ public extension LayoutItem
                                           constant: offset).activate()
     }
     
+    // MARK: Minimum Offset
+    
     @discardableResult
     func constrain(_ yPosition: YPosition,
                    to targetBaseline: BaselinePosition,
@@ -28,7 +32,7 @@ public extension LayoutItem
                                           constant: minimumOffset).activate()
     }
     
-    // MARK: - Relative Positioning - Constrain Y Position to Factor of Baseline
+    // MARK: Factor
     
     @discardableResult
     func constrain(_ yPosition: YPosition,
