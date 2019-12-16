@@ -1,6 +1,6 @@
 import UIKit
 
-@available(iOS 11.0, *)
+@available(iOS 11.0, tvOS 11.0, *)
 public extension UIView
 {
     func constrainToParentSafeArea() -> [NSLayoutConstraint]
