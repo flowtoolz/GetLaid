@@ -176,12 +176,121 @@ public extension LayoutView
 
 public extension LayoutItem
 {
+    // MARK: - Three Edges
+    
     @discardableResult
-    func constrain(to target: LayoutItem) -> [NSLayoutConstraint]
+    func constrainExcludingLeft(to target: LayoutItem,
+                                offsetTop: CGFloat = 0,
+                                offsetBottom: CGFloat = 0,
+                                offsetRight: CGFloat = 0) -> [NSLayoutConstraint]
     {
-        [ constrainTop(to: target),
-          constrainBottom(to: target),
-          constrainLeft(to: target),
-          constrainRight(to: target) ]
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainBottom(to: target, offset: offsetBottom),
+          constrainRight(to: target, offset: offsetRight) ]
+    }
+    
+    @discardableResult
+    func constrainExcludingRight(to target: LayoutItem,
+                                 offsetTop: CGFloat = 0,
+                                 offsetLeft: CGFloat = 0,
+                                 offsetBottom: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainLeft(to: target, offset: offsetLeft),
+          constrainBottom(to: target, offset: offsetBottom)]
+    }
+    
+    @discardableResult
+    func constrainExludingTop(to target: LayoutItem,
+                              offsetLeft: CGFloat,
+                              offsetBottom: CGFloat = 0,
+                              offsetRight: CGFloat) -> [NSLayoutConstraint]
+    {
+        [ constrainLeft(to: target, offset: offsetLeft),
+          constrainBottom(to: target, offset: offsetBottom),
+          constrainRight(to: target, offset: offsetRight) ]
+    }
+    
+    @discardableResult
+    func constrainExludingTop(to target: LayoutItem,
+                              offsetLeading: CGFloat = 0,
+                              offsetBottom: CGFloat = 0,
+                              offsetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        [ constrainLeading(to: target, offset: offsetLeading),
+          constrainBottom(to: target, offset: offsetBottom),
+          constrainTrailing(to: target, offset: offsetTrailing) ]
+    }
+    
+    @discardableResult
+    func constrainExcludingLeading(to target: LayoutItem,
+                                   offsetTop: CGFloat = 0,
+                                   offsetBottom: CGFloat = 0,
+                                   offsetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainBottom(to: target, offset: offsetBottom),
+          constrainTrailing(to: target, offset: offsetTrailing) ]
+    }
+    
+    @discardableResult
+    func constrainExcludingBottom(to target: LayoutItem,
+                                  offsetTop: CGFloat = 0,
+                                  offsetLeft: CGFloat,
+                                  offsetRight: CGFloat) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainLeft(to: target, offset: offsetLeft),
+          constrainRight(to: target, offset: offsetRight) ]
+    }
+    
+    @discardableResult
+    func constrainExcludingBottom(to target: LayoutItem,
+                                  offsetTop: CGFloat = 0,
+                                  offsetLeading: CGFloat = 0,
+                                  offsetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainLeading(to: target, offset: offsetLeading),
+          constrainTrailing(to: target, offset: offsetTrailing) ]
+    }
+    
+    @discardableResult
+    func constrainExcludingTrailing(to target: LayoutItem,
+                                    offsetTop: CGFloat = 0,
+                                    offsetLeading: CGFloat = 0,
+                                    offsetBottom: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainLeading(to: target, offset: offsetLeading),
+          constrainBottom(to: target, offset: offsetBottom) ]
+    }
+    
+    // MARK: - Four Edges
+    
+    @discardableResult
+    func constrain(to target: LayoutItem,
+                   offsetTop: CGFloat = 0,
+                   offsetLeft: CGFloat,
+                   offsetBottom: CGFloat = 0,
+                   offsetRight: CGFloat) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainLeft(to: target, offset: offsetLeft),
+          constrainBottom(to: target, offset: offsetBottom),
+          constrainRight(to: target, offset: offsetRight) ]
+    }
+    
+    @discardableResult
+    func constrain(to target: LayoutItem,
+                   offsetTop: CGFloat = 0,
+                   offsetLeading: CGFloat = 0,
+                   offsetBottom: CGFloat = 0,
+                   offsetTrailing: CGFloat = 0) -> [NSLayoutConstraint]
+    {
+        [ constrainTop(to: target, offset: offsetTop),
+          constrainLeading(to: target, offset: offsetLeading),
+          constrainBottom(to: target, offset: offsetBottom),
+          constrainTrailing(to: target, offset: offsetTrailing) ]
     }
 }
