@@ -4,8 +4,25 @@ import AppKit
 import UIKit
 #endif
 
+public extension LayoutView
+{
+    @discardableResult
+    func constrainWidthToParent() -> NSLayoutConstraint?
+    {
+        parent.map(constrainWidth(to:))
+    }
+    
+    @discardableResult
+    func constrainWidthToParent(with factor: CGFloat) -> NSLayoutConstraint?
+    {
+        parent.map { constrainWidth(to: factor, of: $0) }
+    }
+}
+
 public extension LayoutItem
 {
+    // MARK: - To Absolute Points
+    
     @discardableResult
     func constrainWidth(to size: CGFloat) -> NSLayoutConstraint
     {
@@ -24,6 +41,8 @@ public extension LayoutItem
         constrain(.width, toMaximum: maximum)
     }
     
+    // MARK: - To Target
+    
     @discardableResult
     func constrainWidth(to target: LayoutItem) -> NSLayoutConstraint
     {
@@ -31,10 +50,18 @@ public extension LayoutItem
     }
     
     @discardableResult
-    func constrainWidth(to relativeSize: CGFloat,
+    func constrainWidth(to factor: CGFloat,
                         of target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.width, to: target, multiplier: relativeSize)
+        constrain(.width, to: target, factor: factor)
+    }
+    
+    // MARK: - To Height
+    
+    @discardableResult
+    func constrainWidthToHeight(of target: LayoutItem) -> NSLayoutConstraint
+    {
+        constrain(.width, to: .height, of: target)
     }
     
     @discardableResult
@@ -44,15 +71,9 @@ public extension LayoutItem
     }
     
     @discardableResult
-    func constrainWidthToHeight(of target: LayoutItem) -> NSLayoutConstraint
-    {
-        constrain(.width, to: .height, of: target)
-    }
-    
-    @discardableResult
-    func constrainWidth(to relativeSize: CGFloat,
+    func constrainWidth(to factor: CGFloat,
                         ofHeightOf target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.width, to: .height, of: target, multiplier: relativeSize)
+        constrain(.width, to: .height, of: target, factor: factor)
     }
 }
