@@ -115,7 +115,7 @@ let package = Package(
     name: "MyApp",
     dependencies: [
         .package(url: "https://github.com/flowtoolz/GetLaid.git",
-                 .upToNextMajor(from: "2.0.0"))
+                 .upToNextMajor(from: "2.1.0"))
     ],
     targets: [
         .target(name: "MyAppTarget",
@@ -130,7 +130,7 @@ With [**Cocoapods**](https://cocoapods.org), adjust your [Podfile](https://guide
 
 ```ruby
 target "MyAppTarget" do
-  pod "GetLaid", "~> 2.0"
+  pod "GetLaid", "~> 2.1"
 end
 ```
 
