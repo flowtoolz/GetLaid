@@ -24,7 +24,7 @@ GetLaid has some advantages even over classic simple frameworks like [PureLayout
     - Aspect ratio: `item.constrainAspectRatio(to: 16/9)`
 * :white_check_mark: Easy Positioning of Items Next to Each Other
     - `item1.constrain(above: item2, gap: 10)`
-    - `item1.constrain(toTheLeftOf: item2)`
+    - `item1.constrain(after: item2)` (localized via leading / trailing)
 * :white_check_mark: Modern Swift Under the Hood
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
@@ -164,9 +164,20 @@ There's also a helper function for adding a new layout guide to a view:
 let guide = view.addLayoutGuide()
 ~~~
 
-### Contrain Subviews and Layout Guides
+### Constrain Subviews and Layout Guides
 
 You can constrain layout items of type `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. All constraining functions have the prefix `constrain` and are well discoverable via auto completion. Functions that constrain items to their parents are only available on the view classes. 
+
+## To Document
+
+* safe area helpers
+* system spacing constant
+* new convenience functions
+* localized horizontal positioning
+* constraining base lines
+* minimum offsets, minimum gaps, minimum insets
+
+
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
