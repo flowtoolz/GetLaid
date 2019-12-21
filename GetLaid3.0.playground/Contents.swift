@@ -4,18 +4,35 @@ import PlaygroundSupport
 // MARK: - Public API
 
 extension LayoutView {
-    func constrain(_ baseline: Baseline, to target: VerticalViewTarget) {
-        GetLaid.constrain(.baselineAnchor(.init(view: self, baseline: baseline)),
+    
+    // MARK: - Constrain View to Single Baseline Target
+    
+    func constrain(to target: BaselineTarget) {
+        constrain(target.anchor.baseline, to: target)
+    }
+    
+    // MARK: - Constrain Single Baseline to Target
+    
+    func constrain(_ baseline: Baseline, to target: BaselineTarget) {
+        GetLaid.constrain(.init(view: self, baseline: baseline),
                           to: target.anchor,
                           offset: target.offset)
     }
     
-    var firstBaseline: VerticalViewAnchor {
-        .baselineAnchor(.init(view: self, baseline: .firstBaseline))
+    func constrain(_ baseline: Baseline, to target: VerticalTarget) {
+        GetLaid.constrain(.init(view: self, baseline: baseline),
+                          to: target.anchor,
+                          offset: target.offset)
     }
     
-    var lastBaseline: VerticalViewAnchor {
-        .baselineAnchor(.init(view: self, baseline: .lastBaseline))
+    var firstBaseline: BaselineTarget { firstBaseline(offset: 0) }
+    func firstBaseline(offset: CGFloat) -> BaselineTarget {
+        .init(anchor: .init(view: self, baseline: .firstBaseline), offset: offset)
+    }
+    
+    var lastBaseline: BaselineTarget { lastBaseline(offset: 0) }
+    func lastBaseline(offset: CGFloat) -> BaselineTarget {
+        .init(anchor: .init(view: self, baseline: .lastBaseline), offset: offset)
     }
 }
 
@@ -24,102 +41,114 @@ extension LayoutItem {
     // MARK: - Constrain Item to Multiple Targets
     
     func constrain(to targetCombination: ItemPositionTargetCombination) {
-        for verticalTarget in targetCombination.vericalTargets {
-            let position = verticalTarget.anchor.position
-            GetLaid.constrain(.itemAnchor(.init(item: self,
-                                                        position: position)),
-                              to: .itemAnchor(verticalTarget.anchor),
-                              offset: verticalTarget.offset)
+        for verticalTarget in targetCombination.verticalTargets {
+            constrain(verticalTarget.anchor.position, to: verticalTarget)
         }
-        for horizontalTarget in targetCombination.horizonalTargets {
+        for horizontalTarget in targetCombination.horizontalTargets {
             constrain(horizontalTarget.anchor.position, to: horizontalTarget)
         }
     }
     
     var center: ItemPositionTargetCombination { center() }
     func center(xOffset: CGFloat = 0, yOffset: CGFloat = 0) -> ItemPositionTargetCombination {
-        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .centerX),
-                                        offset: xOffset) ],
-              vericalTargets: [ .init(anchor: .init(item: self, position: .centerY),
-                                      offset: yOffset) ])
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .centerX),
+                                         offset: xOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .centerY),
+                                       offset: yOffset) ])
     }
     
     var allButTop: ItemPositionTargetCombination { allButTop() }
     func allButTop(leadingOffset: CGFloat = 0,
                    bottomOffset: CGFloat = 0,
                    trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
-        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .leading),
-                                        offset: leadingOffset),
-                                  .init(anchor: .init(item: self, position: .trailing),
-                                        offset: trailingOffset) ],
-              vericalTargets: [ .init(anchor: .init(item: self, position: .bottom),
-                                      offset: bottomOffset) ])
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+                                         offset: leadingOffset),
+                                   .init(anchor: .init(item: self, position: .trailing),
+                                         offset: trailingOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset) ])
     }
     
     var allButLeading: ItemPositionTargetCombination { allButLeading() }
     func allButLeading(topOffset: CGFloat = 0,
                        bottomOffset: CGFloat = 0,
                        trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
-        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .trailing),
-                                        offset: trailingOffset) ],
-              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
-                                      offset: topOffset),
-                                .init(anchor: .init(item: self, position: .bottom),
-                                      offset: bottomOffset) ])
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .trailing),
+                                         offset: trailingOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset),
+                                 .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset) ])
     }
     
     var allButBottom: ItemPositionTargetCombination { allButBottom() }
     func allButBottom(topOffset: CGFloat = 0,
                       leadingOffset: CGFloat = 0,
                       trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
-        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .leading),
-                                        offset: leadingOffset),
-                                  .init(anchor: .init(item: self, position: .trailing),
-                                        offset: trailingOffset) ],
-              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
-                                      offset: topOffset) ])
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+                                         offset: leadingOffset),
+                                   .init(anchor: .init(item: self, position: .trailing),
+                                         offset: trailingOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset) ])
     }
     
     var allButTrailing: ItemPositionTargetCombination { allButTrailing() }
     func allButTrailing(topOffset: CGFloat = 0,
                         leadingOffset: CGFloat = 0,
                         bottomOffset: CGFloat = 0) -> ItemPositionTargetCombination {
-        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .leading),
-                                        offset: leadingOffset) ],
-              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
-                                      offset: topOffset),
-                                .init(anchor: .init(item: self, position: .bottom),
-                                      offset: bottomOffset) ])
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+                                         offset: leadingOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset),
+                                 .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset) ])
     }
     
     var allButLeft: ItemPositionTargetCombination { allButLeft() }
     func allButLeft(topOffset: CGFloat = 0,
                     bottomOffset: CGFloat = 0,
                     rightOffset: CGFloat = 0) -> ItemPositionTargetCombination {
-        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .right),
-                                        offset: rightOffset) ],
-              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
-                                      offset: topOffset),
-                                .init(anchor: .init(item: self, position: .bottom),
-                                      offset: bottomOffset) ])
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .right),
+                                         offset: rightOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset),
+                                 .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset) ])
     }
     
     var allButRight: ItemPositionTargetCombination { allButRight() }
     func allButRight(topOffset: CGFloat = 0,
                      leftOffset: CGFloat = 0,
                      bottomOffset: CGFloat = 0) -> ItemPositionTargetCombination {
-        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .left),
-                                        offset: leftOffset) ],
-              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
-                                      offset: topOffset),
-                                .init(anchor: .init(item: self, position: .bottom),
-                                      offset: bottomOffset) ])
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+                                         offset: leftOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset),
+                                 .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset) ])
+    }
+    
+    // MARK: - Constrain Item to Single Position Target
+    
+    func constrain(to target: HorizontalTarget) {
+        constrain(target.anchor.position, to: target)
+    }
+    
+    func constrain(to target: VerticalTarget) {
+        constrain(target.anchor.position, to: target)
     }
     
     // MARK: - Constrain Single Position to Target
     
-    func constrain(_ position: VerticalPosition, to target: VerticalViewTarget) {
-        GetLaid.constrain(.itemAnchor(.init(item: self, position: position)),
+    func constrain(_ position: VerticalPosition, to target: BaselineTarget) {
+        GetLaid.constrain(.init(item: self, position: position),
+                          to: target.anchor,
+                          offset: target.offset)
+    }
+    
+    func constrain(_ position: VerticalPosition, to target: VerticalTarget) {
+        GetLaid.constrain(.init(item: self, position: position),
                           to: target.anchor,
                           offset: target.offset)
     }
@@ -153,33 +182,31 @@ extension LayoutItem {
               offset: offset)
     }
     
-    var top: VerticalViewTarget { top(offset: 0) }
-    func top(offset: CGFloat) -> VerticalViewTarget {
-        .init(anchor: .itemAnchor(.init(item: self, position: .top)),
-              offset: offset)
+    var top: VerticalTarget { top(offset: 0) }
+    func top(offset: CGFloat) -> VerticalTarget {
+        .init(anchor: .init(item: self, position: .top), offset: offset)
     }
     
-    var bottom: VerticalViewTarget { bottom(offset: 0) }
-    func bottom(offset: CGFloat) -> VerticalViewTarget {
-        .init(anchor: .itemAnchor(.init(item: self, position: .bottom)),
-              offset: offset)
+    var bottom: VerticalTarget { bottom(offset: 0) }
+    func bottom(offset: CGFloat) -> VerticalTarget {
+        .init(anchor: .init(item: self, position: .bottom), offset: offset)
     }
 }
 
 // MARK: - Internal API
 
 struct ItemPositionTargetCombination {
-    let horizonalTargets: [HorizontalTarget]
-    let vericalTargets: [VerticalItemTarget]
+    let horizontalTargets: [HorizontalTarget]
+    let verticalTargets: [VerticalTarget]
 }
 
-struct VerticalViewTarget {
-    let anchor: VerticalViewAnchor
+struct BaselineTarget {
+    let anchor: BaselineAnchor
     let offset: CGFloat
 }
 
-struct VerticalItemTarget {
-    let anchor: VerticalItemAnchor
+struct VerticalTarget {
+    let anchor: VerticalAnchor
     let offset: CGFloat
 }
 
@@ -189,14 +216,40 @@ struct HorizontalTarget {
 }
 
 struct GetLaid {
-    static func constrain(_ sourceVerticalAnchor: VerticalViewAnchor,
-                          to targetVerticalAnchor: VerticalViewAnchor,
+    static func constrain(_ sourceVerticalAnchor: VerticalAnchor,
+                          to targetVerticalAnchor: VerticalAnchor,
                           offset: CGFloat = 0) {
-        let sourceAnchor = sourceVerticalAnchor.anchor
-        let targetAnchor = targetVerticalAnchor.anchor
+        let sourceAnchor = sourceVerticalAnchor.item.anchor(for: sourceVerticalAnchor.position)
+        let targetAnchor = targetVerticalAnchor.item.anchor(for: targetVerticalAnchor.position)
         sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
     }
-
+    
+    static func constrain(_ sourceVerticalAnchor: VerticalAnchor,
+                          to targetBaselineAnchor: BaselineAnchor,
+                          offset: CGFloat = 0) {
+        let sourceAnchor = sourceVerticalAnchor.item.anchor(for: sourceVerticalAnchor.position)
+        let targetAnchor = targetBaselineAnchor.view.anchor(for: targetBaselineAnchor.baseline)
+        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+    }
+    
+    static func constrain(_ sourceBaselineAnchor: BaselineAnchor,
+                          to targetVerticalAnchor: VerticalAnchor,
+                          offset: CGFloat = 0) {
+        let sourceAnchor = sourceBaselineAnchor.view.anchor(for: sourceBaselineAnchor.baseline)
+        let targetAnchor = targetVerticalAnchor.item.anchor(for: targetVerticalAnchor.position)
+        
+        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+    }
+    
+    static func constrain(_ sourceBaselineAnchor: BaselineAnchor,
+                          to targetBaselineAnchor: BaselineAnchor,
+                          offset: CGFloat = 0) {
+        let sourceAnchor = sourceBaselineAnchor.view.anchor(for: sourceBaselineAnchor.baseline)
+        let targetAnchor = targetBaselineAnchor.view.anchor(for: targetBaselineAnchor.baseline)
+        
+        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+    }
+    
     static func constrain(_ sourceHorizontalAnchor: HorizontalAnchor,
                           to targetHorizontalAnchor: HorizontalAnchor,
                           offset: CGFloat = 0) {
@@ -211,20 +264,7 @@ struct HorizontalAnchor {
     let position: HorizontalPosition
 }
 
-enum VerticalViewAnchor {
-    var anchor: NSLayoutYAxisAnchor {
-        switch self {
-        case .itemAnchor(let itemAnchor):
-            return itemAnchor.item.anchor(for: itemAnchor.position)
-        case .baselineAnchor(let baselineAnchor):
-            return baselineAnchor.view.anchor(for: baselineAnchor.baseline)
-        }
-    }
-    case itemAnchor(VerticalItemAnchor)
-    case baselineAnchor(BaselineAnchor)
-}
-
-struct VerticalItemAnchor {
+struct VerticalAnchor {
     let item: LayoutItem
     let position: VerticalPosition
 }
@@ -307,7 +347,8 @@ class MyTestView: UIView {
         label.text = "Hello AutoLayout!"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
-        label.constrain(to: center)
+        label.constrain(to: top)
+        label.constrain(to: left)
     }
     
     required init?(coder: NSCoder) { fatalError() }
