@@ -36,6 +36,14 @@ extension LayoutItem {
         }
     }
     
+    var center: ItemPositionTargetCombination { center() }
+    func center(xOffset: CGFloat = 0, yOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .centerX),
+                                        offset: xOffset) ],
+              vericalTargets: [ .init(anchor: .init(item: self, position: .centerY),
+                                      offset: yOffset) ])
+    }
+    
     var allButTop: ItemPositionTargetCombination { allButTop() }
     func allButTop(leadingOffset: CGFloat = 0,
                    bottomOffset: CGFloat = 0,
@@ -239,6 +247,7 @@ extension LayoutItem {
     func anchor(for position: VerticalPosition) -> NSLayoutYAxisAnchor {
         switch position {
         case .top: return topAnchor
+        case .centerY: return centerYAnchor
         case .bottom: return bottomAnchor
         }
     }
@@ -246,6 +255,7 @@ extension LayoutItem {
     func anchor(for position: HorizontalPosition) -> NSLayoutXAxisAnchor {
         switch position {
         case .leading: return leadingAnchor
+        case .centerX: return centerXAnchor
         case .trailing: return trailingAnchor
         case .left: return leftAnchor
         case .right: return rightAnchor
@@ -262,19 +272,21 @@ protocol LayoutView: LayoutItem {
 extension UILayoutGuide: LayoutItem {}
 protocol LayoutItem {
     var topAnchor: NSLayoutYAxisAnchor { get }
+    var centerYAnchor: NSLayoutYAxisAnchor { get }
     var bottomAnchor: NSLayoutYAxisAnchor { get }
     var leadingAnchor: NSLayoutXAxisAnchor { get }
+    var centerXAnchor: NSLayoutXAxisAnchor { get }
     var trailingAnchor: NSLayoutXAxisAnchor { get }
     var leftAnchor: NSLayoutXAxisAnchor { get }
     var rightAnchor: NSLayoutXAxisAnchor { get }
 }
 
 enum VerticalPosition {
-    case top, bottom
+    case top, centerY, bottom
 }
 
 enum HorizontalPosition {
-    case leading, trailing, left, right
+    case leading, centerX, trailing, left, right
 }
 
 enum Baseline {
@@ -295,7 +307,7 @@ class MyTestView: UIView {
         label.text = "Hello AutoLayout!"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
-        label.constrain(to: allButBottom)
+        label.constrain(to: center)
     }
     
     required init?(coder: NSCoder) { fatalError() }
