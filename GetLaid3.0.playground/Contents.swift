@@ -11,20 +11,20 @@ extension LayoutView {
                            leadingInset: CGFloat = 0,
                            bottomInset: CGFloat = 0,
                            trailingInset: CGFloat = 0) {
-        constrain(to: parent?.all(topOffset: topInset,
-                                  leadingOffset: leadingInset,
-                                  bottomOffset: -bottomInset,
-                                  trailingOffset: -trailingInset))
+        constrainToParentTop(inset: topInset)
+        constrainToParentLeading(inset: leadingInset)
+        constrainToParentBottom(inset: bottomInset)
+        constrainToParentTrailing(inset: trailingInset)
     }
     
     func constrainToParent(topInset: CGFloat = 0,
                            leftInset: CGFloat,
                            bottomInset: CGFloat = 0,
                            rightInset: CGFloat) {
-        constrain(to: parent?.all(topOffset: topInset,
-                                  leftOffset: leftInset,
-                                  bottomOffset: -bottomInset,
-                                  rightOffset: -rightInset))
+        constrainToParentTop(inset: topInset)
+        constrainToParentLeft(inset: leftInset)
+        constrainToParentBottom(inset: bottomInset)
+        constrainToParentRight(inset: rightInset)
     }
     
     func constrainToParentTop(inset: CGFloat = 0) {
