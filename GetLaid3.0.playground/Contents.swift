@@ -158,6 +158,90 @@ extension LayoutItem {
         constrain(target.anchor.position, to: target)
     }
     
+    // MARK: - Constrain Item Next to Other Item - Maximum Gap
+    
+    func constrain(toTheRightOf item: LayoutItem, maxGap: CGFloat) {
+        constrain(toTheRightOf: item, minGap: 0)
+        constrain(.left, to: item.right(offset: maxGap).max)
+    }
+    
+    func constrain(toTheLeftOf item: LayoutItem, maxGap: CGFloat) {
+        constrain(toTheLeftOf: item, minGap: 0)
+        constrain(.right, to: item.left(offset: -maxGap).min)
+    }
+    
+    func constrain(after item: LayoutItem, maxGap: CGFloat) {
+        constrain(after: item, minGap: 0)
+        constrain(.leading, to: item.trailing(offset: maxGap).max)
+    }
+    
+    func constrain(before item: LayoutItem, maxGap: CGFloat) {
+        constrain(before: item, minGap: 0)
+        constrain(.trailing, to: item.leading(offset: -maxGap).min)
+    }
+    
+    func constrain(above item: LayoutItem, maxGap: CGFloat) {
+        constrain(above: item, minGap: 0)
+        constrain(.bottom, to: item.top(offset: -maxGap).min)
+    }
+    
+    func constrain(below item: LayoutItem, maxGap: CGFloat) {
+        constrain(below: item, minGap: 0)
+        constrain(.top, to: item.bottom(offset: maxGap).max)
+    }
+    
+    // MARK: - Constrain Item Next to Other Item - Minimum Gap
+    
+    func constrain(toTheRightOf item: LayoutItem, minGap: CGFloat) {
+        constrain(.left, to: item.right(offset: minGap).min)
+    }
+    
+    func constrain(toTheLeftOf item: LayoutItem, minGap: CGFloat) {
+        constrain(.right, to: item.left(offset: -minGap).max)
+    }
+    
+    func constrain(after item: LayoutItem, minGap: CGFloat) {
+        constrain(.leading, to: item.trailing(offset: minGap).min)
+    }
+    
+    func constrain(before item: LayoutItem, minGap: CGFloat) {
+        constrain(.trailing, to: item.leading(offset: -minGap).max)
+    }
+    
+    func constrain(above item: LayoutItem, minGap: CGFloat) {
+        constrain(.bottom, to: item.top(offset: -minGap).max)
+    }
+    
+    func constrain(below item: LayoutItem, minGap: CGFloat) {
+        constrain(.top, to: item.bottom(offset: minGap).min)
+    }
+    
+    // MARK: - Constrain Item Next to Other Item - Exact Gap
+    
+    func constrain(toTheRightOf item: LayoutItem, gap: CGFloat = 0) {
+        constrain(.left, to: item.right(offset: gap))
+    }
+    
+    func constrain(toTheLeftOf item: LayoutItem, gap: CGFloat = 0) {
+        constrain(.right, to: item.left(offset: -gap))
+    }
+    
+    func constrain(after item: LayoutItem, gap: CGFloat = 0) {
+        constrain(.leading, to: item.trailing(offset: gap))
+    }
+    
+    func constrain(before item: LayoutItem, gap: CGFloat = 0) {
+        constrain(.trailing, to: item.leading(offset: -gap))
+    }
+    
+    func constrain(above item: LayoutItem, gap: CGFloat = 0) {
+        constrain(.bottom, to: item.top(offset: -gap))
+    }
+    
+    func constrain(below item: LayoutItem, gap: CGFloat = 0) {
+        constrain(.top, to: item.bottom(offset: gap))
+    }
+    
     // MARK: - Constrain Single Position to Target
     
     func constrain(_ position: VerticalPosition, to target: BaselineTarget) {
