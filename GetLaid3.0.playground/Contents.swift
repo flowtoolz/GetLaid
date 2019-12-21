@@ -80,6 +80,20 @@ extension LayoutItem {
                                        offset: bottomOffset)])
     }
     
+    func all(topOffset: CGFloat = 0,
+             leftOffset: CGFloat,
+             bottomOffset: CGFloat = 0,
+             rightOffset: CGFloat) -> ItemPositionTargetCombination {
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+                                         offset: leftOffset),
+                                   .init(anchor: .init(item: self, position: .right),
+                                         offset: rightOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset),
+                                 .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset)])
+    }
+    
     var allButTop: ItemPositionTargetCombination { allButTop() }
     func allButTop(leadingOffset: CGFloat = 0,
                    bottomOffset: CGFloat = 0,
@@ -88,6 +102,17 @@ extension LayoutItem {
                                          offset: leadingOffset),
                                    .init(anchor: .init(item: self, position: .trailing),
                                          offset: trailingOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset) ])
+    }
+    
+    func allButTop(leftOffset: CGFloat,
+                   bottomOffset: CGFloat = 0,
+                   rightOffset: CGFloat) -> ItemPositionTargetCombination {
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+                                         offset: leftOffset),
+                                   .init(anchor: .init(item: self, position: .right),
+                                         offset: rightOffset) ],
               verticalTargets: [ .init(anchor: .init(item: self, position: .bottom),
                                        offset: bottomOffset) ])
     }
@@ -112,6 +137,17 @@ extension LayoutItem {
                                          offset: leadingOffset),
                                    .init(anchor: .init(item: self, position: .trailing),
                                          offset: trailingOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset) ])
+    }
+    
+    func allButBottom(topOffset: CGFloat = 0,
+                      leftOffset: CGFloat,
+                      rightOffset: CGFloat) -> ItemPositionTargetCombination {
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+                                         offset: leftOffset),
+                                   .init(anchor: .init(item: self, position: .right),
+                                         offset: rightOffset) ],
               verticalTargets: [ .init(anchor: .init(item: self, position: .top),
                                        offset: topOffset) ])
     }
