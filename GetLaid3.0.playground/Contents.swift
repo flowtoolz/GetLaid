@@ -27,6 +27,42 @@ extension LayoutView {
         constrainToParentRight(inset: rightInset)
     }
     
+    // MARK: - Constrain One Position to Parent - Factor
+    
+    func constrainTopToParent(at factor: CGFloat) {
+        constrain(.top, to: parent?.bottom.at(factor))
+    }
+    
+    func constrainLeadingToParent(at factor: CGFloat) {
+        constrain(.leading, to: parent?.trailing.at(factor))
+    }
+    
+    func constrainLeftToParent(at factor: CGFloat) {
+        constrain(.left, to: parent?.right.at(factor))
+    }
+    
+    func constrainCenterXToParent(at factor: CGFloat) {
+        constrain(.centerX, to: parent?.trailing.at(factor))
+    }
+    
+    func constrainCenterYToParent(at factor: CGFloat) {
+        constrain(.centerY, to: parent?.bottom.at(factor))
+    }
+    
+    func constrainBottomToParent(at factor: CGFloat) {
+        constrain(.bottom, to: parent?.bottom.at(factor))
+    }
+    
+    func constrainTrailingToParent(at factor: CGFloat) {
+        constrain(.trailing, to: parent?.trailing.at(factor))
+    }
+    
+    func constrainRightToParent(at factor: CGFloat) {
+        constrain(.right, to: parent?.right.at(factor))
+    }
+    
+    // MARK: - Constrain One Position to Parent - Inset/Offset
+    
     func constrainToParentTop(inset: CGFloat = 0) {
         constrain(to: parent?.top(offset: inset))
     }
