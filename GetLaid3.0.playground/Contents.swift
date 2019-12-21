@@ -221,22 +221,46 @@ struct ItemPositionTargetCombination {
     let verticalTargets: [VerticalTarget]
 }
 
-struct BaselineTarget {
+struct BaselineTarget: PositionTarget {
     let anchor: BaselineAnchor
     let offset: CGFloat
     var relation = Relation.exact
 }
 
-struct VerticalTarget {
+struct VerticalTarget: PositionTarget {
     let anchor: VerticalAnchor
     let offset: CGFloat
     var relation = Relation.exact
 }
 
-struct HorizontalTarget {
+struct HorizontalTarget: PositionTarget {
     let anchor: HorizontalAnchor
     let offset: CGFloat
     var relation = Relation.exact
+}
+
+extension PositionTarget {
+    var min: Self {
+        var result = self
+        result.relation = .minimum
+        return result
+    }
+    
+    var max: Self {
+        var result = self
+        result.relation = .maximum
+        return result
+    }
+    
+    func at(_ factor: CGFloat) -> Self {
+        var result = self
+        result.relation = .relative(factor)
+        return result
+    }
+}
+
+protocol PositionTarget {
+    var relation: Relation { get set }
 }
 
 enum Relation {
@@ -496,7 +520,7 @@ class MyTestView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
         label.constrain(to: top)
-        label.constrain(to: left)
+        label.constrain(.left, to: right.at(0.5))
     }
     
     required init?(coder: NSCoder) { fatalError() }
