@@ -4,20 +4,6 @@ import PlaygroundSupport
 // MARK: - Public API
 
 extension LayoutView {
-    func constrain(to targetCombination: ViewPositionTargetCombination) {
-        for verticalTarget in targetCombination.vericalTargets {
-            switch verticalTarget.anchor {
-            case .itemAnchor(let itemAnchor):
-                constrain(itemAnchor.position, to: verticalTarget)
-            case .baselineAnchor(let baselineAnchor):
-                constrain(baselineAnchor.baseline, to: verticalTarget)
-            }
-        }
-        for horizontalTarget in targetCombination.horizonalTargets {
-            constrain(horizontalTarget.anchor.position, to: horizontalTarget)
-        }
-    }
-    
     func constrain(_ baseline: Baseline, to target: VerticalViewTarget) {
         GetLaid.constrain(.baselineAnchor(.init(view: self, baseline: baseline)),
                           to: target.anchor,
@@ -50,7 +36,8 @@ extension LayoutItem {
         }
     }
     
-    func exceptTop(leadingOffset: CGFloat = 0,
+    var allButTop: ItemPositionTargetCombination { allButTop() }
+    func allButTop(leadingOffset: CGFloat = 0,
                    bottomOffset: CGFloat = 0,
                    trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
         .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .leading),
@@ -58,6 +45,66 @@ extension LayoutItem {
                                   .init(anchor: .init(item: self, position: .trailing),
                                         offset: trailingOffset) ],
               vericalTargets: [ .init(anchor: .init(item: self, position: .bottom),
+                                      offset: bottomOffset) ])
+    }
+    
+    var allButLeading: ItemPositionTargetCombination { allButLeading() }
+    func allButLeading(topOffset: CGFloat = 0,
+                       bottomOffset: CGFloat = 0,
+                       trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .trailing),
+                                        offset: trailingOffset) ],
+              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                      offset: topOffset),
+                                .init(anchor: .init(item: self, position: .bottom),
+                                      offset: bottomOffset) ])
+    }
+    
+    var allButBottom: ItemPositionTargetCombination { allButBottom() }
+    func allButBottom(topOffset: CGFloat = 0,
+                      leadingOffset: CGFloat = 0,
+                      trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .leading),
+                                        offset: leadingOffset),
+                                  .init(anchor: .init(item: self, position: .trailing),
+                                        offset: trailingOffset) ],
+              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                      offset: topOffset) ])
+    }
+    
+    var allButTrailing: ItemPositionTargetCombination { allButTrailing() }
+    func allButTrailing(topOffset: CGFloat = 0,
+                        leadingOffset: CGFloat = 0,
+                        bottomOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .leading),
+                                        offset: leadingOffset) ],
+              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                      offset: topOffset),
+                                .init(anchor: .init(item: self, position: .bottom),
+                                      offset: bottomOffset) ])
+    }
+    
+    var allButLeft: ItemPositionTargetCombination { allButLeft() }
+    func allButLeft(topOffset: CGFloat = 0,
+                    bottomOffset: CGFloat = 0,
+                    rightOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .right),
+                                        offset: rightOffset) ],
+              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                      offset: topOffset),
+                                .init(anchor: .init(item: self, position: .bottom),
+                                      offset: bottomOffset) ])
+    }
+    
+    var allButRight: ItemPositionTargetCombination { allButRight() }
+    func allButRight(topOffset: CGFloat = 0,
+                     leftOffset: CGFloat = 0,
+                     bottomOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .left),
+                                        offset: leftOffset) ],
+              vericalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                      offset: topOffset),
+                                .init(anchor: .init(item: self, position: .bottom),
                                       offset: bottomOffset) ])
     }
     
@@ -112,11 +159,6 @@ extension LayoutItem {
 }
 
 // MARK: - Internal API
-
-struct ViewPositionTargetCombination {
-    let horizonalTargets: [HorizontalTarget]
-    let vericalTargets: [VerticalViewTarget]
-}
 
 struct ItemPositionTargetCombination {
     let horizonalTargets: [HorizontalTarget]
@@ -253,7 +295,7 @@ class MyTestView: UIView {
         label.text = "Hello AutoLayout!"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
-        label.constrain(to: self.exceptTop(leadingOffset: 20))
+        label.constrain(to: allButBottom)
     }
     
     required init?(coder: NSCoder) { fatalError() }
