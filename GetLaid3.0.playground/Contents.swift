@@ -34,6 +34,9 @@ extension LayoutView {
 }
 
 extension LayoutItem {
+    
+    // MARK: - Constrain Item to Multiple Targets
+    
     func constrain(to targetCombination: ItemPositionTargetCombination) {
         for verticalTarget in targetCombination.vericalTargets {
             let position = verticalTarget.anchor.position
@@ -46,6 +49,19 @@ extension LayoutItem {
             constrain(horizontalTarget.anchor.position, to: horizontalTarget)
         }
     }
+    
+    func exceptTop(leadingOffset: CGFloat = 0,
+                   bottomOffset: CGFloat = 0,
+                   trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizonalTargets: [ .init(anchor: .init(item: self, position: .leading),
+                                        offset: leadingOffset),
+                                  .init(anchor: .init(item: self, position: .trailing),
+                                        offset: trailingOffset) ],
+              vericalTargets: [ .init(anchor: .init(item: self, position: .bottom),
+                                      offset: bottomOffset) ])
+    }
+    
+    // MARK: - Constrain Single Position to Target
     
     func constrain(_ position: VerticalPosition, to target: VerticalViewTarget) {
         GetLaid.constrain(.itemAnchor(.init(item: self, position: position)),
@@ -237,8 +253,7 @@ class MyTestView: UIView {
         label.text = "Hello AutoLayout!"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
-        label.constrain(.top, to: self.top(offset: 12))
-        label.constrain(.left, to: self.left)
+        label.constrain(to: self.exceptTop(leadingOffset: 20))
     }
     
     required init?(coder: NSCoder) { fatalError() }
