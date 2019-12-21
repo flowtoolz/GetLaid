@@ -40,6 +40,8 @@ extension LayoutItem {
     
     // MARK: - Constrain Item to Multiple Targets
     
+    func constrain(to item: LayoutItem) { constrain(to: item.all) }
+    
     func constrain(to targetCombination: ItemPositionTargetCombination) {
         for verticalTarget in targetCombination.verticalTargets {
             constrain(verticalTarget.anchor.position, to: verticalTarget)
@@ -55,6 +57,21 @@ extension LayoutItem {
                                          offset: xOffset) ],
               verticalTargets: [ .init(anchor: .init(item: self, position: .centerY),
                                        offset: yOffset) ])
+    }
+    
+    var all: ItemPositionTargetCombination { all() }
+    func all(topOffset: CGFloat = 0,
+             leadingOffset: CGFloat = 0,
+             bottomOffset: CGFloat = 0,
+             trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination {
+        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+                                         offset: leadingOffset),
+                                   .init(anchor: .init(item: self, position: .trailing),
+                                         offset: trailingOffset) ],
+              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+                                       offset: topOffset),
+                                 .init(anchor: .init(item: self, position: .bottom),
+                                       offset: bottomOffset)])
     }
     
     var allButTop: ItemPositionTargetCombination { allButTop() }
