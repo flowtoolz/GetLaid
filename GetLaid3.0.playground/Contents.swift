@@ -600,12 +600,13 @@ class MyViewController : UIViewController {
 class MyTestView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .green
+        backgroundColor = UIColor(red: 0, green: 0.2, blue: 0, alpha: 1)
         let label = UILabel()
+        label.textColor = .white
         label.text = "Hello AutoLayout!"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
-        label.constrain(to: label.parent?.allButBottom)
+        label.constrain(to: label.parent?.allButBottom(leadingOffset: 10))
     }
     
     required init?(coder: NSCoder) { fatalError() }
