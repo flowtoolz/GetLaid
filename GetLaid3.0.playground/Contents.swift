@@ -324,22 +324,13 @@ struct HorizontalTarget: PositionTarget {
 }
 
 extension PositionTarget {
-    var min: Self {
-        var result = self
-        result.relation = .minimum
-        return result
-    }
-    
-    var max: Self {
-        var result = self
-        result.relation = .maximum
-        return result
-    }
-    
-    func at(_ factor: CGFloat) -> Self {
-        var result = self
-        result.relation = .relative(factor)
-        return result
+    var min: Self { with(.minimum) }
+    var max: Self { with(.maximum) }
+    func at(_ factor: CGFloat) -> Self { with(.relative(factor)) }
+    func with(_ relation: Relation) -> Self {
+        var copy = self
+        copy.relation = relation
+        return copy
     }
 }
 
