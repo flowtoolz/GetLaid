@@ -7,20 +7,23 @@ extension LayoutView {
     
     // MARK: - Constrain View to Single Baseline Target
     
-    func constrain(to target: BaselineTarget) {
+    func constrain(to target: BaselineTarget?) {
+        guard let target = target else { return }
         constrain(target.anchor.baseline, to: target)
     }
     
     // MARK: - Constrain Single Baseline to Target
     
-    func constrain(_ baseline: Baseline, to target: BaselineTarget) {
+    func constrain(_ baseline: Baseline, to target: BaselineTarget?) {
+        guard let target = target else { return }
         GetLaid.constrain(.init(view: self, baseline: baseline),
                           to: target.anchor,
                           offset: target.offset,
                           relation: target.relation)
     }
     
-    func constrain(_ baseline: Baseline, to target: VerticalTarget) {
+    func constrain(_ baseline: Baseline, to target: VerticalTarget?) {
+        guard let target = target else { return }
         GetLaid.constrain(.init(view: self, baseline: baseline),
                           to: target.anchor,
                           offset: target.offset,
@@ -42,9 +45,10 @@ extension LayoutItem {
     
     // MARK: - Constrain Item to Multiple Targets
     
-    func constrain(to item: LayoutItem) { constrain(to: item.all) }
+    func constrain(to item: LayoutItem?) { constrain(to: item?.all) }
     
-    func constrain(to targetCombination: ItemPositionTargetCombination) {
+    func constrain(to targetCombination: ItemPositionTargetCombination?) {
+        guard let targetCombination = targetCombination else { return }
         for verticalTarget in targetCombination.verticalTargets {
             constrain(verticalTarget.anchor.position, to: verticalTarget)
         }
@@ -150,115 +154,120 @@ extension LayoutItem {
     
     // MARK: - Constrain Item to Single Position Target
     
-    func constrain(to target: HorizontalTarget) {
+    func constrain(to target: HorizontalTarget?) {
+        guard let target = target else { return }
         constrain(target.anchor.position, to: target)
     }
     
-    func constrain(to target: VerticalTarget) {
+    func constrain(to target: VerticalTarget?) {
+        guard let target = target else { return }
         constrain(target.anchor.position, to: target)
     }
     
     // MARK: - Constrain Item Next to Other Item - Maximum Gap
     
-    func constrain(toTheRightOf item: LayoutItem, maxGap: CGFloat) {
+    func constrain(toTheRightOf item: LayoutItem?, maxGap: CGFloat) {
         constrain(toTheRightOf: item, minGap: 0)
-        constrain(.left, to: item.right(offset: maxGap).max)
+        constrain(.left, to: item?.right(offset: maxGap).max)
     }
     
-    func constrain(toTheLeftOf item: LayoutItem, maxGap: CGFloat) {
+    func constrain(toTheLeftOf item: LayoutItem?, maxGap: CGFloat) {
         constrain(toTheLeftOf: item, minGap: 0)
-        constrain(.right, to: item.left(offset: -maxGap).min)
+        constrain(.right, to: item?.left(offset: -maxGap).min)
     }
     
-    func constrain(after item: LayoutItem, maxGap: CGFloat) {
+    func constrain(after item: LayoutItem?, maxGap: CGFloat) {
         constrain(after: item, minGap: 0)
-        constrain(.leading, to: item.trailing(offset: maxGap).max)
+        constrain(.leading, to: item?.trailing(offset: maxGap).max)
     }
     
-    func constrain(before item: LayoutItem, maxGap: CGFloat) {
+    func constrain(before item: LayoutItem?, maxGap: CGFloat) {
         constrain(before: item, minGap: 0)
-        constrain(.trailing, to: item.leading(offset: -maxGap).min)
+        constrain(.trailing, to: item?.leading(offset: -maxGap).min)
     }
     
-    func constrain(above item: LayoutItem, maxGap: CGFloat) {
+    func constrain(above item: LayoutItem?, maxGap: CGFloat) {
         constrain(above: item, minGap: 0)
-        constrain(.bottom, to: item.top(offset: -maxGap).min)
+        constrain(.bottom, to: item?.top(offset: -maxGap).min)
     }
     
-    func constrain(below item: LayoutItem, maxGap: CGFloat) {
+    func constrain(below item: LayoutItem?, maxGap: CGFloat) {
         constrain(below: item, minGap: 0)
-        constrain(.top, to: item.bottom(offset: maxGap).max)
+        constrain(.top, to: item?.bottom(offset: maxGap).max)
     }
     
     // MARK: - Constrain Item Next to Other Item - Minimum Gap
     
-    func constrain(toTheRightOf item: LayoutItem, minGap: CGFloat) {
-        constrain(.left, to: item.right(offset: minGap).min)
+    func constrain(toTheRightOf item: LayoutItem?, minGap: CGFloat) {
+        constrain(.left, to: item?.right(offset: minGap).min)
     }
     
-    func constrain(toTheLeftOf item: LayoutItem, minGap: CGFloat) {
-        constrain(.right, to: item.left(offset: -minGap).max)
+    func constrain(toTheLeftOf item: LayoutItem?, minGap: CGFloat) {
+        constrain(.right, to: item?.left(offset: -minGap).max)
     }
     
-    func constrain(after item: LayoutItem, minGap: CGFloat) {
-        constrain(.leading, to: item.trailing(offset: minGap).min)
+    func constrain(after item: LayoutItem?, minGap: CGFloat) {
+        constrain(.leading, to: item?.trailing(offset: minGap).min)
     }
     
-    func constrain(before item: LayoutItem, minGap: CGFloat) {
-        constrain(.trailing, to: item.leading(offset: -minGap).max)
+    func constrain(before item: LayoutItem?, minGap: CGFloat) {
+        constrain(.trailing, to: item?.leading(offset: -minGap).max)
     }
     
-    func constrain(above item: LayoutItem, minGap: CGFloat) {
-        constrain(.bottom, to: item.top(offset: -minGap).max)
+    func constrain(above item: LayoutItem?, minGap: CGFloat) {
+        constrain(.bottom, to: item?.top(offset: -minGap).max)
     }
     
-    func constrain(below item: LayoutItem, minGap: CGFloat) {
-        constrain(.top, to: item.bottom(offset: minGap).min)
+    func constrain(below item: LayoutItem?, minGap: CGFloat) {
+        constrain(.top, to: item?.bottom(offset: minGap).min)
     }
     
     // MARK: - Constrain Item Next to Other Item - Exact Gap
     
-    func constrain(toTheRightOf item: LayoutItem, gap: CGFloat = 0) {
-        constrain(.left, to: item.right(offset: gap))
+    func constrain(toTheRightOf item: LayoutItem?, gap: CGFloat = 0) {
+        constrain(.left, to: item?.right(offset: gap))
     }
     
-    func constrain(toTheLeftOf item: LayoutItem, gap: CGFloat = 0) {
-        constrain(.right, to: item.left(offset: -gap))
+    func constrain(toTheLeftOf item: LayoutItem?, gap: CGFloat = 0) {
+        constrain(.right, to: item?.left(offset: -gap))
     }
     
-    func constrain(after item: LayoutItem, gap: CGFloat = 0) {
-        constrain(.leading, to: item.trailing(offset: gap))
+    func constrain(after item: LayoutItem?, gap: CGFloat = 0) {
+        constrain(.leading, to: item?.trailing(offset: gap))
     }
     
-    func constrain(before item: LayoutItem, gap: CGFloat = 0) {
-        constrain(.trailing, to: item.leading(offset: -gap))
+    func constrain(before item: LayoutItem?, gap: CGFloat = 0) {
+        constrain(.trailing, to: item?.leading(offset: -gap))
     }
     
-    func constrain(above item: LayoutItem, gap: CGFloat = 0) {
-        constrain(.bottom, to: item.top(offset: -gap))
+    func constrain(above item: LayoutItem?, gap: CGFloat = 0) {
+        constrain(.bottom, to: item?.top(offset: -gap))
     }
     
-    func constrain(below item: LayoutItem, gap: CGFloat = 0) {
-        constrain(.top, to: item.bottom(offset: gap))
+    func constrain(below item: LayoutItem?, gap: CGFloat = 0) {
+        constrain(.top, to: item?.bottom(offset: gap))
     }
     
     // MARK: - Constrain Single Position to Target
     
-    func constrain(_ position: VerticalPosition, to target: BaselineTarget) {
+    func constrain(_ position: VerticalPosition, to target: BaselineTarget?) {
+        guard let target = target else { return }
         GetLaid.constrain(.init(item: self, position: position),
                           to: target.anchor,
                           offset: target.offset,
                           relation: target.relation)
     }
     
-    func constrain(_ position: VerticalPosition, to target: VerticalTarget) {
+    func constrain(_ position: VerticalPosition, to target: VerticalTarget?) {
+        guard let target = target else { return }
         GetLaid.constrain(.init(item: self, position: position),
                           to: target.anchor,
                           offset: target.offset,
                           relation: target.relation)
     }
     
-    func constrain(_ position: HorizontalPosition, to target: HorizontalTarget) {
+    func constrain(_ position: HorizontalPosition, to target: HorizontalTarget?) {
+        guard let target = target else { return }
         GetLaid.constrain(.init(item: self, position: position),
                           to: target.anchor,
                           offset: target.offset,
@@ -476,8 +485,6 @@ struct GetLaid {
 
 typealias LayoutAttribute = NSLayoutConstraint.Attribute
 
-// TODO: do we even need these wrappers around the native anchors?
-
 struct HorizontalAnchor {
     var nsAnchor: NSLayoutXAxisAnchor { item.nsAnchor(for: position) }
     let item: LayoutItem
@@ -525,8 +532,12 @@ extension LayoutItem {
     }
 }
 
-extension UIView: LayoutView {}
+extension UIView: LayoutView {
+    var parent: LayoutView? { superview }
+}
+
 protocol LayoutView: LayoutItem {
+    var parent: LayoutView? { get }
     var firstBaselineAnchor: NSLayoutYAxisAnchor { get }
     var lastBaselineAnchor: NSLayoutYAxisAnchor { get }
 }
@@ -594,8 +605,7 @@ class MyTestView: UIView {
         label.text = "Hello AutoLayout!"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
-        label.constrain(to: top)
-        label.constrain(.left, to: right.at(0.5))
+        label.constrain(to: label.parent?.allButBottom)
     }
     
     required init?(coder: NSCoder) { fatalError() }
