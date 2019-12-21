@@ -233,66 +233,64 @@ struct HorizontalTarget {
 }
 
 struct GetLaid {
-    static func constrain(_ sourceVerticalAnchor: VerticalAnchor,
-                          to targetVerticalAnchor: VerticalAnchor,
+    static func constrain(_ anchor: VerticalAnchor,
+                          to targetAnchor: VerticalAnchor,
                           offset: CGFloat = 0) {
-        let sourceAnchor = sourceVerticalAnchor.item.anchor(for: sourceVerticalAnchor.position)
-        let targetAnchor = targetVerticalAnchor.item.anchor(for: targetVerticalAnchor.position)
-        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+        anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
+                                   constant: offset).isActive = true
     }
     
-    static func constrain(_ sourceVerticalAnchor: VerticalAnchor,
-                          to targetBaselineAnchor: BaselineAnchor,
+    static func constrain(_ anchor: VerticalAnchor,
+                          to targetAnchor: BaselineAnchor,
                           offset: CGFloat = 0) {
-        let sourceAnchor = sourceVerticalAnchor.item.anchor(for: sourceVerticalAnchor.position)
-        let targetAnchor = targetBaselineAnchor.view.anchor(for: targetBaselineAnchor.baseline)
-        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+        anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
+                                   constant: offset).isActive = true
     }
     
-    static func constrain(_ sourceBaselineAnchor: BaselineAnchor,
-                          to targetVerticalAnchor: VerticalAnchor,
+    static func constrain(_ anchor: BaselineAnchor,
+                          to targetAnchor: VerticalAnchor,
                           offset: CGFloat = 0) {
-        let sourceAnchor = sourceBaselineAnchor.view.anchor(for: sourceBaselineAnchor.baseline)
-        let targetAnchor = targetVerticalAnchor.item.anchor(for: targetVerticalAnchor.position)
-        
-        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+        anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
+                                   constant: offset).isActive = true
     }
     
-    static func constrain(_ sourceBaselineAnchor: BaselineAnchor,
-                          to targetBaselineAnchor: BaselineAnchor,
+    static func constrain(_ anchor: BaselineAnchor,
+                          to targetAnchor: BaselineAnchor,
                           offset: CGFloat = 0) {
-        let sourceAnchor = sourceBaselineAnchor.view.anchor(for: sourceBaselineAnchor.baseline)
-        let targetAnchor = targetBaselineAnchor.view.anchor(for: targetBaselineAnchor.baseline)
-        
-        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+        anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
+                                   constant: offset).isActive = true
     }
     
-    static func constrain(_ sourceHorizontalAnchor: HorizontalAnchor,
-                          to targetHorizontalAnchor: HorizontalAnchor,
+    static func constrain(_ anchor: HorizontalAnchor,
+                          to targetAnchor: HorizontalAnchor,
                           offset: CGFloat = 0) {
-        let sourceAnchor = sourceHorizontalAnchor.item.anchor(for: sourceHorizontalAnchor.position)
-        let targetAnchor = targetHorizontalAnchor.item.anchor(for: targetHorizontalAnchor.position)
-        sourceAnchor.constraint(equalTo: targetAnchor, constant: offset).isActive = true
+        anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
+                                   constant: offset).isActive = true
     }
 }
 
+// TODO: do we even need these wrappers around the native anchors?
+
 struct HorizontalAnchor {
+    var nsAnchor: NSLayoutXAxisAnchor { item.nsAnchor(for: position) }
     let item: LayoutItem
     let position: HorizontalPosition
 }
 
 struct VerticalAnchor {
+    var nsAnchor: NSLayoutYAxisAnchor { item.nsAnchor(for: position) }
     let item: LayoutItem
     let position: VerticalPosition
 }
 
 struct BaselineAnchor {
+    var nsAnchor: NSLayoutYAxisAnchor { view.nsAnchor(for: baseline) }
     let view: LayoutView
     let baseline: Baseline
 }
 
 extension LayoutView {
-    func anchor(for baseline: Baseline) -> NSLayoutYAxisAnchor {
+    func nsAnchor(for baseline: Baseline) -> NSLayoutYAxisAnchor {
         switch baseline {
         case .firstBaseline: return firstBaselineAnchor
         case .lastBaseline: return lastBaselineAnchor
@@ -301,7 +299,7 @@ extension LayoutView {
 }
 
 extension LayoutItem {
-    func anchor(for position: VerticalPosition) -> NSLayoutYAxisAnchor {
+    func nsAnchor(for position: VerticalPosition) -> NSLayoutYAxisAnchor {
         switch position {
         case .top: return topAnchor
         case .centerY: return centerYAnchor
@@ -309,7 +307,7 @@ extension LayoutItem {
         }
     }
     
-    func anchor(for position: HorizontalPosition) -> NSLayoutXAxisAnchor {
+    func nsAnchor(for position: HorizontalPosition) -> NSLayoutXAxisAnchor {
         switch position {
         case .leading: return leadingAnchor
         case .centerX: return centerXAnchor
