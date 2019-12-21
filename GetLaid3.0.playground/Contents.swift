@@ -5,6 +5,60 @@ import PlaygroundSupport
 
 extension LayoutView {
     
+    // MARK: - Constrain Four Edges to Parent
+    
+    func constrainToParent(topInset: CGFloat = 0,
+                           leadingInset: CGFloat = 0,
+                           bottomInset: CGFloat = 0,
+                           trailingInset: CGFloat = 0) {
+        constrain(to: parent?.all(topOffset: topInset,
+                                  leadingOffset: leadingInset,
+                                  bottomOffset: -bottomInset,
+                                  trailingOffset: -trailingInset))
+    }
+    
+    func constrainToParent(topInset: CGFloat = 0,
+                           leftInset: CGFloat,
+                           bottomInset: CGFloat = 0,
+                           rightInset: CGFloat) {
+        constrain(to: parent?.all(topOffset: topInset,
+                                  leftOffset: leftInset,
+                                  bottomOffset: -bottomInset,
+                                  rightOffset: -rightInset))
+    }
+    
+    func constrainToParentTop(inset: CGFloat = 0) {
+        constrain(to: parent?.top(offset: inset))
+    }
+    
+    func constrainToParentLeading(inset: CGFloat = 0) {
+        constrain(to: parent?.leading(offset: inset))
+    }
+    
+    func constrainToParentLeft(inset: CGFloat = 0) {
+        constrain(to: parent?.left(offset: inset))
+    }
+    
+    func constrainToParentCenterX(offset: CGFloat = 0) {
+        constrain(to: parent?.centerX(offset: offset))
+    }
+    
+    func constrainToParentCenterY(offset: CGFloat = 0) {
+        constrain(to: parent?.centerY(offset: offset))
+    }
+    
+    func constrainToParentBottom(inset: CGFloat = 0) {
+        constrain(to: parent?.bottom(offset: -inset))
+    }
+    
+    func constrainToParentTrailing(inset: CGFloat = 0) {
+        constrain(to: parent?.trailing(offset: -inset))
+    }
+    
+    func constrainToParentRight(inset: CGFloat = 0) {
+        constrain(to: parent?.right(offset: -inset))
+    }
+    
     // MARK: - Constrain View to Single Baseline Target
     
     func constrain(to target: BaselineTarget?) {
@@ -316,6 +370,12 @@ extension LayoutItem {
               offset: offset)
     }
     
+    var centerX: HorizontalTarget { centerX(offset: 0) }
+    func centerX(offset: CGFloat) -> HorizontalTarget {
+        .init(anchor: .init(item: self, position: .centerX),
+              offset: offset)
+    }
+    
     var trailing: HorizontalTarget { trailing(offset: 0) }
     func trailing(offset: CGFloat) -> HorizontalTarget {
         .init(anchor: .init(item: self, position: .trailing),
@@ -337,6 +397,11 @@ extension LayoutItem {
     var top: VerticalTarget { top(offset: 0) }
     func top(offset: CGFloat) -> VerticalTarget {
         .init(anchor: .init(item: self, position: .top), offset: offset)
+    }
+    
+    var centerY: VerticalTarget { centerY(offset: 0) }
+    func centerY(offset: CGFloat) -> VerticalTarget {
+        .init(anchor: .init(item: self, position: .centerY), offset: offset)
     }
     
     var bottom: VerticalTarget { bottom(offset: 0) }
