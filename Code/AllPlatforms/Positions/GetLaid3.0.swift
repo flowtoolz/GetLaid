@@ -138,19 +138,19 @@ public extension LayoutView {
     @discardableResult
     func constrain(_ baseline: Baseline, to target: BaselineTarget?) -> NSLayoutConstraint? {
         guard let target = target else { return nil }
-        return GetLaid.constrain(.init(view: self, baseline: baseline),
-                          to: target.anchor,
-                          offset: target.offset,
-                          relation: target.relation)
+        let sourceAnchor = BaselineAnchor(view: self, baseline: baseline)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
     }
     
     @discardableResult
     func constrain(_ baseline: Baseline, to target: VerticalTarget?) -> NSLayoutConstraint? {
         guard let target = target else { return nil }
-        return GetLaid.constrain(.init(view: self, baseline: baseline),
-                          to: target.anchor,
-                          offset: target.offset,
-                          relation: target.relation)
+        let sourceAnchor = BaselineAnchor(view: self, baseline: baseline)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
     }
     
     var firstBaseline: BaselineTarget { firstBaseline(offset: 0) }
@@ -445,30 +445,30 @@ public extension LayoutItem {
     func constrain(_ position: VerticalPosition,
                    to target: BaselineTarget?) -> NSLayoutConstraint? {
         guard let target = target else { return nil }
-        return GetLaid.constrain(.init(item: self, position: position),
-                          to: target.anchor,
-                          offset: target.offset,
-                          relation: target.relation)
+        let sourceAnchor = VerticalAnchor(item: self, position: position)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
     }
     
     @discardableResult
     func constrain(_ position: VerticalPosition,
                    to target: VerticalTarget?) -> NSLayoutConstraint? {
         guard let target = target else { return nil }
-        return GetLaid.constrain(.init(item: self, position: position),
-                          to: target.anchor,
-                          offset: target.offset,
-                          relation: target.relation)
+        let sourceAnchor = VerticalAnchor(item: self, position: position)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
     }
     
     @discardableResult
     func constrain(_ position: HorizontalPosition,
                    to target: HorizontalTarget?) -> NSLayoutConstraint? {
         guard let target = target else { return nil }
-        return GetLaid.constrain(.init(item: self, position: position),
-                                 to: target.anchor,
-                                 offset: target.offset,
-                                 relation: target.relation)
+        let sourceAnchor = HorizontalAnchor(item: self, position: position)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
     }
     
     var leading: HorizontalTarget { leading(offset: 0) }
@@ -515,257 +515,4 @@ public extension LayoutItem {
 public struct ItemPositionTargetCombination {
     let horizontalTargets: [HorizontalTarget]
     let verticalTargets: [VerticalTarget]
-}
-
-public struct BaselineTarget: PositionTarget {
-    let anchor: BaselineAnchor
-    let offset: CGFloat
-    public var relation = Relation.exact
-}
-
-public struct VerticalTarget: PositionTarget {
-    let anchor: VerticalAnchor
-    let offset: CGFloat
-    public var relation = Relation.exact
-}
-
-public struct HorizontalTarget: PositionTarget {
-    let anchor: HorizontalAnchor
-    let offset: CGFloat
-    public var relation = Relation.exact
-}
-
-public extension PositionTarget {
-    var min: Self { with(.minimum) }
-    var max: Self { with(.maximum) }
-    func at(_ factor: CGFloat) -> Self { with(.relative(factor)) }
-    func with(_ relation: Relation) -> Self {
-        var copy = self
-        copy.relation = relation
-        return copy
-    }
-}
-
-public protocol PositionTarget {
-    var relation: Relation { get set }
-}
-
-public enum Relation {
-    case exact
-    case minimum
-    case maximum
-    case relative(CGFloat)
-}
-
-// MARK: - Internal API
-
-struct GetLaid {
-    static func constrain(_ anchor: VerticalAnchor,
-                          to targetAnchor: VerticalAnchor,
-                          offset: CGFloat,
-                          relation: Relation) -> NSLayoutConstraint {
-        switch relation {
-        case .exact:
-            return anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .minimum:
-            return anchor.nsAnchor.constraint(greaterThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .maximum:
-            return anchor.nsAnchor.constraint(lessThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .relative(let factor):
-            return NSLayoutConstraint(item: anchor.item,
-                                      attribute: anchor.position.attribute,
-                                      relatedBy: .equal,
-                                      toItem: targetAnchor.item,
-                                      attribute: targetAnchor.position.attribute,
-                                      multiplier: factor,
-                                      constant: offset).activate()
-        }
-    }
-    
-    static func constrain(_ anchor: VerticalAnchor,
-                          to targetAnchor: BaselineAnchor,
-                          offset: CGFloat,
-                          relation: Relation) -> NSLayoutConstraint {
-        switch relation {
-        case .exact:
-            return anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .minimum:
-            return anchor.nsAnchor.constraint(greaterThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .maximum:
-            return anchor.nsAnchor.constraint(lessThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .relative(let factor):
-            return NSLayoutConstraint(item: anchor.item,
-                                      attribute: anchor.position.attribute,
-                                      relatedBy: .equal,
-                                      toItem: targetAnchor.view,
-                                      attribute: targetAnchor.baseline.attribute,
-                                      multiplier: factor,
-                                      constant: offset).activate()
-        }
-    }
-    
-    static func constrain(_ anchor: BaselineAnchor,
-                          to targetAnchor: VerticalAnchor,
-                          offset: CGFloat,
-                          relation: Relation) -> NSLayoutConstraint {
-        switch relation {
-        case .exact:
-            return anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .minimum:
-            return anchor.nsAnchor.constraint(greaterThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .maximum:
-            return anchor.nsAnchor.constraint(lessThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .relative(let factor):
-            return NSLayoutConstraint(item: anchor.view,
-                                      attribute: anchor.baseline.attribute,
-                                      relatedBy: .equal,
-                                      toItem: targetAnchor.item,
-                                      attribute: targetAnchor.position.attribute,
-                                      multiplier: factor,
-                                      constant: offset).activate()
-        }
-    }
-    
-    static func constrain(_ anchor: BaselineAnchor,
-                          to targetAnchor: BaselineAnchor,
-                          offset: CGFloat,
-                          relation: Relation) -> NSLayoutConstraint {
-        switch relation {
-        case .exact:
-            return anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .minimum:
-            return anchor.nsAnchor.constraint(greaterThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .maximum:
-            return anchor.nsAnchor.constraint(lessThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .relative(let factor):
-            return NSLayoutConstraint(item: anchor.view,
-                                      attribute: anchor.baseline.attribute,
-                                      relatedBy: .equal,
-                                      toItem: targetAnchor.view,
-                                      attribute: targetAnchor.baseline.attribute,
-                                      multiplier: factor,
-                                      constant: offset).activate()
-        }
-    }
-    
-    static func constrain(_ anchor: HorizontalAnchor,
-                          to targetAnchor: HorizontalAnchor,
-                          offset: CGFloat,
-                          relation: Relation) -> NSLayoutConstraint {
-        switch relation {
-        case .exact:
-            return anchor.nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .minimum:
-            return anchor.nsAnchor.constraint(greaterThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .maximum:
-            return anchor.nsAnchor.constraint(lessThanOrEqualTo: targetAnchor.nsAnchor,
-                                              constant: offset).activate()
-        case .relative(let factor):
-            return NSLayoutConstraint(item: anchor.item,
-                                      attribute: anchor.position.attribute,
-                                      relatedBy: .equal,
-                                      toItem: targetAnchor.item,
-                                      attribute: targetAnchor.position.attribute,
-                                      multiplier: factor,
-                                      constant: offset).activate()
-        }
-    }
-}
-
-struct HorizontalAnchor {
-    var nsAnchor: NSLayoutXAxisAnchor { item.nsAnchor(for: position) }
-    let item: LayoutItem
-    let position: HorizontalPosition
-}
-
-struct VerticalAnchor {
-    var nsAnchor: NSLayoutYAxisAnchor { item.nsAnchor(for: position) }
-    let item: LayoutItem
-    let position: VerticalPosition
-}
-
-struct BaselineAnchor {
-    var nsAnchor: NSLayoutYAxisAnchor { view.nsAnchor(for: baseline) }
-    let view: LayoutView
-    let baseline: Baseline
-}
-
-extension LayoutView {
-    func nsAnchor(for baseline: Baseline) -> NSLayoutYAxisAnchor {
-        switch baseline {
-        case .firstBaseline: return firstBaselineAnchor
-        case .lastBaseline: return lastBaselineAnchor
-        }
-    }
-}
-
-extension LayoutItem {
-    func nsAnchor(for position: VerticalPosition) -> NSLayoutYAxisAnchor {
-        switch position {
-        case .top: return topAnchor
-        case .centerY: return centerYAnchor
-        case .bottom: return bottomAnchor
-        }
-    }
-    
-    func nsAnchor(for position: HorizontalPosition) -> NSLayoutXAxisAnchor {
-        switch position {
-        case .leading: return leadingAnchor
-        case .centerX: return centerXAnchor
-        case .trailing: return trailingAnchor
-        case .left: return leftAnchor
-        case .right: return rightAnchor
-        }
-    }
-}
-
-public enum VerticalPosition {
-    var attribute: LayoutAttribute {
-        switch self {
-        case .top: return .top
-        case .centerY: return .centerY
-        case .bottom: return .bottom
-        }
-    }
-    
-    case top, centerY, bottom
-}
-
-public enum HorizontalPosition {
-    var attribute: LayoutAttribute {
-        switch self {
-        case .leading: return .leading
-        case .centerX: return .centerX
-        case .trailing: return .trailing
-        case .left: return .left
-        case .right: return .right
-        }
-    }
-    
-    case leading, centerX, trailing, left, right
-}
-
-public enum Baseline {
-    var attribute: LayoutAttribute {
-        switch self {
-        case .firstBaseline: return .firstBaseline
-        case .lastBaseline: return .lastBaseline
-        }
-    }
-    
-    case firstBaseline, lastBaseline
 }
