@@ -4,7 +4,49 @@ import AppKit
 import UIKit
 #endif
 
-public struct VerticalTarget: PositionTarget {
+public extension LayoutItem
+{
+    @discardableResult
+    func constrain(to target: VerticalTarget?) -> NSLayoutConstraint? {
+        guard let target = target else { return nil }
+        return constrain(target.anchor.position, to: target)
+    }
+    
+    @discardableResult
+    func constrain(_ position: VerticalPosition,
+                   to target: VerticalTarget?) -> NSLayoutConstraint?
+    {
+        guard let target = target else { return nil }
+        let sourceAnchor = VerticalAnchor(item: self, position: position)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
+    }
+    
+    var top: VerticalTarget { top(offset: 0) }
+    
+    func top(offset: CGFloat) -> VerticalTarget
+    {
+        .init(anchor: .init(item: self, position: .top), offset: offset)
+    }
+    
+    var centerY: VerticalTarget { centerY(offset: 0) }
+    
+    func centerY(offset: CGFloat) -> VerticalTarget
+    {
+        .init(anchor: .init(item: self, position: .centerY), offset: offset)
+    }
+    
+    var bottom: VerticalTarget { bottom(offset: 0) }
+    
+    func bottom(offset: CGFloat) -> VerticalTarget
+    {
+        .init(anchor: .init(item: self, position: .bottom), offset: offset)
+    }
+}
+
+public struct VerticalTarget: PositionTarget
+{
     let anchor: VerticalAnchor
     let offset: CGFloat
     public var relation = Relation.exact

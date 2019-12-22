@@ -4,7 +4,63 @@ import AppKit
 import UIKit
 #endif
 
-public struct HorizontalTarget: PositionTarget {
+public extension LayoutItem
+{
+    @discardableResult
+    func constrain(to target: HorizontalTarget?) -> NSLayoutConstraint? {
+        guard let target = target else { return nil }
+        return constrain(target.anchor.position, to: target)
+    }
+    
+    @discardableResult
+    func constrain(_ position: HorizontalPosition,
+                   to target: HorizontalTarget?) -> NSLayoutConstraint?
+    {
+        guard let target = target else { return nil }
+        let sourceAnchor = HorizontalAnchor(item: self, position: position)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
+    }
+    
+    var leading: HorizontalTarget { leading(offset: 0) }
+    
+    func leading(offset: CGFloat) -> HorizontalTarget
+    {
+        .init(anchor: .init(item: self, position: .leading), offset: offset)
+    }
+    
+    var centerX: HorizontalTarget { centerX(offset: 0) }
+    
+    func centerX(offset: CGFloat) -> HorizontalTarget
+    {
+        .init(anchor: .init(item: self, position: .centerX), offset: offset)
+    }
+    
+    var trailing: HorizontalTarget { trailing(offset: 0) }
+    
+    func trailing(offset: CGFloat) -> HorizontalTarget
+    {
+        .init(anchor: .init(item: self, position: .trailing), offset: offset)
+    }
+    
+    var left: HorizontalTarget { left(offset: 0) }
+    
+    func left(offset: CGFloat) -> HorizontalTarget
+    {
+        .init(anchor: .init(item: self, position: .left), offset: offset)
+    }
+    
+    var right: HorizontalTarget { right(offset: 0) }
+    
+    func right(offset: CGFloat) -> HorizontalTarget
+    {
+        .init(anchor: .init(item: self, position: .right), offset: offset)
+    }
+}
+
+public struct HorizontalTarget: PositionTarget
+{
     let anchor: HorizontalAnchor
     let offset: CGFloat
     public var relation = Relation.exact

@@ -4,6 +4,19 @@ import AppKit
 import UIKit
 #endif
 
+public extension LayoutView
+{
+    @discardableResult
+    func constrain(_ baseline: Baseline, to target: VerticalTarget?) -> NSLayoutConstraint?
+    {
+        guard let target = target else { return nil }
+        let sourceAnchor = BaselineAnchor(view: self, baseline: baseline)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
+    }
+}
+
 extension BaselineAnchor
 {
     func constrain(to targetAnchor: VerticalAnchor,

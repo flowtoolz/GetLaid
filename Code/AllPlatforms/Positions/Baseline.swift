@@ -4,7 +4,42 @@ import AppKit
 import UIKit
 #endif
 
-public struct BaselineTarget: PositionTarget {
+public extension LayoutView
+{
+    @discardableResult
+    func constrain(to target: BaselineTarget?) -> NSLayoutConstraint?
+    {
+        guard let target = target else { return nil }
+        return constrain(target.anchor.baseline, to: target)
+    }
+    
+    @discardableResult
+    func constrain(_ baseline: Baseline, to target: BaselineTarget?) -> NSLayoutConstraint?
+    {
+        guard let target = target else { return nil }
+        let sourceAnchor = BaselineAnchor(view: self, baseline: baseline)
+        return sourceAnchor.constrain(to: target.anchor,
+                                      offset: target.offset,
+                                      relation: target.relation)
+    }
+    
+    var firstBaseline: BaselineTarget { firstBaseline(offset: 0) }
+    
+    func firstBaseline(offset: CGFloat) -> BaselineTarget
+    {
+        .init(anchor: .init(view: self, baseline: .firstBaseline), offset: offset)
+    }
+    
+    var lastBaseline: BaselineTarget { lastBaseline(offset: 0) }
+    
+    func lastBaseline(offset: CGFloat) -> BaselineTarget
+    {
+        .init(anchor: .init(view: self, baseline: .lastBaseline), offset: offset)
+    }
+}
+
+public struct BaselineTarget: PositionTarget
+{
     let anchor: BaselineAnchor
     let offset: CGFloat
     public var relation = Relation.exact

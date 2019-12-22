@@ -4,7 +4,8 @@ import AppKit
 import UIKit
 #endif
 
-public enum Relation {
+public enum Relation
+{
     case exact
     case minimum
     case maximum
