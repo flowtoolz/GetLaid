@@ -4,21 +4,6 @@ import AppKit
 import UIKit
 #endif
 
-public extension LayoutView
-{
-    @discardableResult
-    func constrainHeightToParent() -> NSLayoutConstraint?
-    {
-        parent.map(constrainHeight(to:))
-    }
-    
-    @discardableResult
-    func constrainHeightToParent(with factor: CGFloat) -> NSLayoutConstraint?
-    {
-        parent.map { constrainHeight(to: factor, of: $0) }
-    }
-}
-
 public extension LayoutItem
 {
     // MARK: - To Absolute Points
@@ -46,14 +31,14 @@ public extension LayoutItem
     @discardableResult
     func constrainHeight(to target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.height, to: target)
+        constrain(to: target.height)
     }
     
     @discardableResult
     func constrainHeight(to factor: CGFloat,
                          of target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.height, to: target, factor: factor)
+        constrain(to: target.height.at(factor))
     }
     
     // MARK: - To Width
@@ -61,13 +46,13 @@ public extension LayoutItem
     @discardableResult
     func constrainHeightToWidth(of target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.height, to: .width, of: target)
+        constrain(.height, to: target.width)
     }
     
     @discardableResult
     func constrainHeight(to factor: CGFloat,
                          ofWidthOf target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.height, to: .width, of: target, factor: factor)
+        constrain(.height, to: target.width.at(factor))
     }
 }

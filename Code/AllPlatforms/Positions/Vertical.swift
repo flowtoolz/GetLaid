@@ -45,7 +45,7 @@ public extension LayoutItem
     }
 }
 
-public struct VerticalTarget: PositionTarget
+public struct VerticalTarget: Target
 {
     let anchor: VerticalAnchor
     let offset: CGFloat

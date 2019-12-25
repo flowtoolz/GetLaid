@@ -4,21 +4,6 @@ import AppKit
 import UIKit
 #endif
 
-public extension LayoutView
-{
-    @discardableResult
-    func constrainWidthToParent() -> NSLayoutConstraint?
-    {
-        parent.map(constrainWidth(to:))
-    }
-    
-    @discardableResult
-    func constrainWidthToParent(with factor: CGFloat) -> NSLayoutConstraint?
-    {
-        parent.map { constrainWidth(to: factor, of: $0) }
-    }
-}
-
 public extension LayoutItem
 {
     // MARK: - To Absolute Points
@@ -46,14 +31,14 @@ public extension LayoutItem
     @discardableResult
     func constrainWidth(to target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.width, to: target)
+        constrain(to: target.width)
     }
     
     @discardableResult
     func constrainWidth(to factor: CGFloat,
                         of target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.width, to: target, factor: factor)
+        constrain(to: target.width.at(factor))
     }
     
     // MARK: - To Height
@@ -61,19 +46,19 @@ public extension LayoutItem
     @discardableResult
     func constrainWidthToHeight(of target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.width, to: .height, of: target)
+        constrain(.width, to: target.height)
     }
     
     @discardableResult
     func constrainAspectRatio(to ratio: CGFloat) -> NSLayoutConstraint
     {
-        constrainWidth(to: ratio, ofHeightOf: self)
+        constrain(.width, to: height.at(ratio))
     }
     
     @discardableResult
     func constrainWidth(to factor: CGFloat,
                         ofHeightOf target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.width, to: .height, of: target, factor: factor)
+        constrain(.width, to: target.height.at(factor))
     }
 }

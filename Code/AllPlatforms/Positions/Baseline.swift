@@ -38,7 +38,7 @@ public extension LayoutView
     }
 }
 
-public struct BaselineTarget: PositionTarget
+public struct BaselineTarget: Target
 {
     let anchor: BaselineAnchor
     let offset: CGFloat

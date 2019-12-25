@@ -4,7 +4,7 @@ import AppKit
 import UIKit
 #endif
 
-public extension PositionTarget
+public extension Target
 {
     var min: Self { with(.minimum) }
     var max: Self { with(.maximum) }
@@ -19,7 +19,7 @@ public extension PositionTarget
     }
 }
 
-public protocol PositionTarget
+public protocol Target
 {
     var relation: Relation { get set }
 }

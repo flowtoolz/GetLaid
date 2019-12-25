@@ -59,7 +59,7 @@ public extension LayoutItem
     }
 }
 
-public struct HorizontalTarget: PositionTarget
+public struct HorizontalTarget: Target
 {
     let anchor: HorizontalAnchor
     let offset: CGFloat
