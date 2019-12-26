@@ -6,54 +6,72 @@ import UIKit
 
 public extension LayoutItem
 {
-    func constrain(_ dimension: Dimension,
-                   toMinimum constant: CGFloat) -> NSLayoutConstraint
+    func constrain(to target: DimensionTarget) -> [NSLayoutConstraint]
     {
-        let sourceAnchor = DimensionAnchor(item: self, dimension: dimension)
-        return sourceAnchor.constrain(to: constant, relation: .minimum)
-    }
-
-    func constrain(_ dimension: Dimension,
-                   toMaximum constant: CGFloat) -> NSLayoutConstraint
-    {
-        let sourceAnchor = DimensionAnchor(item: self, dimension: dimension)
-        return sourceAnchor.constrain(to: constant, relation: .maximum)
-    }
-    
-    func constrain(_ dimension: Dimension,
-                   to constant: CGFloat) -> NSLayoutConstraint
-    {
-        let sourceAnchor = DimensionAnchor(item: self, dimension: dimension)
-        return sourceAnchor.constrain(to: constant, relation: .exact)
-    }
-    
-    func constrain(to target: DimensionTarget) -> NSLayoutConstraint
-    {
-        constrain(target.anchor.dimension, to: target)
+        switch target.type
+        {
+        case .anchor(let anchor):
+            return [constrain(anchor.dimension, to: target)]
+        case .size(let constant):
+            return [constrain(.width, to: .exact(constant)),
+                    constrain(.height, to: .exact(constant))]
+        }
     }
     
     func constrain(_ dimension: Dimension,
                    to target: DimensionTarget) -> NSLayoutConstraint
     {
         let sourceAnchor = DimensionAnchor(item: self, dimension: dimension)
-        return sourceAnchor.constrain(to: target.anchor, relation: target.relation)
+        
+        switch target.type
+        {
+        case .anchor(let anchor):
+            return sourceAnchor.constrain(to: anchor, relation: target.relation)
+        case .size(let constant):
+            return sourceAnchor.constrain(to: constant, relation: target.relation)
+        }
     }
     
     var width: DimensionTarget
     {
-        .init(anchor: .init(item: self, dimension: .width))
+        .init(type: .anchor(.init(item: self, dimension: .width)))
     }
     
     var height: DimensionTarget
     {
-        .init(anchor: .init(item: self, dimension: .height))
+        .init(type: .anchor(.init(item: self, dimension: .height)))
     }
 }
 
 public struct DimensionTarget: Target
 {
-    let anchor: DimensionAnchor
+    static func anchor(item: LayoutItem, dimension: Dimension) -> Self
+    {
+        .init(type: .anchor(.init(item: item, dimension: dimension)))
+    }
+    
+    static func exact(_ constant: CGFloat) -> Self
+    {
+        .init(type: .size(constant))
+    }
+    
+    static func max(_ constant: CGFloat) -> Self
+    {
+        .init(type: .size(constant), relation: .maximum)
+    }
+    
+    static func min(_ constant: CGFloat) -> Self
+    {
+        .init(type: .size(constant), relation: .minimum)
+    }
+    
+    let type: DimensionTargetType
     public var relation = Relation.exact
+    
+    enum DimensionTargetType
+    {
+        case anchor(DimensionAnchor), size(CGFloat)
+    }
 }
 
 extension DimensionAnchor
@@ -77,7 +95,8 @@ extension DimensionAnchor
         }
     }
     
-    func constrain(to constant: CGFloat, relation: Relation) -> NSLayoutConstraint
+    func constrain(to constant: CGFloat,
+                   relation: Relation) -> NSLayoutConstraint
     {
         switch relation
         {

@@ -11,32 +11,32 @@ public extension LayoutItem
     @discardableResult
     func constrainHeight(to size: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.height, to: size)
+        constrain(.height, to: .exact(size))
     }
     
     @discardableResult
     func constrainHeight(toMinimum minimum: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.height, toMinimum: minimum)
+        constrain(.height, to: .min(minimum))
     }
     
     @discardableResult
     func constrainHeight(toMaximum maximum: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.height, toMaximum: maximum)
+        constrain(.height, to: .max(maximum))
     }
     
     // MARK: - To Target
     
     @discardableResult
-    func constrainHeight(to target: LayoutItem) -> NSLayoutConstraint
+    func constrainHeight(to target: LayoutItem) -> [NSLayoutConstraint]
     {
         constrain(to: target.height)
     }
     
     @discardableResult
     func constrainHeight(to factor: CGFloat,
-                         of target: LayoutItem) -> NSLayoutConstraint
+                         of target: LayoutItem) -> [NSLayoutConstraint]
     {
         constrain(to: target.height.at(factor))
     }
