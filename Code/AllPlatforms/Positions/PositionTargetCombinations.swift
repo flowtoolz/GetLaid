@@ -20,8 +20,8 @@ public extension LayoutItem
         
         for verticalTarget in targets.verticalTargets
         {
-            if let constraint = constrain(verticalTarget.anchor.position,
-                                          to: verticalTarget)
+            let sourceAnchor = anchor(for: verticalTarget.anchor.position)
+            if let constraint = sourceAnchor.constrain(to: verticalTarget)
             {
                 constraints.append(constraint)
             }

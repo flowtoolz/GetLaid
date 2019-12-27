@@ -43,7 +43,7 @@ public extension LayoutView {
     
     @discardableResult
     func constrainTopToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.top, to: parent?.bottom.at(factor))
+        top.constrain(to: parent?.bottom.at(factor))
     }
     
     @discardableResult
@@ -63,12 +63,12 @@ public extension LayoutView {
     
     @discardableResult
     func constrainCenterYToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.centerY, to: parent?.bottom.at(factor))
+        centerY.constrain(to: parent?.bottom.at(factor))
     }
     
     @discardableResult
     func constrainBottomToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.bottom, to: parent?.bottom.at(factor))
+        bottom.constrain(to: parent?.bottom.at(factor))
     }
     
     @discardableResult
@@ -85,7 +85,7 @@ public extension LayoutView {
     
     @discardableResult
     func constrainToParentTop(inset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.top(offset: inset))
+        top.constrain(to: parent?.top.offset(inset))
     }
     
     @discardableResult
@@ -105,12 +105,12 @@ public extension LayoutView {
     
     @discardableResult
     func constrainToParentCenterY(offset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.centerY(offset: offset))
+        centerY.constrain(to: parent?.centerY.offset(offset))
     }
     
     @discardableResult
     func constrainToParentBottom(inset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.bottom(offset: -inset))
+        bottom.constrain(to: parent?.bottom.offset(-inset))
     }
     
     @discardableResult
