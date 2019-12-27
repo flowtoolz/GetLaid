@@ -26,13 +26,13 @@ public extension DimensionAnchor
             return nsDimension.constraint(equalTo: target.nsDimension).activate()
         case .minimum:
             return nsDimension.constraint(greaterThanOrEqualTo: target.nsDimension,
-                                          multiplier: 1)
+                                          multiplier: 1).activate()
         case .maximum:
             return nsDimension.constraint(lessThanOrEqualTo: target.nsDimension,
-                                          multiplier: 1)
+                                          multiplier: 1).activate()
         case .relative(let factor):
             return nsDimension.constraint(equalTo: target.nsDimension,
-                                          multiplier: factor)
+                                          multiplier: factor).activate()
         }
     }
     
@@ -42,23 +42,30 @@ public extension DimensionAnchor
         switch relation
         {
         case .exact:
-            return nsDimension.constraint(equalToConstant: constant)
+            return nsDimension.constraint(equalToConstant: constant).activate()
         case .minimum:
-            return nsDimension.constraint(greaterThanOrEqualToConstant: constant)
+            return nsDimension.constraint(greaterThanOrEqualToConstant: constant).activate()
         case .maximum:
-            return nsDimension.constraint(lessThanOrEqualToConstant: constant)
+            return nsDimension.constraint(lessThanOrEqualToConstant: constant).activate()
         case .relative(let factor):
-            return nsDimension.constraint(equalToConstant: factor * constant)
+            return nsDimension.constraint(equalToConstant: factor * constant).activate()
         }
+    }
+    
+    var min: DimensionTarget
+    {
+        .init(type: .anchor(self), relation: .minimum)
+    }
+    
+    var max: DimensionTarget
+    {
+        .init(type: .anchor(self), relation: .maximum)
     }
     
     func at(_ factor: CGFloat) -> DimensionTarget
     {
         .init(type: .anchor(self), relation: .relative(factor))
     }
-    
-    var max: DimensionTarget { .init(type: .anchor(self), relation: .maximum) }
-    var min: DimensionTarget { .init(type: .anchor(self), relation: .minimum) }
 }
 
 public struct DimensionTarget: Target
@@ -98,14 +105,12 @@ public struct DimensionTarget: Target
 
 public extension LayoutItem
 {
-    var width: DimensionAnchor
-    {
-        .init(item: self, dimension: .width)
-    }
+    var width: DimensionAnchor { anchor(for: .width) }
+    var height: DimensionAnchor { anchor(for: .height) }
     
-    var height: DimensionAnchor
+    func anchor(for dimension: Dimension) -> DimensionAnchor
     {
-        .init(item: self, dimension: .height)
+        .init(item: self, dimension: dimension)
     }
 }
 

@@ -48,17 +48,17 @@ public extension LayoutView {
     
     @discardableResult
     func constrainLeadingToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.leading, to: parent?.trailing.at(factor))
+        leading.constrain(to: parent?.trailing.at(factor))
     }
     
     @discardableResult
     func constrainLeftToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.left, to: parent?.right.at(factor))
+        left.constrain(to: parent?.right.at(factor))
     }
     
     @discardableResult
     func constrainCenterXToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.centerX, to: parent?.trailing.at(factor))
+        centerX.constrain(to: parent?.trailing.at(factor))
     }
     
     @discardableResult
@@ -73,12 +73,12 @@ public extension LayoutView {
     
     @discardableResult
     func constrainTrailingToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.trailing, to: parent?.trailing.at(factor))
+        trailing.constrain(to: parent?.trailing.at(factor))
     }
     
     @discardableResult
     func constrainRightToParent(at factor: CGFloat) -> NSLayoutConstraint? {
-        constrain(.right, to: parent?.right.at(factor))
+        right.constrain(to: parent?.right.at(factor))
     }
     
     // MARK: - Constrain One Position to Parent - Inset/Offset
@@ -90,17 +90,17 @@ public extension LayoutView {
     
     @discardableResult
     func constrainToParentLeading(inset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.leading(offset: inset))
+        leading.constrain(to: parent?.leading.offset(inset))
     }
     
     @discardableResult
     func constrainToParentLeft(inset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.left(offset: inset))
+        left.constrain(to: parent?.left.offset(inset))
     }
     
     @discardableResult
     func constrainToParentCenterX(offset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.centerX(offset: offset))
+        centerX.constrain(to: parent?.centerX.offset(offset))
     }
     
     @discardableResult
@@ -115,11 +115,11 @@ public extension LayoutView {
     
     @discardableResult
     func constrainToParentTrailing(inset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.trailing(offset: -inset))
+        trailing.constrain(to: parent?.trailing.offset(-inset))
     }
     
     @discardableResult
     func constrainToParentRight(inset: CGFloat = 0) -> NSLayoutConstraint? {
-        constrain(to: parent?.right(offset: -inset))
+        right.constrain(to: parent?.right.offset(-inset))
     }
 }

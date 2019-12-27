@@ -29,8 +29,8 @@ public extension LayoutItem
         
         for horizontalTarget in targets.horizontalTargets
         {
-            if let constraint = constrain(horizontalTarget.anchor.position,
-                                          to: horizontalTarget)
+            let sourceAnchor = anchor(for: horizontalTarget.anchor.position)
+            if let constraint = sourceAnchor.constrain(to: horizontalTarget)
             {
                 constraints.append(constraint)
             }
