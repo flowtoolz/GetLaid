@@ -4,8 +4,31 @@ import AppKit
 import UIKit
 #endif
 
+public extension LayoutItem
+{
+    @discardableResult
+    func constrain(to target: VerticalTarget) -> NSLayoutConstraint?
+    {
+        VerticalAnchor(item: self,
+                       position: target.anchor.position).constrain(to: target)
+    }
+    
+    @discardableResult
+    func constrain(to anchor: VerticalAnchor) -> NSLayoutConstraint
+    {
+        VerticalAnchor(item: self,
+                       position: anchor.position).constrain(to: anchor)
+    }
+}
+
 public extension VerticalAnchor
 {
+    @discardableResult
+    func constrain(to item: LayoutItem) -> NSLayoutConstraint
+    {
+        constrain(to: .init(item: item, position: position))
+    }
+    
     @discardableResult
     func constrain(to target: VerticalTarget?) -> NSLayoutConstraint?
     {

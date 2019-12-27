@@ -24,8 +24,8 @@ public extension LayoutItem
     @discardableResult
     func constrain(to anchor: DimensionAnchor) -> NSLayoutConstraint
     {
-        let sourceAnchor = DimensionAnchor(item: self, dimension: anchor.dimension)
-        return sourceAnchor.constrain(to: anchor)
+        DimensionAnchor(item: self,
+                        dimension: anchor.dimension).constrain(to: anchor)
     }
 }
 

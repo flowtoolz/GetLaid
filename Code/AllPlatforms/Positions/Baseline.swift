@@ -4,8 +4,31 @@ import AppKit
 import UIKit
 #endif
 
+public extension LayoutView
+{
+    @discardableResult
+    func constrain(to target: BaselineTarget) -> NSLayoutConstraint?
+    {
+        BaselineAnchor(view: self,
+                       baseline: target.anchor.baseline).constrain(to: target)
+    }
+    
+    @discardableResult
+    func constrain(to anchor: BaselineAnchor) -> NSLayoutConstraint
+    {
+        BaselineAnchor(view: self,
+                       baseline: anchor.baseline).constrain(to: anchor)
+    }
+}
+
 extension BaselineAnchor
 {
+    @discardableResult
+    func constrain(to item: LayoutItem) -> NSLayoutConstraint
+    {
+        constrain(to: .init(view: view, baseline: baseline))
+    }
+    
     @discardableResult
     func constrain(to target: BaselineTarget?) -> NSLayoutConstraint?
     {
@@ -17,8 +40,8 @@ extension BaselineAnchor
     
     @discardableResult
     func constrain(to targetAnchor: BaselineAnchor,
-                   offset: CGFloat,
-                   relation: Relation) -> NSLayoutConstraint
+                   offset: CGFloat = 0,
+                   relation: Relation = .exact) -> NSLayoutConstraint
     {
         switch relation
         {
