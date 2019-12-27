@@ -6,6 +6,7 @@ import UIKit
 
 public extension LayoutItem
 {
+    @discardableResult
     func constrain(to target: DimensionTarget) -> [NSLayoutConstraint]
     {
         switch target.type
@@ -20,6 +21,7 @@ public extension LayoutItem
         }
     }
     
+    @discardableResult
     func constrain(to anchor: DimensionAnchor) -> NSLayoutConstraint
     {
         let sourceAnchor = DimensionAnchor(item: self, dimension: anchor.dimension)
@@ -29,11 +31,13 @@ public extension LayoutItem
 
 public extension DimensionAnchor
 {
+    @discardableResult
     func constrain(to item: LayoutItem) -> NSLayoutConstraint
     {
         constrain(to: .init(item: item, dimension: dimension))
     }
     
+    @discardableResult
     func constrain(to target: DimensionTarget) -> NSLayoutConstraint
     {
         switch target.type
@@ -45,6 +49,7 @@ public extension DimensionAnchor
         }
     }
     
+    @discardableResult
     func constrain(to target: DimensionAnchor,
                    relation: Relation = .exact) -> NSLayoutConstraint
     {
@@ -64,6 +69,7 @@ public extension DimensionAnchor
         }
     }
     
+    @discardableResult
     func constrain(to constant: CGFloat,
                    relation: Relation = .exact) -> NSLayoutConstraint
     {
