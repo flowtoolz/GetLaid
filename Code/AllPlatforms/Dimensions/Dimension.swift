@@ -4,8 +4,36 @@ import AppKit
 import UIKit
 #endif
 
+public extension LayoutItem
+{
+    func constrain(to target: DimensionTarget) -> [NSLayoutConstraint]
+    {
+        switch target.type
+        {
+        case .size(let size):
+            return [anchor(for: .width).constrain(to: size, relation: target.relation),
+                    anchor(for: .height).constrain(to: size, relation: target.relation)]
+        case .anchor(let targetAnchor):
+            let sourceAnchor = DimensionAnchor(item: self,
+                                               dimension: targetAnchor.dimension)
+            return [sourceAnchor.constrain(to: targetAnchor, relation: target.relation)]
+        }
+    }
+    
+    func constrain(to anchor: DimensionAnchor) -> NSLayoutConstraint
+    {
+        let sourceAnchor = DimensionAnchor(item: self, dimension: anchor.dimension)
+        return sourceAnchor.constrain(to: anchor)
+    }
+}
+
 public extension DimensionAnchor
 {
+    func constrain(to item: LayoutItem) -> NSLayoutConstraint
+    {
+        constrain(to: .init(item: item, dimension: dimension))
+    }
+    
     func constrain(to target: DimensionTarget) -> NSLayoutConstraint
     {
         switch target.type
