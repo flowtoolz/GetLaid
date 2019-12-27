@@ -9,12 +9,12 @@ public extension LayoutItem
     @discardableResult
     func constrainWidthToParent() -> NSLayoutConstraint?
     {
-        parent.map(constrainWidth(to:))
+        parent.map { constrain(to: $0.width) }
     }
     
     @discardableResult
-    func constrainWidthToParent(with factor: CGFloat) -> NSLayoutConstraint?
+    func constrainWidthToParent(with factor: CGFloat) -> [NSLayoutConstraint]?
     {
-        parent.map { constrainWidth(to: factor, of: $0) }
+        parent.map { constrain(to: $0.width.at(factor)) }
     }
 }
