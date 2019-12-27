@@ -4,7 +4,7 @@ import AppKit
 import UIKit
 #endif
 
-public extension LayoutView
+public extension LayoutItem
 {
     @discardableResult
     func constrainWidthToParent() -> NSLayoutConstraint?

@@ -1,6 +1,9 @@
 import UIKit
 
-extension UILayoutGuide: LayoutItem {}
+extension UILayoutGuide: LayoutItem
+{
+    public var parent: LayoutView? { owningView }
+}
 
 extension UIView: LayoutView
 {

@@ -6,6 +6,8 @@ import UIKit
 
 public protocol LayoutItem: AnyObject
 {
+    var parent: LayoutView? { get }
+    
     var widthAnchor: NSLayoutDimension { get }
     var heightAnchor: NSLayoutDimension { get }
     
