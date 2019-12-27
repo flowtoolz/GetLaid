@@ -11,34 +11,34 @@ public extension LayoutItem
     @discardableResult
     func constrainHeight(to size: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.height, to: .exact(size))
+        height.constrain(to: .exact(size))
     }
     
     @discardableResult
     func constrainHeight(toMinimum minimum: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.height, to: .min(minimum))
+        height.constrain(to: .min(minimum))
     }
     
     @discardableResult
     func constrainHeight(toMaximum maximum: CGFloat) -> NSLayoutConstraint
     {
-        constrain(.height, to: .max(maximum))
+        height.constrain(to: .max(maximum))
     }
     
     // MARK: - To Target
     
     @discardableResult
-    func constrainHeight(to target: LayoutItem) -> [NSLayoutConstraint]
+    func constrainHeight(to target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(to: target.height)
+        height.constrain(to: target.height)
     }
     
     @discardableResult
     func constrainHeight(to factor: CGFloat,
-                         of target: LayoutItem) -> [NSLayoutConstraint]
+                         of target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(to: target.height.at(factor))
+        height.constrain(to: target.height.at(factor))
     }
     
     // MARK: - To Width
@@ -46,13 +46,13 @@ public extension LayoutItem
     @discardableResult
     func constrainHeightToWidth(of target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.height, to: target.width)
+        height.constrain(to: target.width)
     }
     
     @discardableResult
     func constrainHeight(to factor: CGFloat,
                          ofWidthOf target: LayoutItem) -> NSLayoutConstraint
     {
-        constrain(.height, to: target.width.at(factor))
+        height.constrain(to: target.width.at(factor))
     }
 }

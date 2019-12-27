@@ -7,13 +7,13 @@ import UIKit
 public extension LayoutView
 {
     @discardableResult
-    func constrainWidthToParent() -> [NSLayoutConstraint]?
+    func constrainWidthToParent() -> NSLayoutConstraint?
     {
         parent.map(constrainWidth(to:))
     }
     
     @discardableResult
-    func constrainWidthToParent(with factor: CGFloat) -> [NSLayoutConstraint]?
+    func constrainWidthToParent(with factor: CGFloat) -> NSLayoutConstraint?
     {
         parent.map { constrainWidth(to: factor, of: $0) }
     }
