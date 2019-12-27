@@ -4,49 +4,18 @@ import AppKit
 import UIKit
 #endif
 
-public extension LayoutView
+extension BaselineAnchor
 {
     @discardableResult
     func constrain(to target: BaselineTarget?) -> NSLayoutConstraint?
     {
-        guard let target = target else { return nil }
-        return constrain(target.anchor.baseline, to: target)
+        target.map
+        {
+            constrain(to: $0.anchor, offset: $0.offset, relation: $0.relation)
+        }
     }
     
     @discardableResult
-    func constrain(_ baseline: Baseline, to target: BaselineTarget?) -> NSLayoutConstraint?
-    {
-        guard let target = target else { return nil }
-        let sourceAnchor = BaselineAnchor(view: self, baseline: baseline)
-        return sourceAnchor.constrain(to: target.anchor,
-                                      offset: target.offset,
-                                      relation: target.relation)
-    }
-    
-    var firstBaseline: BaselineTarget { firstBaseline(offset: 0) }
-    
-    func firstBaseline(offset: CGFloat) -> BaselineTarget
-    {
-        .init(anchor: .init(view: self, baseline: .firstBaseline), offset: offset)
-    }
-    
-    var lastBaseline: BaselineTarget { lastBaseline(offset: 0) }
-    
-    func lastBaseline(offset: CGFloat) -> BaselineTarget
-    {
-        .init(anchor: .init(view: self, baseline: .lastBaseline), offset: offset)
-    }
-}
-
-public struct BaselineTarget: Target
-{
-    let anchor: BaselineAnchor
-    let offset: CGFloat
-    public var relation = Relation.exact
-}
-
-extension BaselineAnchor
-{
     func constrain(to targetAnchor: BaselineAnchor,
                    offset: CGFloat,
                    relation: Relation) -> NSLayoutConstraint
@@ -72,9 +41,56 @@ extension BaselineAnchor
                                       constant: offset).activate()
         }
     }
+    
+    func offset(_ offset: CGFloat) -> BaselineTarget
+    {
+        .init(anchor: self, offset: offset)
+    }
+    
+    var min: BaselineTarget
+    {
+        .init(anchor: self, relation: .minimum)
+    }
+    
+    var max: BaselineTarget
+    {
+        .init(anchor: self, relation: .maximum)
+    }
+    
+    func at(_ factor: CGFloat) -> BaselineTarget
+    {
+        .init(anchor: self, relation: .relative(factor))
+    }
 }
 
-struct BaselineAnchor
+public struct BaselineTarget: Target
+{
+    init(anchor: BaselineAnchor,
+         offset: CGFloat = 0,
+         relation: Relation = .exact)
+    {
+        self.anchor = anchor
+        self.offset = offset
+        self.relation = relation
+    }
+    
+    let anchor: BaselineAnchor
+    let offset: CGFloat
+    public var relation = Relation.exact
+}
+
+extension LayoutView
+{
+    var firstBaseline: BaselineAnchor { anchor(for: .firstBaseline) }
+    var lastBaseline: BaselineAnchor { anchor(for: .lastBaseline) }
+    
+    func anchor(for baseline: Baseline) -> BaselineAnchor
+    {
+        .init(view: self, baseline: baseline)
+    }
+}
+
+public struct BaselineAnchor
 {
     var nsAnchor: NSLayoutYAxisAnchor { view.nsAnchor(for: baseline) }
     let view: LayoutView
