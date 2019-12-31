@@ -9,6 +9,6 @@ public extension DimensionAnchor
     @discardableResult
     func constrain(to size: CGFloat) -> NSLayoutConstraint
     {
-        constrain(to: .exact(size))
+        constrain(to: .size(size))
     }
 }

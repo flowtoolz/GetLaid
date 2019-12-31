@@ -105,28 +105,28 @@ public extension DimensionAnchor
 public struct DimensionTarget: Target
 {
     public static func anchor(item: LayoutItem,
-                       dimension: Dimension,
-                       relation: Relation = .exact) -> Self
+                              dimension: Dimension,
+                              relation: Relation = .exact) -> Self
     {
         .init(type: .anchor(.init(item: item, dimension: dimension)),
               relation: relation)
     }
     
-    public static func exact(_ constant: CGFloat) -> Self
-    {
-        .init(type: .size(constant))
-    }
-    
     public static func max(_ constant: CGFloat) -> Self
     {
-        .init(type: .size(constant), relation: .maximum)
+        size(constant).max
     }
     
     public static func min(_ constant: CGFloat) -> Self
     {
-        .init(type: .size(constant), relation: .minimum)
+        size(constant).min
     }
     
+    public static func size(_ constant: CGFloat) -> Self
+    {
+        .init(type: .size(constant))
+    }
+
     let type: DimensionTargetType
     
     enum DimensionTargetType
