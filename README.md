@@ -178,8 +178,8 @@ If source and target refer to the same position/anchor, you may omit one of them
 
 ```swift
 item1.left.constrain(to: item2.left)
-item1.constrain(to: item2.left)
 item1.left.constrain(to: item2)
+item1.constrain(to: item2.left)
 ```
 
 You may modify the constrain target and also chain these modifications:
@@ -189,7 +189,7 @@ item1.constrain(to: item2.left.offset(8))
 item1.constrain(to: item2.left.min)              // >= left
 item1.constrain(to: item2.left.max)              // <= left
 item1.constrain(to: item2.left.at(0.5))          // at 0.5 of left
-item1.constrain(to: item2.centerX.min.offset(8))
+item1.constrain(to: item2.left.min.offset(8))
 ```
 
 ## Constrain Sizes
