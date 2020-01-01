@@ -164,7 +164,7 @@ There's also a helper function for adding a new layout guide to a view:
 let guide = view.addLayoutGuide()
 ~~~
 
-## Constrain Edges and Positions
+## Constrain Positions
 
 You generally call `constrain` on exactly the thing you want to constrain:
 
@@ -192,6 +192,31 @@ item1.constrain(to: item2.left.at(0.5))          // at 0.5 of left
 item1.constrain(to: item2.left.min.offset(8))
 ```
 
+## Constrain Multiple Positions
+
+You may constrain multiple positions at once:
+
+```swift
+item1.constrain(to: item2.allButTop(leadingOffset: 5,   // leading, bottom, trailing
+                                    bottomOffset: -5))
+item1.constrain(to: item2.center)                       // centerX, centerY
+item1.constrain(to: item2.all)                          // all edges
+item1.constrain(to: item2)                              // shorthand for .all
+```
+
+Available position target combinations are:
+
+* all
+* allButTop
+* allButLeading
+* allButLeft
+* allButBottom
+* allButTrailing
+* allButRight
+* center
+
+All of them take offsets as arguments for exactly the constrained positions, in counter-clockwise order.
+
 ## Constrain Dimensions
 
 You constrain width and height analogously to positions:
@@ -208,7 +233,6 @@ item1.constrain(to: item2.height.at(0.6).min)
 
 ## LEFT TO DOCUMENT
 
-* position combinations
 * safe areas
 * system spacing
 * size target (and convenience funcs max, min, size, constrain(to: Float, Float))
