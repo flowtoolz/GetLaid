@@ -24,9 +24,12 @@ public extension LayoutView
 extension BaselineAnchor
 {
     @discardableResult
-    func constrain(to item: LayoutItem) -> NSLayoutConstraint
+    func constrain(to view: LayoutView?) -> NSLayoutConstraint?
     {
-        constrain(to: .init(view: view, baseline: baseline))
+        view.map
+        {
+            constrain(to: .init(view: $0, baseline: baseline))
+        }
     }
     
     @discardableResult
