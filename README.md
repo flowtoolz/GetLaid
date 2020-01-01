@@ -4,7 +4,9 @@
 
 GetLaid is a lean framework for defining complex view layouts through elegant code.
 
-## Features
+## Why Oh Why?
+
+### Features
 
 GetLaid has some advantages even over classic simple frameworks like [PureLayout](https://github.com/PureLayout/PureLayout):
 
@@ -29,11 +31,11 @@ GetLaid has some advantages even over classic simple frameworks like [PureLayout
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
 
-## Why Not Interface Builder?
+### Why Not Interface Builder?
 
 Well, that [would be insane](https://www.flowtoolz.com/2019/09/27/the-reasons-for-why-i-hate-xcode-interface-builder.html).
 
-## Why AutoLayout Wrappers?
+### Why AutoLayout Wrappers?
 
 Programmatic AutoLayout without any such frameworks was never hard. It's all about creating objects of `NSLayoutConstraint`, which has only one [powerful initializer](https://developer.apple.com/documentation/uikit/nslayoutconstraint/1526954-init).
 
@@ -41,7 +43,7 @@ Since iOS 9.0 and macOS 10.11, we also have `NSLayoutAnchor`, which adds a nativ
 
 At this point, all an AutoLayout wrapper can do is to make code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that.
 
-## Why Not Other AutoLayout Wrappers?
+### Why Not Other AutoLayout Wrappers?
 
 Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) are almost too clever for the simple task at hand. A SnapKit example:
 
@@ -61,7 +63,7 @@ box.autoCenterInSuperView()
 
 GetLaid trims AutoLayout code even further down to the essence. Compare for yourself:
 
-### Before (PureLayout)
+#### Before (PureLayout)
 
 ~~~swift
 item1.autoPinEdgesToSuperviewEdges()
@@ -78,30 +80,28 @@ item1.autoConstrainAttribute(.width, to: .height, of: item1, withMultiplier: 16/
 item1.autoPinEdgesToSuperViewEdges(with: NSEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
 ~~~
 
-### After (GetLaid)
+#### After (GetLaid)
 
 ~~~swift
 item1.constrainToParent()
-item1.constrainTopToParent()
-item1.constrainWidth(to: 42)
-item1.constrainLeft(to: item2)
-item1.constrainCenterX(to: item2)
-item1.constrainSize(to: 82, 42)
+item1.constrainToParentTop()
+item1.width.constrain(to: 42)
+item1.constrain(to: item2.left)
+item1.constrain(to: item2.centerX)
+item1.constrain(to: 82, 42)
 item1.constrain(above: item2, gap: 20)
-item1.constrainHeight(toMinimum: 64)
-item1.constrainToParentExcludingTop()
+item1.height.constrain(to: .min(64))
+item1.constrainToParentButTop()
 item1.constrainLeftToParent(at: 0.5)
 item1.constrainAspectRatio(to: 16/9)
-item1.constrainToParent(insetTop: 10)
+item1.constrainToParent(topInset: 10)
 ~~~
 
 So, which is prettier, mh?
 
 If you can spare fancyness but appreciate readability, GetLaid might be for you.
 
-## How to GetLaid
-
-### Install
+## Install
 
 With the [**Swift Package Manager**](https://github.com/apple/swift-package-manager/tree/master/Documentation#swift-package-manager), you can just add the GetLaid package [via Xcode](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) (11+).
 
@@ -142,7 +142,7 @@ Finally, in your **Swift** files:
 import GetLaid
 ```
 
-### Add Subviews and Layout Guides
+## Add Subviews and Layout Guides
 
 The generic function `addForAutoLayout` adds a subview and prepares it for AutoLayout. It returns the subview it takes as its exact type. Use this function to add subviews:
 
@@ -164,20 +164,49 @@ There's also a helper function for adding a new layout guide to a view:
 let guide = view.addLayoutGuide()
 ~~~
 
-### Constrain Subviews and Layout Guides
+## Constrain Edges and Positions
 
-You can constrain layout items of type `UIView`, `NSView`, `UILayoutGuide` and `NSLayoutGuide`. All constraining functions have the prefix `constrain` and are well discoverable via auto completion. Functions that constrain items to their parents are only available on the view classes. 
+You generally call `constrain` on exactly the thing you want to constrain:
 
-## To Document
+```swift
+item1.left.constrain(to: item2.centerX)
+```
 
-* safe area helpers
-* system spacing constant
-* new convenience functions
-* localized horizontal positioning
-* constraining base lines
-* minimum offsets, minimum gaps, minimum insets
+All layout attributes can be used in that way, while baselines are not available on layout guides.
 
+You may modify the constrain target and also chain these modifications:
 
+```swift
+item1.left.constrain(to: item2.centerX.offset(8))
+item1.left.constrain(to: item2.centerX.min)            // >= centerX
+item1.left.constrain(to: item2.centerX.max)            // <= centerX
+item1.left.constrain(to: item2.centerX.at(0.5))        // at 0.5 of centerX
+item1.left.constrain(to: item2.centerX.min.offset(8))
+```
+
+If source and target refer to the same position/anchor, you may omit one of them. These are equivalent:
+
+```swift
+item1.left.constrain(to: item2.left)
+item1.constrain(to: item2.left)
+item1.left.constrain(to: item2)
+```
+
+## Constrain Sizes
+
+You constrain width and height analogously to positions:
+
+```swift
+item1.width.constrain(to: item2.height)
+```
+
+As with positions, you can also modify the target, omit anchors or both:
+
+```swift
+item1.constrain(to: item2.height.min)
+```
+
+The `offset` modification is not available on dimension targets.
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
