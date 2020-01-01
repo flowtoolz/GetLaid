@@ -4,6 +4,13 @@
 
 GetLaid is a lean framework for defining complex view layouts through elegant code.
 
+* [Why Oh Why?](#why-oh-why)
+* [Install](#install)
+* [Add Subviews and Layout Guides](#add-subviews-and-layout-guides)
+* [Constrain Positions](#constrain-positions)
+* [Constrain Multiple Positions](#constrain-multiple-positions)
+* [Constrain Dimensions](#constrain-dimensions)
+
 ## Why Oh Why?
 
 ### Features
