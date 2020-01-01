@@ -174,22 +174,22 @@ item1.left.constrain(to: item2.centerX)
 
 All layout attributes can be used in that way, while baselines are not available on layout guides.
 
-You may modify the constrain target and also chain these modifications:
-
-```swift
-item1.left.constrain(to: item2.centerX.offset(8))
-item1.left.constrain(to: item2.centerX.min)            // >= centerX
-item1.left.constrain(to: item2.centerX.max)            // <= centerX
-item1.left.constrain(to: item2.centerX.at(0.5))        // at 0.5 of centerX
-item1.left.constrain(to: item2.centerX.min.offset(8))
-```
-
 If source and target refer to the same position/anchor, you may omit one of them. These are equivalent:
 
 ```swift
 item1.left.constrain(to: item2.left)
 item1.constrain(to: item2.left)
 item1.left.constrain(to: item2)
+```
+
+You may modify the constrain target and also chain these modifications:
+
+```swift
+item1.constrain(to: item2.left.offset(8))
+item1.constrain(to: item2.left.min)              // >= left
+item1.constrain(to: item2.left.max)              // <= left
+item1.constrain(to: item2.left.at(0.5))          // at 0.5 of left
+item1.constrain(to: item2.centerX.min.offset(8))
 ```
 
 ## Constrain Sizes
@@ -200,13 +200,26 @@ You constrain width and height analogously to positions:
 item1.width.constrain(to: item2.height)
 ```
 
-As with positions, you can also modify the target, omit anchors or both:
+As with positions, you can omit anchors, modify the target, and chain modifications:
 
 ```swift
-item1.constrain(to: item2.height.min)
+item1.constrain(to: item2.height.at(0.6).min)
 ```
 
 The `offset` modification is not available on dimension targets.
+
+## LEFT TO DOCUMENT
+
+* position combinations
+* safe areas
+* system spacing
+* size target (and convenience funcs max, min, size, constrain(to: Float, Float))
+* constrainAspectRatio(to ratio: CGFloat)
+* constant dimension (and convenience funcs)
+  * constrain(to size: CGFloat) 	
+* parent property
+* constrain to parent (convenience funcs)
+* constrain neighbours
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
