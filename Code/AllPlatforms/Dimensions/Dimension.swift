@@ -19,8 +19,10 @@ public extension LayoutItem
     }
     
     @discardableResult
-    func constrain(to target: DimensionTarget) -> [NSLayoutConstraint]
+    func constrain(to target: DimensionTarget?) -> [NSLayoutConstraint]
     {
+        guard let target = target else { return [] }
+        
         switch target.type
         {
         case .size(let size):
@@ -35,10 +37,11 @@ public extension LayoutItem
     }
     
     @discardableResult
-    func constrain(to anchor: DimensionAnchor) -> NSLayoutConstraint?
+    func constrain(to anchor: DimensionAnchor?) -> NSLayoutConstraint?
     {
-        DimensionAnchor(item: self,
-                        dimension: anchor.dimension).constrain(to: anchor)
+        guard let anchor = anchor else { return nil }
+        return DimensionAnchor(item: self,
+                               dimension: anchor.dimension).constrain(to: anchor)
     }
 }
 

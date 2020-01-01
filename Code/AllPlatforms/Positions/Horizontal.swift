@@ -7,42 +7,47 @@ import UIKit
 public extension LayoutItem
 {
     @discardableResult
-    func constrain(to target: HorizontalTarget) -> NSLayoutConstraint?
+    func constrain(to target: HorizontalTarget?) -> NSLayoutConstraint?
     {
-        HorizontalAnchor(item: self,
-                         position: target.anchor.position).constrain(to: target)
+        guard let target = target else { return nil }
+        return HorizontalAnchor(item: self,
+                                position: target.anchor.position).constrain(to: target)
     }
     
     @discardableResult
-    func constrain(to anchor: HorizontalAnchor) -> NSLayoutConstraint
+    func constrain(to anchor: HorizontalAnchor?) -> NSLayoutConstraint?
     {
-        HorizontalAnchor(item: self,
-                         position: anchor.position).constrain(to: anchor)
+        guard let anchor = anchor else { return nil }
+        return HorizontalAnchor(item: self,
+                                position: anchor.position).constrain(to: anchor)
     }
 }
 
 public extension HorizontalAnchor
 {
     @discardableResult
-    func constrain(to item: LayoutItem) -> NSLayoutConstraint
+    func constrain(to item: LayoutItem?) -> NSLayoutConstraint?
     {
-        constrain(to: .init(item: item, position: position))
+        guard let item = item else { return nil }
+        return constrain(to: .init(item: item, position: position))
     }
     
     @discardableResult
     func constrain(to target: HorizontalTarget?) -> NSLayoutConstraint?
     {
-        target.map
-        {
-            constrain(to: $0.anchor, offset: $0.offset, relation: $0.relation)
-        }
+        guard let target = target else { return nil }
+        return constrain(to: target.anchor,
+                         offset: target.offset,
+                         relation: target.relation)
     }
     
     @discardableResult
-    func constrain(to target: HorizontalAnchor,
+    func constrain(to target: HorizontalAnchor?,
                    offset: CGFloat = 0,
-                   relation: Relation = .exact) -> NSLayoutConstraint
+                   relation: Relation = .exact) -> NSLayoutConstraint?
     {
+        guard let target = target else { return nil }
+        
         switch relation
         {
         case .exact:

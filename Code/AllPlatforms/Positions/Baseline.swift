@@ -40,26 +40,26 @@ extension BaselineAnchor
     @discardableResult
     func constrain(to view: LayoutView?) -> NSLayoutConstraint?
     {
-        view.map
-        {
-            constrain(to: .init(view: $0, baseline: baseline))
-        }
+        guard let view = view else { return nil }
+        return constrain(to: .init(view: view, baseline: baseline))
     }
     
     @discardableResult
     func constrain(to target: BaselineTarget?) -> NSLayoutConstraint?
     {
-        target.map
-        {
-            constrain(to: $0.anchor, offset: $0.offset, relation: $0.relation)
-        }
+        guard let target = target else { return nil }
+        return constrain(to: target.anchor,
+                         offset: target.offset,
+                         relation: target.relation)
     }
     
     @discardableResult
-    func constrain(to targetAnchor: BaselineAnchor,
+    func constrain(to targetAnchor: BaselineAnchor?,
                    offset: CGFloat = 0,
-                   relation: Relation = .exact) -> NSLayoutConstraint
+                   relation: Relation = .exact) -> NSLayoutConstraint?
     {
+        guard let targetAnchor = targetAnchor else { return nil }
+        
         switch relation
         {
         case .exact:

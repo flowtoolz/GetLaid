@@ -9,17 +9,19 @@ public extension VerticalAnchor
     @discardableResult
     func constrain(to target: BaselineTarget?) -> NSLayoutConstraint?
     {
-        target.map
-        {
-            constrain(to: $0.anchor, offset: $0.offset, relation: $0.relation)
-        }
+        guard let target = target else { return nil }
+        return constrain(to: target.anchor,
+                         offset: target.offset,
+                         relation: target.relation)
     }
     
     @discardableResult
-    func constrain(to targetAnchor: BaselineAnchor,
+    func constrain(to targetAnchor: BaselineAnchor?,
                    offset: CGFloat,
-                   relation: Relation) -> NSLayoutConstraint
+                   relation: Relation) -> NSLayoutConstraint?
     {
+        guard let targetAnchor = targetAnchor else { return nil }
+        
         switch relation
         {
         case .exact:
