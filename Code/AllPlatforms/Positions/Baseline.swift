@@ -7,17 +7,31 @@ import UIKit
 public extension LayoutView
 {
     @discardableResult
-    func constrain(to target: BaselineTarget) -> NSLayoutConstraint?
+    func constrainToParentFirstBaseline(offset: CGFloat = 0) -> NSLayoutConstraint?
     {
-        BaselineAnchor(view: self,
-                       baseline: target.anchor.baseline).constrain(to: target)
+        constrain(to: parent?.firstBaseline.offset(offset))
     }
     
     @discardableResult
-    func constrain(to anchor: BaselineAnchor) -> NSLayoutConstraint
+    func constrainToParentLastBaseline(offset: CGFloat = 0) -> NSLayoutConstraint?
     {
-        BaselineAnchor(view: self,
-                       baseline: anchor.baseline).constrain(to: anchor)
+        constrain(to: parent?.lastBaseline.offset(offset))
+    }
+    
+    @discardableResult
+    func constrain(to target: BaselineTarget?) -> NSLayoutConstraint?
+    {
+        guard let target = target else { return nil }
+        return BaselineAnchor(view: self,
+                              baseline: target.anchor.baseline).constrain(to: target)
+    }
+    
+    @discardableResult
+    func constrain(to anchor: BaselineAnchor?) -> NSLayoutConstraint?
+    {
+        guard let anchor = anchor else { return nil }
+        return BaselineAnchor(view: self,
+                              baseline: anchor.baseline).constrain(to: anchor)
     }
 }
 
