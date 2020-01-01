@@ -7,36 +7,30 @@ import UIKit
 public extension LayoutItem
 {
     @discardableResult
-    func constrain(to item: LayoutItem?) -> [NSLayoutConstraint?]
+    func constrain(to item: LayoutItem?) -> [NSLayoutConstraint]
     {
         constrain(to: item?.all)
     }
     
     @discardableResult
-    func constrain(to targets: ItemPositionTargetCombination?) -> [NSLayoutConstraint?]
+    func constrain(to targets: ItemPositionTargetCombination?) -> [NSLayoutConstraint]
     {
         guard let targets = targets else { return [] }
-        var constraints = [NSLayoutConstraint]()
+        var constraints = [NSLayoutConstraint?]()
         
         for verticalTarget in targets.verticalTargets
         {
             let sourceAnchor = anchor(for: verticalTarget.anchor.position)
-            if let constraint = sourceAnchor.constrain(to: verticalTarget)
-            {
-                constraints.append(constraint)
-            }
+            constraints.append(sourceAnchor.constrain(to: verticalTarget))
         }
         
         for horizontalTarget in targets.horizontalTargets
         {
             let sourceAnchor = anchor(for: horizontalTarget.anchor.position)
-            if let constraint = sourceAnchor.constrain(to: horizontalTarget)
-            {
-                constraints.append(constraint)
-            }
+            constraints.append(sourceAnchor.constrain(to: horizontalTarget))
         }
         
-        return constraints
+        return constraints.compactMap { $0 }
     }
     
     var center: ItemPositionTargetCombination { center() }

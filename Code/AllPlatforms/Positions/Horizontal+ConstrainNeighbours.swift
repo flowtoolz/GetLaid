@@ -9,31 +9,31 @@ public extension LayoutItem
     // MARK: - Constrain Item Next to Other Item - Maximum Gap
     
     @discardableResult
-    func constrain(toTheRightOf item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint?]
+    func constrain(toTheRightOf item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint]
     {
         [ constrain(toTheRightOf: item, minGap: 0),
-          left.constrain(to: item?.right.offset(maxGap).max) ]
+          left.constrain(to: item?.right.offset(maxGap).max) ].compactMap { $0 }
     }
     
     @discardableResult
-    func constrain(toTheLeftOf item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint?]
+    func constrain(toTheLeftOf item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint]
     {
         [ constrain(toTheLeftOf: item, minGap: 0),
-          right.constrain(to: item?.left.offset(-maxGap).min) ]
+          right.constrain(to: item?.left.offset(-maxGap).min) ].compactMap { $0 }
     }
     
     @discardableResult
-    func constrain(after item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint?]
+    func constrain(after item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint]
     {
         [ constrain(after: item, minGap: 0),
-          leading.constrain(to: item?.trailing.offset(maxGap).max) ]
+          leading.constrain(to: item?.trailing.offset(maxGap).max) ].compactMap { $0 }
     }
     
     @discardableResult
-    func constrain(before item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint?]
+    func constrain(before item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint]
     {
         [ constrain(before: item, minGap: 0),
-          trailing.constrain(to: item?.leading.offset(-maxGap).min) ]
+          trailing.constrain(to: item?.leading.offset(-maxGap).min) ].compactMap { $0 }
     }
     
     // MARK: - Constrain Item Next to Other Item - Minimum Gap

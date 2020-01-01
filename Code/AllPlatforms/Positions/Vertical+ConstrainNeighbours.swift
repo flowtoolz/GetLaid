@@ -7,17 +7,17 @@ import UIKit
 public extension LayoutItem
 {
     @discardableResult
-    func constrain(above item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint?]
+    func constrain(above item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint]
     {
         [ constrain(above: item, minGap: 0),
-          bottom.constrain(to: item?.top.offset(-maxGap).min) ]
+          bottom.constrain(to: item?.top.offset(-maxGap).min) ].compactMap { $0 }
     }
     
     @discardableResult
-    func constrain(below item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint?]
+    func constrain(below item: LayoutItem?, maxGap: CGFloat) -> [NSLayoutConstraint]
     {
         [ constrain(below: item, minGap: 0),
-          top.constrain(to: item?.bottom.offset(maxGap).max) ]
+          top.constrain(to: item?.bottom.offset(maxGap).max) ].compactMap { $0 }
     }
     
     @discardableResult
