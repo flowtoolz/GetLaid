@@ -22,16 +22,18 @@ public extension LayoutItem
         case .item(let item):
             let widthTarget = DimensionTarget(type: .anchor(.init(item: item,
                                                                   dimension: .width)),
+                                              offset: sizeTarget.offset,
                                               relation: sizeTarget.relation)
             let heightTarget = DimensionTarget(type: .anchor(.init(item: item,
                                                                    dimension: .height)),
+                                               offset: sizeTarget.offset,
                                                relation: sizeTarget.relation)
             return constrain(to: widthTarget) + constrain(to: heightTarget)
             
         case .size(let width, let height):
-            let widthTarget = DimensionTarget(type: .size(width),
+            let widthTarget = DimensionTarget(type: .size(width + sizeTarget.offset),
                                               relation: sizeTarget.relation)
-            let heightTarget = DimensionTarget(type: .size(height),
+            let heightTarget = DimensionTarget(type: .size(height + sizeTarget.offset),
                                                relation: sizeTarget.relation)
             return [self.width.constrain(to: widthTarget),
                     self.height.constrain(to: heightTarget)].compactMap { $0 }
@@ -68,5 +70,6 @@ public struct SizeTarget: Target
         case item(LayoutItem), size(CGFloat, CGFloat)
     }
     
+    public var offset: CGFloat = 0
     public var relation: Relation
 }

@@ -115,7 +115,8 @@ public struct BaselineTarget: Target
     }
     
     let anchor: BaselineAnchor
-    let offset: CGFloat
+    
+    public var offset: CGFloat = 0
     public var relation = Relation.exact
 }
 

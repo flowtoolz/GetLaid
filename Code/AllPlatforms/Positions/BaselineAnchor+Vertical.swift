@@ -17,8 +17,8 @@ public extension BaselineAnchor
     
     @discardableResult
     func constrain(to targetAnchor: VerticalAnchor?,
-                   offset: CGFloat,
-                   relation: Relation) -> NSLayoutConstraint?
+                   offset: CGFloat = 0,
+                   relation: Relation = .exact) -> NSLayoutConstraint?
     {
         guard let targetAnchor = targetAnchor else { return nil }
         

@@ -103,7 +103,8 @@ public struct VerticalTarget: Target
     }
     
     let anchor: VerticalAnchor
-    let offset: CGFloat
+    
+    public var offset: CGFloat = 0
     public var relation = Relation.exact
 }
 

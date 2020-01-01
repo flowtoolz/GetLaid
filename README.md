@@ -192,7 +192,7 @@ item1.constrain(to: item2.left.at(0.5))          // at 0.5 of left
 item1.constrain(to: item2.left.min.offset(8))
 ```
 
-## Constrain Sizes
+## Constrain Dimensions
 
 You constrain width and height analogously to positions:
 
@@ -205,8 +205,6 @@ As with positions, you can omit anchors, modify the target, and chain modificati
 ```swift
 item1.constrain(to: item2.height.at(0.6).min)
 ```
-
-The `offset` modification is not available on dimension targets.
 
 ## LEFT TO DOCUMENT
 

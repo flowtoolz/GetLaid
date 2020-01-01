@@ -26,12 +26,15 @@ public extension LayoutItem
         switch target.type
         {
         case .size(let size):
-            return [anchor(for: .width).constrain(to: size, relation: target.relation),
-                    anchor(for: .height).constrain(to: size, relation: target.relation)]
+            return [anchor(for: .width).constrain(to: size + target.offset,
+                                                  relation: target.relation),
+                    anchor(for: .height).constrain(to: size + target.offset,
+                                                   relation: target.relation)]
         case .anchor(let targetAnchor):
             let sourceAnchor = DimensionAnchor(item: self,
                                                dimension: targetAnchor.dimension)
             return [sourceAnchor.constrain(to: targetAnchor,
+                                           offset: target.offset,
                                            relation: target.relation)].compactMap { $0 }
         }
     }
@@ -68,14 +71,18 @@ public extension DimensionAnchor
         switch target.type
         {
         case .anchor(let anchor):
-            return constrain(to: anchor, relation: target.relation)
+            return constrain(to: anchor,
+                             offset: target.offset,
+                             relation: target.relation)
         case .size(let constant):
-            return constrain(to: constant, relation: target.relation)
+            return constrain(to: constant + target.offset,
+                             relation: target.relation)
         }
     }
     
     @discardableResult
     func constrain(to target: DimensionAnchor?,
+                   offset: CGFloat = 0,
                    relation: Relation = .exact) -> NSLayoutConstraint?
     {
         guard let target = target else { return nil }
@@ -83,16 +90,21 @@ public extension DimensionAnchor
         switch relation
         {
         case .exact:
-            return nsDimension.constraint(equalTo: target.nsDimension).activate()
+            return nsDimension.constraint(equalTo: target.nsDimension,
+                                          multiplier: 1,
+                                          constant: offset).activate()
         case .minimum:
             return nsDimension.constraint(greaterThanOrEqualTo: target.nsDimension,
-                                          multiplier: 1).activate()
+                                          multiplier: 1,
+                                          constant: offset).activate()
         case .maximum:
             return nsDimension.constraint(lessThanOrEqualTo: target.nsDimension,
-                                          multiplier: 1).activate()
+                                          multiplier: 1,
+                                          constant: offset).activate()
         case .relative(let factor):
             return nsDimension.constraint(equalTo: target.nsDimension,
-                                          multiplier: factor).activate()
+                                          multiplier: factor,
+                                          constant: offset).activate()
         }
     }
     
@@ -113,6 +125,11 @@ public extension DimensionAnchor
         }
     }
     
+    func offset(_ offset: CGFloat) -> DimensionTarget
+    {
+        .init(type: .anchor(self), offset: offset)
+    }
+    
     var min: DimensionTarget
     {
         .init(type: .anchor(self), relation: .minimum)
@@ -131,14 +148,6 @@ public extension DimensionAnchor
 
 public struct DimensionTarget: Target
 {
-    public static func anchor(item: LayoutItem,
-                              dimension: Dimension,
-                              relation: Relation = .exact) -> Self
-    {
-        .init(type: .anchor(.init(item: item, dimension: dimension)),
-              relation: relation)
-    }
-    
     public static func max(_ constant: CGFloat) -> Self
     {
         size(constant).max
@@ -161,6 +170,7 @@ public struct DimensionTarget: Target
         case anchor(DimensionAnchor), size(CGFloat)
     }
     
+    public var offset: CGFloat = 0
     public var relation = Relation.exact
 }
 
