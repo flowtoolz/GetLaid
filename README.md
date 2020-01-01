@@ -213,14 +213,14 @@ item1.constrain(to: item2)                              // shorthand for .all
 
 Available position target combinations are:
 
-* all
-* allButTop
-* allButLeading
-* allButLeft
-* allButBottom
-* allButTrailing
-* allButRight
-* center
+* `all`
+* `allButTop`
+* `allButLeading`
+* `allButLeft`
+* `allButBottom`
+* `allButTrailing`
+* `allButRight`
+* `center`
 
 All of them take offsets as arguments for exactly the constrained positions, in counter-clockwise order.
 
