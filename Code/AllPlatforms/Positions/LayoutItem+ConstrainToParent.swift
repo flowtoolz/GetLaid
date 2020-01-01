@@ -9,6 +9,15 @@ public extension LayoutItem
     // MARK: - Constrain to Four Parent Edges 
     
     @discardableResult
+    func constrainToParent(inset: CGFloat) -> [NSLayoutConstraint?]
+    {
+        constrainToParent(topInset: inset,
+                          leadingInset: inset,
+                          bottomInset: inset,
+                          trailingInset: inset)
+    }
+    
+    @discardableResult
     func constrainToParent(topInset: CGFloat = 0,
                            leadingInset: CGFloat = 0,
                            bottomInset: CGFloat = 0,
@@ -35,6 +44,14 @@ public extension LayoutItem
     // MARK: - Constrain Three Edges to Parent
     
     @discardableResult
+    func constrainToParentButTop(inset: CGFloat) -> [NSLayoutConstraint?]
+    {
+        constrainToParentButTop(leadingInset: inset,
+                                bottomInset: inset,
+                                trailingInset: inset)
+    }
+    
+    @discardableResult
     func constrainToParentButTop(leadingInset: CGFloat = 0,
                                  bottomInset: CGFloat = 0,
                                  trailingInset: CGFloat = 0) -> [NSLayoutConstraint?]
@@ -55,6 +72,14 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrainToParentButLeading(inset: CGFloat) -> [NSLayoutConstraint?]
+    {
+        constrainToParentButLeading(topInset: inset,
+                                    bottomInset: inset,
+                                    trailingInset: inset)
+    }
+    
+    @discardableResult
     func constrainToParentButLeading(topInset: CGFloat = 0,
                                      bottomInset: CGFloat = 0,
                                      trailingInset: CGFloat = 0) -> [NSLayoutConstraint?]
@@ -65,6 +90,14 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrainToParentButLeft(inset: CGFloat) -> [NSLayoutConstraint?]
+    {
+        constrainToParentButLeft(topInset: inset,
+                                 bottomInset: inset,
+                                 rightInset: inset)
+    }
+    
+    @discardableResult
     func constrainToParentButLeft(topInset: CGFloat = 0,
                                   bottomInset: CGFloat = 0,
                                   rightInset: CGFloat = 0) -> [NSLayoutConstraint?]
@@ -72,6 +105,14 @@ public extension LayoutItem
         [ constrainToParentTop(inset: topInset),
           constrainToParentBottom(inset: bottomInset),
           constrainToParentRight(inset: rightInset) ]
+    }
+    
+    @discardableResult
+    func constrainToParentButBottom(inset: CGFloat) -> [NSLayoutConstraint?]
+    {
+        constrainToParentButBottom(topInset: inset,
+                                   leadingInset: inset,
+                                   trailingInset: inset)
     }
     
     @discardableResult
@@ -95,6 +136,14 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrainToParentButTrailing(inset: CGFloat) -> [NSLayoutConstraint?]
+    {
+        constrainToParentButTrailing(topInset: inset,
+                                     leadingInset: inset,
+                                     bottomInset: inset)
+    }
+    
+    @discardableResult
     func constrainToParentButTrailing(topInset: CGFloat = 0,
                                       leadingInset: CGFloat = 0,
                                       bottomInset: CGFloat = 0) -> [NSLayoutConstraint?]
@@ -102,6 +151,14 @@ public extension LayoutItem
         [ constrainToParentTop(inset: topInset),
           constrainToParentLeading(inset: leadingInset),
           constrainToParentBottom(inset: bottomInset) ]
+    }
+    
+    @discardableResult
+    func constrainToParentButRight(inset: CGFloat) -> [NSLayoutConstraint?]
+    {
+        constrainToParentButRight(topInset: inset,
+                                  leftInset: inset,
+                                  bottomInset: inset)
     }
     
     @discardableResult
