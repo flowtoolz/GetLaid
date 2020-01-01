@@ -7,6 +7,12 @@ import UIKit
 public extension LayoutItem
 {
     @discardableResult
+    func constrain(to width: CGFloat, _ height: CGFloat) -> [NSLayoutConstraint]
+    {
+        constrain(to: .size(width, height))
+    }
+    
+    @discardableResult
     func constrain(to sizeTarget: SizeTarget?) -> [NSLayoutConstraint]
     {
         guard let sizeTarget = sizeTarget else { return [] }
