@@ -13,6 +13,12 @@ public extension LayoutItem
     }
     
     @discardableResult
+    func constrain(to size: CGFloat) -> [NSLayoutConstraint]
+    {
+        constrain(to: .size(size))
+    }
+    
+    @discardableResult
     func constrain(to target: DimensionTarget) -> [NSLayoutConstraint]
     {
         switch target.type
