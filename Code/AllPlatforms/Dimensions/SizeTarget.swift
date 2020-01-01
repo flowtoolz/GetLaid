@@ -28,7 +28,7 @@ public extension LayoutItem
             let heightTarget = DimensionTarget(type: .size(height),
                                                relation: sizeTarget.relation)
             return [self.width.constrain(to: widthTarget),
-                    self.height.constrain(to: heightTarget)]
+                    self.height.constrain(to: heightTarget)].compactMap { $0 }
         }
     }
     
