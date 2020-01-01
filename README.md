@@ -115,7 +115,7 @@ let package = Package(
     name: "MyApp",
     dependencies: [
         .package(url: "https://github.com/flowtoolz/GetLaid.git",
-                 .upToNextMajor(from: "2.1.0"))
+                 .upToNextMajor(from: "3.0.0"))
     ],
     targets: [
         .target(name: "MyAppTarget",
@@ -130,7 +130,7 @@ With [**Cocoapods**](https://cocoapods.org), adjust your [Podfile](https://guide
 
 ```ruby
 target "MyAppTarget" do
-  pod "GetLaid", "~> 2.1"
+  pod "GetLaid", "~> 3.0"
 end
 ```
 
@@ -235,7 +235,7 @@ item1.constrain(to: item2.height.at(0.6).min)
 
 * safe areas
 * system spacing
-* size target (and convenience funcs max, min, size, constrain(to: Float, Float))
+* size target (and convenience funcs max, min, size, constrain(to: CGFloat, CGFloat))
 * constrainAspectRatio(to ratio: CGFloat)
 * constant dimension (and convenience funcs)
   * constrain(to size: CGFloat) 	
