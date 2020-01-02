@@ -6,6 +6,8 @@ import UIKit
 
 public extension LayoutItem
 {
+    // TODO: turn aspect ratio into a combined anchor
+    
     @discardableResult
     func constrainAspectRatio(to ratio: CGFloat) -> NSLayoutConstraint?
     {
