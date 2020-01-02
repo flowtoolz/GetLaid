@@ -279,7 +279,7 @@ A size target can also represent a constant size. These are equivalent:
 
 ```swift
 item.constrain(to: .size(100, 50))  // size target with constants
-item.constrain(to: 100, 50)         // shorthand notation
+item.constrain(to: 100, 50)         // same
 ```
 
 And there's also a shorthand notation for minimum and maximum size. These are equivalent:
@@ -298,11 +298,10 @@ videoView.constrainAspectRatio(to: 16 / 9)
 
 ## LEFT TO DOCUMENT
 
-* safe areas
-* system spacing
-* parent property
-* constrain to parent (convenience funcs)
 * constrain neighbours
+* safe areas, parent
+* constrain to parent (convenience funcs)
+* system spacing
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
