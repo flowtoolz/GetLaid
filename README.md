@@ -10,6 +10,7 @@ GetLaid is a lean framework for laying out complex user interfaces through elega
 * [Constrain Positions](#constrain-positions)
 * [Constrain Multiple Positions](#constrain-multiple-positions)
 * [Constrain Dimensions](#constrain-dimensions)
+* [Constrain Both Dimensions](#constrain-both-dimensions)
 
 ## Why Oh Why?
 
@@ -193,9 +194,9 @@ You may modify the constrain target and also chain these modifications:
 
 ```swift
 item1.constrain(to: item2.left.offset(8))
-item1.constrain(to: item2.left.min)              // >= left
-item1.constrain(to: item2.left.max)              // <= left
-item1.constrain(to: item2.left.at(0.5))          // at 0.5 of left
+item1.constrain(to: item2.left.min)              // >= item2.left
+item1.constrain(to: item2.left.max)              // <= item2.left
+item1.constrain(to: item2.left.at(0.5))          // at 0.5 of item2.left
 item1.constrain(to: item2.left.min.offset(8))
 ```
 
@@ -235,17 +236,70 @@ item1.width.constrain(to: item2.height)
 As with positions, you can omit anchors, modify the target, and chain modifications:
 
 ```swift
-item1.constrain(to: item2.height.at(0.6).min)
+item1.constrain(to: item2.height.at(0.6).min)  // >= 60% of item2.height
+```
+
+You can constrain a dimension to a constant size. These are equivalent:
+
+```swift
+item.width.constrain(to: .size(100))
+item.width.constrain(to: 100)
+```
+
+Omit the dimension to constrain both dimensions to the same constant. These are also equivalent:
+
+```swift
+item.constrain(to: .size(100))  // square with edge length 100
+item.constrain(to: 100)         // same
+```
+
+Modify the constant size target like any other target, for one or both dimensions:
+
+```swift
+item.width.constrain(to: .size(100).max)  // width <= 100
+item.constrain(to: .size(100).max)        // width, height <= 100
+```
+
+There's a shorter notation for minimum and maximum constants. These are equivalent:
+
+```swift
+item.constrain(to: .size(100).max)  // width, height <= 100
+item.constrain(to: .max(100))       // same
+```
+
+## Constrain Both Dimensions
+
+The `size` target combines width and height. It works fully equivalent to those single dimensions:
+
+```swift
+item1.constrain(to: item2.size.min)  // at least as big as item2
+```
+
+A size target can also represent a constant size. These are equivalent:
+
+```swift
+item.constrain(to: .size(100, 50))  // size target with constants
+item.constrain(to: 100, 50)         // shorthand notation
+```
+
+And there's also a shorthand notation for minimum and maximum size. These are equivalent:
+
+```swift
+item.constrain(to: .size(100, 50).min)  // at least 100 by 50
+item.constrain(to: .min(100, 50))       // same
+```
+
+Finally, there's a shorthand for constraining aspect ratio. These are equivalent:
+
+```swift
+videoView.width.constrain(to: videoView.height.at(16 / 9))
+videoView.constrainAspectRatio(to: 16 / 9)
 ```
 
 ## LEFT TO DOCUMENT
 
 * safe areas
 * system spacing
-* size target (and convenience funcs max, min, size, constrain(to: CGFloat, CGFloat))
-* constrainAspectRatio(to ratio: CGFloat)
-* constant dimension (and convenience funcs)
-  * constrain(to size: CGFloat) 	
 * parent property
 * constrain to parent (convenience funcs)
 * constrain neighbours
