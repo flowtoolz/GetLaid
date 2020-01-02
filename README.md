@@ -2,7 +2,7 @@
 
 [![badge-pod]](http://cocoapods.org/pods/GetLaid) ![badge-pms] ![badge-languages] ![badge-platforms] ![badge-mit]
 
-GetLaid is a lean framework for defining complex view layouts through elegant code.
+GetLaid is a lean framework for laying out complex user interfaces through elegant code.
 
 * [Why Oh Why?](#why-oh-why)
 * [Install](#install)
@@ -18,8 +18,8 @@ GetLaid is a lean framework for defining complex view layouts through elegant co
 GetLaid has some advantages even over classic simple frameworks like [PureLayout](https://github.com/PureLayout/PureLayout):
 
 * :white_check_mark: Readability
-    - Functions are of the principle form "constrain [constrained aspect] to [constraining aspect]"
-    - This semantic naming makes auto completion more valuable: If you want to constrain the left side, write `constrainLeft`. Auto completion will show all possible ways to do it.
+    - Functions are of the principle form "[constrained aspect] constrain to [constraining aspect]"
+    - This semantic naming makes auto completion more valuable, as it quickly and meaningfully narrows down the available options.
     - All functions have the prefix `constrain` which expresses best what they really do: They constrain some attributes and return the resulting constraints.
     - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
 * :white_check_mark: Brevity
@@ -28,8 +28,8 @@ GetLaid has some advantages even over classic simple frameworks like [PureLayout
     - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
     - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
 * :white_check_mark: Easy Relative Layouting
-    - Relative positioning: `item1.constrainLeftToParent(at: 0.5)`
-    - Relative sizing: `item1.constrainWidth(to: 0.3, of: item2)`
+    - Relative positioning: `item1.constrainToParentLeft(at: 0.5)`
+    - Relative sizing: `item1.constrain(to: item2.width.at(0.3))`
     - Aspect ratio: `item.constrainAspectRatio(to: 16/9)`
 * :white_check_mark: Easy Positioning of Items Next to Each Other
     - `item1.constrain(above: item2, gap: 10)`
@@ -226,7 +226,7 @@ All of them take offsets as arguments for exactly the constrained positions, in 
 
 ## Constrain Dimensions
 
-You constrain width and height analogously to positions:
+You constrain width and height just like positions:
 
 ```swift
 item1.width.constrain(to: item2.height)
