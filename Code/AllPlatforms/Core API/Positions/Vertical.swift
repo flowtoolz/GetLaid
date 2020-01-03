@@ -4,6 +4,40 @@ import AppKit
 import UIKit
 #endif
 
+// MARK: - Constrain Operator
+
+@discardableResult
+public func >>(item: LayoutItem, target: VerticalTarget?) -> NSLayoutConstraint?
+{
+    item.constrain(to: target)
+}
+
+@discardableResult
+public func >>(item: LayoutItem, anchor: VerticalAnchor?) -> NSLayoutConstraint?
+{
+    item.constrain(to: anchor)
+}
+
+@discardableResult
+public func >>(anchor: VerticalAnchor, item: LayoutItem?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: item)
+}
+
+@discardableResult
+public func >>(anchor: VerticalAnchor, target: VerticalTarget?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: target)
+}
+
+@discardableResult
+public func >>(anchor: VerticalAnchor, anchor2: VerticalAnchor?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: anchor2)
+}
+
+// MARK: - LayoutItem Extension
+
 public extension LayoutItem
 {
     @discardableResult
@@ -22,6 +56,8 @@ public extension LayoutItem
                               position: anchor.position).constrain(to: anchor)
     }
 }
+
+// MARK: - VerticalAnchor Extension
 
 public extension VerticalAnchor
 {
@@ -90,6 +126,8 @@ public extension VerticalAnchor
         .init(anchor: self, relation: .relative(factor))
     }
 }
+
+// MARK: - Types
 
 public struct VerticalTarget: Target
 {
