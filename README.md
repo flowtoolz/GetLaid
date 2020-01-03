@@ -114,8 +114,6 @@ item1 >> item1.parent?.all(topInset: 10)
 
 So, which is prettier, mh?
 
-GetLaid offers additional convenience functions that would make some of the above use cases even more readable and possibly shorter, in particular in regards to parent views, aspect ratios and neighbouring items.
-
 If you can spare fancyness but appreciate readability, GetLaid might be for you.
 
 ## Install
@@ -298,22 +296,12 @@ item.constrain(to: .size(100, 50).min)  // at least 100 by 50
 item.constrain(to: .min(100, 50))       // same
 ```
 
-Finally, there's a shorthand for constraining aspect ratio. These are equivalent:
-
-```swift
-videoView.width.constrain(to: videoView.height.at(16 / 9))
-videoView.constrainAspectRatio(to: 16 / 9)
-```
-
 ## TO DOcument
 
-* separate core API that uses `constrain(to:` functions from convenience API
 * operator >>
 * system spacing
   * find out whether there's still a difference between sibling spacing and parent spacing
 * safe areas, parent
-* constrain to parent (convenience funcs)
-* constrain neighbours
 * shorten and update motivational introduction
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square

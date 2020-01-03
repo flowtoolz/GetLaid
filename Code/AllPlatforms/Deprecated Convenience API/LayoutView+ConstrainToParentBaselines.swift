@@ -4,6 +4,7 @@ import AppKit
 import UIKit
 #endif
 
+@available(*, deprecated, message: "This convenience will be removed or reimplemented in the GetLaid core API")
 public extension LayoutView
 {
     @discardableResult
