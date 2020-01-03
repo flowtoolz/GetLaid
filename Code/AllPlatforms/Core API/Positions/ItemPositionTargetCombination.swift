@@ -50,9 +50,9 @@ public extension LayoutItem
     
     func center(xOffset: CGFloat = 0, yOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .centerX),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .centerX),
                                          offset: xOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .centerY),
+              verticalTargets: [ .init(.init(item: self, position: .centerY),
                                        offset: yOffset) ])
     }
     
@@ -63,13 +63,13 @@ public extension LayoutItem
              bottomOffset: CGFloat = 0,
              trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .leading),
                                          offset: leadingOffset),
-                                   .init(anchor: .init(item: self, position: .trailing),
+                                   .init(.init(item: self, position: .trailing),
                                          offset: trailingOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset),
-                                 .init(anchor: .init(item: self, position: .bottom),
+                                 .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset)])
     }
     
@@ -78,13 +78,13 @@ public extension LayoutItem
              bottomOffset: CGFloat = 0,
              rightOffset: CGFloat) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .left),
                                          offset: leftOffset),
-                                   .init(anchor: .init(item: self, position: .right),
+                                   .init(.init(item: self, position: .right),
                                          offset: rightOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset),
-                                 .init(anchor: .init(item: self, position: .bottom),
+                                 .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset)])
     }
     
@@ -94,11 +94,11 @@ public extension LayoutItem
                    bottomOffset: CGFloat = 0,
                    trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .leading),
                                          offset: leadingOffset),
-                                   .init(anchor: .init(item: self, position: .trailing),
+                                   .init(.init(item: self, position: .trailing),
                                          offset: trailingOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .bottom),
+              verticalTargets: [ .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset) ])
     }
     
@@ -106,11 +106,11 @@ public extension LayoutItem
                    bottomOffset: CGFloat = 0,
                    rightOffset: CGFloat) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .left),
                                          offset: leftOffset),
-                                   .init(anchor: .init(item: self, position: .right),
+                                   .init(.init(item: self, position: .right),
                                          offset: rightOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .bottom),
+              verticalTargets: [ .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset) ])
     }
     
@@ -120,11 +120,11 @@ public extension LayoutItem
                        bottomOffset: CGFloat = 0,
                        trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .trailing),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .trailing),
                                          offset: trailingOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset),
-                                 .init(anchor: .init(item: self, position: .bottom),
+                                 .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset) ])
     }
     
@@ -134,11 +134,11 @@ public extension LayoutItem
                       leadingOffset: CGFloat = 0,
                       trailingOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .leading),
                                          offset: leadingOffset),
-                                   .init(anchor: .init(item: self, position: .trailing),
+                                   .init(.init(item: self, position: .trailing),
                                          offset: trailingOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset) ])
     }
     
@@ -146,11 +146,11 @@ public extension LayoutItem
                       leftOffset: CGFloat,
                       rightOffset: CGFloat) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .left),
                                          offset: leftOffset),
-                                   .init(anchor: .init(item: self, position: .right),
+                                   .init(.init(item: self, position: .right),
                                          offset: rightOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset) ])
     }
     
@@ -160,11 +160,11 @@ public extension LayoutItem
                         leadingOffset: CGFloat = 0,
                         bottomOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .leading),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .leading),
                                          offset: leadingOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset),
-                                 .init(anchor: .init(item: self, position: .bottom),
+                                 .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset) ])
     }
     
@@ -174,11 +174,11 @@ public extension LayoutItem
                     bottomOffset: CGFloat = 0,
                     rightOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .right),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .right),
                                          offset: rightOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset),
-                                 .init(anchor: .init(item: self, position: .bottom),
+                                 .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset) ])
     }
     
@@ -188,11 +188,11 @@ public extension LayoutItem
                      leftOffset: CGFloat = 0,
                      bottomOffset: CGFloat = 0) -> ItemPositionTargetCombination
     {
-        .init(horizontalTargets: [ .init(anchor: .init(item: self, position: .left),
+        .init(horizontalTargets: [ .init(.init(item: self, position: .left),
                                          offset: leftOffset) ],
-              verticalTargets: [ .init(anchor: .init(item: self, position: .top),
+              verticalTargets: [ .init(.init(item: self, position: .top),
                                        offset: topOffset),
-                                 .init(anchor: .init(item: self, position: .bottom),
+                                 .init(.init(item: self, position: .bottom),
                                        offset: bottomOffset) ])
     }
 }

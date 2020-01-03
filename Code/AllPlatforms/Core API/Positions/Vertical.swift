@@ -67,6 +67,13 @@ public extension VerticalAnchor
     }
     
     @discardableResult
+    func constrain(to anchor: VerticalAnchor?) -> NSLayoutConstraint?
+    {
+        guard let anchor = anchor else { return nil }
+        return constrain(to: VerticalTarget(anchor))
+    }
+    
+    @discardableResult
     func constrain(to target: VerticalTarget?) -> NSLayoutConstraint?
     {
         guard let target = target else { return nil }
@@ -75,30 +82,27 @@ public extension VerticalAnchor
                          relation: target.relation)
     }
     
-    @discardableResult
-    func constrain(to targetAnchor: VerticalAnchor?,
-                   offset: CGFloat = 0,
-                   relation: Relation = .exact) -> NSLayoutConstraint?
+    internal func constrain(to anchor: VerticalAnchor,
+                            offset: CGFloat,
+                            relation: Relation) -> NSLayoutConstraint
     {
-        guard let targetAnchor = targetAnchor else { return nil }
-        
         switch relation
         {
         case .exact:
-            return nsAnchor.constraint(equalTo: targetAnchor.nsAnchor,
+            return nsAnchor.constraint(equalTo: anchor.nsAnchor,
                                        constant: offset).activate()
         case .minimum:
-            return nsAnchor.constraint(greaterThanOrEqualTo: targetAnchor.nsAnchor,
+            return nsAnchor.constraint(greaterThanOrEqualTo: anchor.nsAnchor,
                                        constant: offset).activate()
         case .maximum:
-            return nsAnchor.constraint(lessThanOrEqualTo: targetAnchor.nsAnchor,
+            return nsAnchor.constraint(lessThanOrEqualTo: anchor.nsAnchor,
                                        constant: offset).activate()
         case .relative(let factor):
             return NSLayoutConstraint(item: item,
                                       attribute: position.attribute,
                                       relatedBy: .equal,
-                                      toItem: targetAnchor.item,
-                                      attribute: targetAnchor.position.attribute,
+                                      toItem: anchor.item,
+                                      attribute: anchor.position.attribute,
                                       multiplier: factor,
                                       constant: offset).activate()
         }
@@ -106,22 +110,22 @@ public extension VerticalAnchor
     
     func offset(_ offset: CGFloat) -> VerticalTarget
     {
-        .init(anchor: self, offset: offset)
+        .init(self, offset: offset)
     }
     
     var min: VerticalTarget
     {
-        .init(anchor: self, relation: .minimum)
+        .init(self, relation: .minimum)
     }
     
     var max: VerticalTarget
     {
-        .init(anchor: self, relation: .maximum)
+        .init(self, relation: .maximum)
     }
     
     func at(_ factor: CGFloat) -> VerticalTarget
     {
-        .init(anchor: self, relation: .relative(factor))
+        .init(self, relation: .relative(factor))
     }
 }
 
@@ -129,7 +133,7 @@ public extension VerticalAnchor
 
 public struct VerticalTarget: Target
 {
-    init(anchor: VerticalAnchor,
+    init(_ anchor: VerticalAnchor,
          offset: CGFloat = 0,
          relation: Relation = .exact)
     {
