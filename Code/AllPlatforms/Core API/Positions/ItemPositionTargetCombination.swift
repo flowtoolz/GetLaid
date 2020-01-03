@@ -4,6 +4,19 @@ import AppKit
 import UIKit
 #endif
 
+@discardableResult
+public func >>(item: LayoutItem, item2: LayoutItem?) -> [NSLayoutConstraint]
+{
+    item.constrain(to: item2)
+}
+
+@discardableResult
+public func >>(item: LayoutItem,
+               targets: ItemPositionTargetCombination?) -> [NSLayoutConstraint]
+{
+    item.constrain(to: targets)
+}
+
 public extension LayoutItem
 {
     @discardableResult
