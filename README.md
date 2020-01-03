@@ -69,7 +69,7 @@ box.autoSetDimensions(to: CGSize(width: 50, height: 50))
 box.autoCenterInSuperView()
 ~~~
 
-GetLaid trims AutoLayout code even further down to the essence:
+GetLaid trims AutoLayout further down to the essence. The operator `>>` can be read as "constrain to":
 
 ~~~swift
 box >> 50
@@ -96,8 +96,6 @@ item1.autoPinEdgesToSuperViewEdges(with: NSEdgeInsets(top: 10, left: 0, bottom: 
 ~~~
 
 #### After (GetLaid)
-
-The operator `>>` can be read as "constrain to":
 
 ~~~swift
 item1 >> item1.parent
