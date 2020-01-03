@@ -4,6 +4,42 @@ import AppKit
 import UIKit
 #endif
 
+// TODO: provide shorthand operator for all constrain(to: functions. (the "core API")
+
+// MARK: - Constrain Operator
+
+@discardableResult
+public func >>(item: LayoutItem, target: HorizontalTarget?) -> NSLayoutConstraint?
+{
+    item.constrain(to: target)
+}
+
+@discardableResult
+public func >>(item: LayoutItem, anchor: HorizontalAnchor?) -> NSLayoutConstraint?
+{
+    item.constrain(to: anchor)
+}
+
+@discardableResult
+public func >>(anchor: HorizontalAnchor, item: LayoutItem?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: item)
+}
+
+@discardableResult
+public func >>(anchor: HorizontalAnchor, target: HorizontalTarget?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: target)
+}
+
+@discardableResult
+public func >>(anchor: HorizontalAnchor, anchor2: HorizontalAnchor?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: anchor2)
+}
+
+// MARK: - LayoutItem Extensions
+
 public extension LayoutItem
 {
     @discardableResult
@@ -22,6 +58,8 @@ public extension LayoutItem
                                 position: anchor.position).constrain(to: anchor)
     }
 }
+
+// MARK: - HorizontalAnchor Extensions
 
 public extension HorizontalAnchor
 {
@@ -90,6 +128,8 @@ public extension HorizontalAnchor
         .init(anchor: self, relation: .relative(factor))
     }
 }
+
+// MARK: - Types
 
 public struct HorizontalTarget: Target
 {
