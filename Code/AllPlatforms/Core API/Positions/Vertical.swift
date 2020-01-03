@@ -4,7 +4,7 @@ import AppKit
 import UIKit
 #endif
 
-// MARK: - Constrain Operator
+// MARK: - Constrain LayoutItem
 
 @discardableResult
 public func >>(item: LayoutItem, target: VerticalTarget?) -> NSLayoutConstraint?
@@ -17,26 +17,6 @@ public func >>(item: LayoutItem, anchor: VerticalAnchor?) -> NSLayoutConstraint?
 {
     item.constrain(to: anchor)
 }
-
-@discardableResult
-public func >>(anchor: VerticalAnchor, item: LayoutItem?) -> NSLayoutConstraint?
-{
-    anchor.constrain(to: item)
-}
-
-@discardableResult
-public func >>(anchor: VerticalAnchor, target: VerticalTarget?) -> NSLayoutConstraint?
-{
-    anchor.constrain(to: target)
-}
-
-@discardableResult
-public func >>(anchor: VerticalAnchor, anchor2: VerticalAnchor?) -> NSLayoutConstraint?
-{
-    anchor.constrain(to: anchor2)
-}
-
-// MARK: - LayoutItem Extension
 
 public extension LayoutItem
 {
@@ -57,7 +37,25 @@ public extension LayoutItem
     }
 }
 
-// MARK: - VerticalAnchor Extension
+// MARK: - Constrain VerticalAnchor
+
+@discardableResult
+public func >>(anchor: VerticalAnchor, item: LayoutItem?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: item)
+}
+
+@discardableResult
+public func >>(anchor: VerticalAnchor, target: VerticalTarget?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: target)
+}
+
+@discardableResult
+public func >>(anchor: VerticalAnchor, anchor2: VerticalAnchor?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: anchor2)
+}
 
 public extension VerticalAnchor
 {

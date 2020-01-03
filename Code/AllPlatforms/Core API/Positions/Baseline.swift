@@ -4,7 +4,7 @@ import AppKit
 import UIKit
 #endif
 
-// MARK: - Constrain Operator
+// MARK: - Constrain LayoutView
 
 @discardableResult
 public func >>(view: LayoutView, target: BaselineTarget?) -> NSLayoutConstraint?
@@ -17,26 +17,6 @@ public func >>(view: LayoutView, anchor: BaselineAnchor?) -> NSLayoutConstraint?
 {
     view.constrain(to: anchor)
 }
-
-@discardableResult
-public func >>(anchor: BaselineAnchor, view: LayoutView?) -> NSLayoutConstraint?
-{
-    anchor.constrain(to: view)
-}
-
-@discardableResult
-public func >>(anchor: BaselineAnchor, target: BaselineTarget?) -> NSLayoutConstraint?
-{
-    anchor.constrain(to: target)
-}
-
-@discardableResult
-public func >>(anchor: BaselineAnchor, anchor2: BaselineAnchor?) -> NSLayoutConstraint?
-{
-    anchor.constrain(to: anchor2)
-}
-
-// MARK: - LayoutView Extension
 
 public extension LayoutView
 {
@@ -57,7 +37,25 @@ public extension LayoutView
     }
 }
 
-// MARK: - BaselineAnchor Extension
+// MARK: - Constrain BaselineAnchor
+
+@discardableResult
+public func >>(anchor: BaselineAnchor, view: LayoutView?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: view)
+}
+
+@discardableResult
+public func >>(anchor: BaselineAnchor, target: BaselineTarget?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: target)
+}
+
+@discardableResult
+public func >>(anchor: BaselineAnchor, anchor2: BaselineAnchor?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: anchor2)
+}
 
 extension BaselineAnchor
 {

@@ -4,8 +4,6 @@ import AppKit
 import UIKit
 #endif
 
-// TODO: provide shorthand operator for constrain(to: functions. (the "core API")
-
 @discardableResult
 public func >>(item: LayoutItem, size: (CGFloat, CGFloat)) -> [NSLayoutConstraint]
 {
