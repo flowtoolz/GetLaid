@@ -69,7 +69,14 @@ box.autoSetDimensions(to: CGSize(width: 50, height: 50))
 box.autoCenterInSuperView()
 ~~~
 
-GetLaid trims AutoLayout code even further down to the essence. Compare for yourself:
+GetLaid trims AutoLayout code even further down to the essence:
+
+~~~swift
+box >> 50
+box >> box.parent?.center
+~~~
+
+Here's a richer comparison against PureLayout:
 
 #### Before (PureLayout)
 
