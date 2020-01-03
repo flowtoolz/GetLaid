@@ -4,6 +4,8 @@ import AppKit
 import UIKit
 #endif
 
+// TODO: provide shorthand operator for constrain(to: functions. (the "core API")
+
 public extension LayoutItem
 {
     @discardableResult

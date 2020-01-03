@@ -21,13 +21,13 @@ public extension LayoutItem
     @discardableResult
     func constrainToParentHeight(relation: Relation = .exact) -> NSLayoutConstraint?
     {
-        height.constrain(to: parent?.height, relation: relation)
+        height.constrain(to: parent?.height, offset: 0, relation: relation)
     }
     
     @discardableResult
     func constrainToParentWidth(relation: Relation = .exact) -> NSLayoutConstraint?
     {
-        width.constrain(to: parent?.width, relation: relation)
+        width.constrain(to: parent?.width, offset: 0, relation: relation)
     }
     
     @discardableResult

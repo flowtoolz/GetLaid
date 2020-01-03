@@ -4,8 +4,6 @@ import AppKit
 import UIKit
 #endif
 
-// TODO: provide shorthand operator for all constrain(to: functions. (the "core API")
-
 // MARK: - Constrain Operator
 
 @discardableResult

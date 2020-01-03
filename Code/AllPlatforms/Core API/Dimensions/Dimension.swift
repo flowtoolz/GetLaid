@@ -4,6 +4,26 @@ import AppKit
 import UIKit
 #endif
 
+// MARK: - Constrain Layout Item
+
+@discardableResult
+public func >>(item: LayoutItem, size: CGFloat) -> [NSLayoutConstraint]
+{
+    item.constrain(to: size)
+}
+
+@discardableResult
+public func >>(item: LayoutItem, target: DimensionTarget?) -> [NSLayoutConstraint]
+{
+    item.constrain(to: target)
+}
+
+@discardableResult
+public func >>(item: LayoutItem, anchor: DimensionAnchor?) -> NSLayoutConstraint?
+{
+    item.constrain(to: anchor)
+}
+
 public extension LayoutItem
 {
     @discardableResult
@@ -42,6 +62,32 @@ public extension LayoutItem
     }
 }
 
+// MARK: - Constrain DimensionAnchor
+
+@discardableResult
+public func >>(anchor: DimensionAnchor, item: LayoutItem?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: item)
+}
+
+@discardableResult
+public func >>(anchor: DimensionAnchor, target: DimensionTarget?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: target)
+}
+
+@discardableResult
+public func >>(anchor: DimensionAnchor, anchor2: DimensionAnchor?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: anchor2)
+}
+
+@discardableResult
+public func >>(anchor: DimensionAnchor, size: CGFloat) -> NSLayoutConstraint
+{
+    anchor.constrain(to: size)
+}
+
 public extension DimensionAnchor
 {
     @discardableResult
@@ -49,12 +95,6 @@ public extension DimensionAnchor
     {
         guard let item = item else { return nil }
         return constrain(to: .init(item: item, dimension: dimension))
-    }
-    
-    @discardableResult
-    func constrain(to size: CGFloat) -> NSLayoutConstraint?
-    {
-        constrain(to: .size(size))
     }
     
     @discardableResult
@@ -75,9 +115,20 @@ public extension DimensionAnchor
     }
     
     @discardableResult
-    func constrain(to target: DimensionAnchor?,
-                   offset: CGFloat = 0,
-                   relation: Relation = .exact) -> NSLayoutConstraint?
+    func constrain(to anchor: DimensionAnchor?) -> NSLayoutConstraint?
+    {
+        constrain(to: anchor, offset: 0, relation: .exact)
+    }
+    
+    @discardableResult
+    func constrain(to size: CGFloat) -> NSLayoutConstraint
+    {
+        constrain(to: size, relation: .exact)
+    }
+    
+    internal func constrain(to target: DimensionAnchor?,
+                            offset: CGFloat,
+                            relation: Relation) -> NSLayoutConstraint?
     {
         guard let target = target else { return nil }
         
@@ -102,9 +153,8 @@ public extension DimensionAnchor
         }
     }
     
-    @discardableResult
-    func constrain(to constant: CGFloat,
-                   relation: Relation = .exact) -> NSLayoutConstraint
+    internal func constrain(to constant: CGFloat,
+                            relation: Relation) -> NSLayoutConstraint
     {
         switch relation
         {
