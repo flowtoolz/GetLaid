@@ -7,18 +7,6 @@ import UIKit
 public extension LayoutView
 {
     @discardableResult
-    func constrainToParentFirstBaseline(offset: CGFloat = 0) -> NSLayoutConstraint?
-    {
-        constrain(to: parent?.firstBaseline.offset(offset))
-    }
-    
-    @discardableResult
-    func constrainToParentLastBaseline(offset: CGFloat = 0) -> NSLayoutConstraint?
-    {
-        constrain(to: parent?.lastBaseline.offset(offset))
-    }
-    
-    @discardableResult
     func constrain(to target: BaselineTarget?) -> NSLayoutConstraint?
     {
         guard let target = target else { return nil }
