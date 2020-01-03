@@ -84,24 +84,26 @@ item1.autoPinEdge(.bottom, to: .top, of: item2, withOffset: -20)
 item1.autoSetDimension(.height, toSize: 64, relation: .greaterThanOrEqual)
 item1.autoPinEdgesToSuperviewEdges(with: NSEdgeInsetsZero, excludingEdge: .top)
 item1.autoConstrainAttribute(.left, to: .right, of: parent, withMultiplier: 0.5)
-item1.autoConstrainAttribute(.width, to: .height, of: item1, withMultiplier: 16/9)
+item1.autoConstrainAttribute(.width, to: .height, of: item1, withMultiplier: 16 / 9)
 item1.autoPinEdgesToSuperViewEdges(with: NSEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
 ~~~
 
 #### After (GetLaid)
 
+The operator `>>` can be read as "constrain to":
+
 ~~~swift
-item1.constrainToParent()
-item1.constrainToParentTop()
-item1.width.constrain(to: 42)
-item1.constrain(to: item2.left)
-item1.constrain(to: item2.centerX)
-item1.constrain(to: 82, 42)
+item1 >> item1.parent
+item1 >> item1.parent?.top
+item1.width >> 42
+item1 >> item2.left
+item1 >> item2.centerX
+item1 >> (82, 42)
 item1.constrain(above: item2, gap: 20)
-item1.height.constrain(to: .min(64))
-item1.constrainToParentButTop()
+item1.height >> .min(64)
+item1 >> item1.parent?.allButTop
 item1.constrainLeftToParent(at: 0.5)
-item1.constrainAspectRatio(to: 16/9)
+item1.constrainAspectRatio(to: 16 / 9)
 item1.constrainToParent(topInset: 10)
 ~~~
 
@@ -299,11 +301,13 @@ videoView.constrainAspectRatio(to: 16 / 9)
 ## TO DOcument
 
 * separate core API that uses `constrain(to:` functions from convenience API
+* operator >>
 * system spacing
   * find out whether there's still a difference between sibling spacing and parent spacing
 * safe areas, parent
 * constrain to parent (convenience funcs)
 * constrain neighbours
+* shorten and update motivational introduction
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
