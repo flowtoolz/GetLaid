@@ -104,15 +104,17 @@ item1.width >> 42
 item1 >> item2.left
 item1 >> item2.centerX
 item1 >> (82, 42)
-item1.constrain(above: item2, gap: 20)
+item1.bottom >> item2.top.offset(-20)
 item1.height >> .min(64)
 item1 >> item1.parent?.allButTop
-item1.constrainLeftToParent(at: 0.5)
-item1.constrainAspectRatio(to: 16 / 9)
-item1.constrainToParent(topInset: 10)
+item1.left >> item1.parent?.right.at(0.5)
+item1.width >> item1.height.at(16 / 9)
+item1 >> item1.parent?.all(topInset: 10)
 ~~~
 
 So, which is prettier, mh?
+
+GetLaid offers additional convenience functions that would make some of the above use cases even more readable and possibly shorter, in particular in regards to parent views, aspect ratios and neighbouring items.
 
 If you can spare fancyness but appreciate readability, GetLaid might be for you.
 
