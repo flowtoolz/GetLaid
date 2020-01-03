@@ -4,7 +4,7 @@ import AppKit
 import UIKit
 #endif
 
-// MARK: - Constrain Layout Item
+// MARK: - Constrain LayoutItem
 
 @discardableResult
 public func >>(item: LayoutItem, size: CGFloat) -> [NSLayoutConstraint]
@@ -189,6 +189,8 @@ public extension DimensionAnchor
         .init(type: .anchor(self), relation: .relative(factor))
     }
 }
+
+// MARK: - Types
 
 public struct DimensionTarget: Target
 {

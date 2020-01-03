@@ -6,6 +6,18 @@ import UIKit
 
 // TODO: provide shorthand operator for constrain(to: functions. (the "core API")
 
+@discardableResult
+public func >>(item: LayoutItem, size: (CGFloat, CGFloat)) -> [NSLayoutConstraint]
+{
+    item.constrain(to: size.0, size.1)
+}
+
+@discardableResult
+public func >>(item: LayoutItem, target: SizeTarget?) -> [NSLayoutConstraint]
+{
+    item.constrain(to: target)
+}
+
 public extension LayoutItem
 {
     @discardableResult
