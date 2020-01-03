@@ -4,6 +4,18 @@ import AppKit
 import UIKit
 #endif
 
+@discardableResult
+public func >>(anchor: BaselineAnchor, target: VerticalTarget?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: target)
+}
+
+@discardableResult
+public func >>(anchor: BaselineAnchor, anchor2: VerticalAnchor?) -> NSLayoutConstraint?
+{
+    anchor.constrain(to: anchor2)
+}
+
 public extension BaselineAnchor
 {
     @discardableResult
