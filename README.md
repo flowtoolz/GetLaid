@@ -296,12 +296,14 @@ videoView.width.constrain(to: videoView.height.at(16 / 9))
 videoView.constrainAspectRatio(to: 16 / 9)
 ```
 
-## LEFT TO DOCUMENT
+## TO DOcument
 
-* constrain neighbours
+* separate core API that uses `constrain(to:` functions from convenience API
+* system spacing
+  * find out whether there's still a difference between sibling spacing and parent spacing
 * safe areas, parent
 * constrain to parent (convenience funcs)
-* system spacing
+* constrain neighbours
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
