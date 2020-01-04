@@ -11,6 +11,7 @@ GetLaid is a lean framework for laying out complex user interfaces through elega
 * [Constrain Multiple Positions](#constrain-multiple-positions)
 * [Constrain Dimensions](#constrain-dimensions)
 * [Constrain Both Dimensions](#constrain-both-dimensions)
+* [System Spacings on iOS and tvOS](#system-spacings-on-ios-and-tvos)
 
 ## Why Oh Why?
 
@@ -300,10 +301,29 @@ item >> layoutSize(100, 50).min  // at least 100 by 50
 item >> .min(100, 50)            // same
 ```
 
+## System Spacings on iOS and tvOS
+
+With Apple's `NSLayoutAnchor`, you can make use of an mysterious "system spacing". Apple does not disclose how that is calculated and does not offer any concrete values in its APIs. Using system spacings through the `NSLayoutAnchor` API is a bit awkward, limited in how it is applied and limited in what it can be applied to.
+
+GetLaid exposes the system spacing as two global `CGFLoat` constants. It calls the actual Apple API to calculate the constants the first time you acces them:
+
+1. `systemSiblingSpacing` is the gap iOS wants between sibling views.
+2. `systemParentSpacing` is the inset iOS wants from a view's edge to a contained subview.
+
+It seems that on iOS both these system spacings are always the same. At least, I checked that from iPhone SE up to the newest 13" iPad Pro, and from iOS 12.0 to iOS 13.3. So GetLaid also offers a universal `systemSpacing` which just returns `systemSiblingSpacing`.
+
+The system spacing as a constant offers loads of flexibility:
+
+```swift
+item2.left >> item1.right.offset(systemSpacing)  // gap between views
+item >> item.parent?.top.offset(systemSpacing)   // inset to parent
+spacer.width >> .min(systemSpacing)              // minimum spacer width
+```
+
+Remember that these constants are not hardcoded but dynamically calculated on the actual user device, so they are absolutely true to what Apple intents for sibling gaps and parent insets, on any system and on any iOS/tvOS version. But also note that these two values do not capture the system spacing magic that Apple offers in conjunction with baselines and font sizes and possibly in other contexts.
+
 ## TO DOcument
 
-* system spacing
-  * find out whether there's still a difference between sibling spacing and parent spacing
 * safe areas, parent
 * shorten and update motivational introduction
 
