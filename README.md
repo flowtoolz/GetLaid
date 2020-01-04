@@ -241,7 +241,7 @@ You constrain width and height just like positions:
 item1.width >> item2.height
 ```
 
-As with positions, you can omit anchors, modify the target, and chain modifications:
+As with positions, you can omit redundant attributes, modify the target, and chain modifications:
 
 ```swift
 item1 >> item2.height.at(0.6).min  // >= 60% of item2.height
@@ -261,18 +261,19 @@ item >> .size(100)  // square with edge length 100
 item >> 100         // same
 ```
 
-Modify the constant size target like any other target, for one or both dimensions:
+You can modify the constant size target like any other target, for one or both dimensions. Unfortunately, Swift needs the explicit type context for that, as long as we use the `>>` operator. But there are workarounds:
 
 ```swift
-item.width >> .size(100).max  // width <= 100
-item >> .size(100).max        // width, height <= 100
+item >> .size(100).max                 // WON'T COMPILE❗
+item >> DimensionTarget.size(100).max  // compiles but is ugly
+item >> layoutSize(100).max            // global func establishes type context
 ```
 
-There's a shorter notation for minimum and maximum constants. These are equivalent:
+Fortunately, you'll virtually never need the above workaround, thanks to shorthand notations for minimum and maximum constants. These are equivalent:
 
 ```swift
-item >> .size(100).max  // width, height <= 100
-item >> .max(100)       // same
+item >> layoutSize(100).max  // width, height <= 100
+item >> .max(100)            // same
 ```
 
 ## Constrain Both Dimensions
@@ -293,8 +294,8 @@ item >> (100, 50)       // same
 And there's also a shorthand notation for minimum and maximum size. These are equivalent:
 
 ```swift
-item >> .size(100, 50).min  // at least 100 by 50
-item >> .min(100, 50)       // same
+item >> layoutSize(100, 50).min  // at least 100 by 50
+item >> .min(100, 50)            // same
 ```
 
 ## TO DOcument
