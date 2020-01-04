@@ -267,7 +267,7 @@ You can modify the constant size target like any other target, for one or both d
 ```swift
 item >> .size(100).max                 // WON'T COMPILE❗
 item >> DimensionTarget.size(100).max  // provides the actual type (ugly)
-item >> layoutSize(100).max            // global func returns the type context
+item >> layoutSize(100).max            // global func returns the type
 ```
 
 > **Side Note:** The global function `layoutSize` could not be named just `size` because that would technically produce name collisions and also would not properly establish the AutoLayout context in terms of meaning.
@@ -303,12 +303,12 @@ item >> .min(100, 50)            // same
 
 ## System Spacings on iOS and tvOS
 
-With Apple's `NSLayoutAnchor`, you can make use of an mysterious "system spacing". Apple does not disclose how that is calculated and does not offer any concrete values in its APIs. Using system spacings through the `NSLayoutAnchor` API is a bit awkward, limited in how it is applied and limited in what it can be applied to.
+With Apple's `NSLayoutAnchor`, you can make use of a mysterious "system spacing". Apple does not disclose how that is calculated and does not offer any concrete values you could access. Using system spacings through the `NSLayoutAnchor` API is a bit awkward, limited in how it is applied and limited in what it can be applied to.
 
 GetLaid exposes the system spacing as two global `CGFLoat` constants. It calls the actual Apple API to calculate the constants the first time you acces them:
 
-1. `systemSiblingSpacing` is the gap iOS wants between sibling views.
-2. `systemParentSpacing` is the inset iOS wants from a view's edge to a contained subview.
+1. `systemSiblingSpacing` is the gap the users system wants between sibling views.
+2. `systemParentSpacing` is the inset the users system wants from a view's edge to a contained subview.
 
 It seems that on iOS both these system spacings are always the same. At least, I checked that from iPhone SE up to the newest 13" iPad Pro, and from iOS 12.0 to iOS 13.3. So GetLaid also offers a universal `systemSpacing` which just returns `systemSiblingSpacing`.
 
