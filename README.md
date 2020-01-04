@@ -181,30 +181,31 @@ let guide = view.addLayoutGuide()
 
 ## Constrain Positions
 
-You generally call `constrain` on exactly the thing you want to constrain:
+You would always call `constrain(to:)` on exactly the thing you want to constrain. And you can always replace that function with the shorthand operator `>>`, which we'll do in the examples. These lines are equivalent :
 
 ```swift
-item1.left.constrain(to: item2.centerX)
+view1.top.constrain(to: view2.lastBaseline)
+view1.top >> view2.lastBaseline
 ```
 
 All layout attributes can be used in that way, while baselines are not available on layout guides.
 
-If source and target refer to the same position/anchor, you may omit one of them. These are equivalent:
+If left side (source) and right side (target) refer to the same layout attribute, you may omit one of them. These are equivalent:
 
 ```swift
-item1.left.constrain(to: item2.left)
-item1.left.constrain(to: item2)
-item1.constrain(to: item2.left)
+item1.left >> item2.left
+item1.left >> item2
+item1 >> item2.left
 ```
 
-You may modify the constrain target and also chain these modifications:
+You may modify the constrain target (right side attribute) and also chain these modifications:
 
 ```swift
-item1.constrain(to: item2.left.offset(8))
-item1.constrain(to: item2.left.min)              // >= item2.left
-item1.constrain(to: item2.left.max)              // <= item2.left
-item1.constrain(to: item2.left.at(0.5))          // at 0.5 of item2.left
-item1.constrain(to: item2.left.min.offset(8))
+item1 >> item2.left.offset(8)
+item1 >> item2.left.min            // >= item2.left
+item1 >> item2.left.max            // <= item2.left
+item1 >> item2.left.at(0.5)        // at 0.5 of item2.left
+item1 >> item2.left.min.offset(8)
 ```
 
 ## Constrain Multiple Positions
@@ -212,11 +213,11 @@ item1.constrain(to: item2.left.min.offset(8))
 You may constrain multiple positions at once:
 
 ```swift
-item1.constrain(to: item2.allButTop(leadingOffset: 5,   // leading, bottom, trailing
-                                    bottomOffset: -5))
-item1.constrain(to: item2.center)                       // centerX, centerY
-item1.constrain(to: item2.all)                          // all edges
-item1.constrain(to: item2)                              // shorthand for .all
+item1 >> item2.allButTop(leadingOffset: 5,  // leading, bottom, trailing
+                         bottomOffset: -5)
+item1 >> item2.center                       // centerX, centerY
+item1 >> item2.all                          // all edges
+item1 >> item2                              // shorthand for .all
 ```
 
 Available position target combinations are:
@@ -237,41 +238,41 @@ All of them take offsets as arguments for exactly the constrained positions, in 
 You constrain width and height just like positions:
 
 ```swift
-item1.width.constrain(to: item2.height)
+item1.width >> item2.height
 ```
 
 As with positions, you can omit anchors, modify the target, and chain modifications:
 
 ```swift
-item1.constrain(to: item2.height.at(0.6).min)  // >= 60% of item2.height
+item1 >> item2.height.at(0.6).min  // >= 60% of item2.height
 ```
 
 You can constrain a dimension to a constant size. These are equivalent:
 
 ```swift
-item.width.constrain(to: .size(100))
-item.width.constrain(to: 100)
+item.width >> .size(100)
+item.width >> 100
 ```
 
-Omit the dimension to constrain both dimensions to the same constant. These are also equivalent:
+Omit the dimension to constrain both dimensions to the same constant. These are equivalent:
 
 ```swift
-item.constrain(to: .size(100))  // square with edge length 100
-item.constrain(to: 100)         // same
+item >> .size(100)  // square with edge length 100
+item >> 100         // same
 ```
 
 Modify the constant size target like any other target, for one or both dimensions:
 
 ```swift
-item.width.constrain(to: .size(100).max)  // width <= 100
-item.constrain(to: .size(100).max)        // width, height <= 100
+item.width >> .size(100).max  // width <= 100
+item >> .size(100).max        // width, height <= 100
 ```
 
 There's a shorter notation for minimum and maximum constants. These are equivalent:
 
 ```swift
-item.constrain(to: .size(100).max)  // width, height <= 100
-item.constrain(to: .max(100))       // same
+item >> .size(100).max  // width, height <= 100
+item >> .max(100)       // same
 ```
 
 ## Constrain Both Dimensions
@@ -279,26 +280,25 @@ item.constrain(to: .max(100))       // same
 The `size` target combines width and height. It works fully equivalent to those single dimensions:
 
 ```swift
-item1.constrain(to: item2.size.min)  // at least as big as item2
+item1 >> item2.size.min  // at least as big as item2
 ```
 
 A size target can also represent a constant size. These are equivalent:
 
 ```swift
-item.constrain(to: .size(100, 50))  // size target with constants
-item.constrain(to: 100, 50)         // same
+item >> .size(100, 50)  // size target with constants
+item >> (100, 50)       // same
 ```
 
 And there's also a shorthand notation for minimum and maximum size. These are equivalent:
 
 ```swift
-item.constrain(to: .size(100, 50).min)  // at least 100 by 50
-item.constrain(to: .min(100, 50))       // same
+item >> .size(100, 50).min  // at least 100 by 50
+item >> .min(100, 50)       // same
 ```
 
 ## TO DOcument
 
-* operator >>
 * system spacing
   * find out whether there's still a difference between sibling spacing and parent spacing
 * safe areas, parent
