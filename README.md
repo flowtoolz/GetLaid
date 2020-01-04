@@ -261,13 +261,15 @@ item >> .size(100)  // square with edge length 100
 item >> 100         // same
 ```
 
-You can modify the constant size target like any other target, for one or both dimensions. Unfortunately, Swift needs the explicit type context for that, as long as we use the `>>` operator. But there are workarounds:
+You can modify the constant size target like any other target, for one or both dimensions. Unfortunately, as long as we use the `>>` operator, Swift needs the explicit target type as context. There are workarounds, a native one and a prettier one:
 
 ```swift
 item >> .size(100).max                 // WON'T COMPILE❗
-item >> DimensionTarget.size(100).max  // compiles but is ugly
-item >> layoutSize(100).max            // global func establishes type context
+item >> DimensionTarget.size(100).max  // provides the actual type (ugly)
+item >> layoutSize(100).max            // global func returns the type context
 ```
+
+> **Side Note:** The global function `layoutSize` could not be named just `size` because that would technically produce name collisions and also would not properly establish the AutoLayout context in terms of meaning.
 
 Fortunately, you'll virtually never need the above workaround, thanks to shorthand notations for minimum and maximum constants. These are equivalent:
 
@@ -291,7 +293,7 @@ item >> .size(100, 50)  // size target with constants
 item >> (100, 50)       // same
 ```
 
-And there's also a shorthand notation for minimum and maximum size. These are equivalent:
+And there are also a shorthand notations for minimum and maximum size. These are equivalent:
 
 ```swift
 item >> layoutSize(100, 50).min  // at least 100 by 50
