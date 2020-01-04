@@ -262,7 +262,7 @@ item >> .size(100)  // square with edge length 100
 item >> 100         // same
 ```
 
-You can modify the constant size target like any other target, for one or both dimensions. Unfortunately, as long as we use the `>>` operator, Swift needs the explicit target type as context. There are workarounds, a native one and a prettier one:
+You can modify the constant size target like any other target, for one or both dimensions. Unfortunately, as long as we use the `>>` operator, Swift needs the explicit target type as context. There are two workarounds, a more native one and a prettier one:
 
 ```swift
 item >> .size(100).max                 // WON'T COMPILE❗
@@ -294,7 +294,7 @@ item >> .size(100, 50)  // size target with constants
 item >> (100, 50)       // same
 ```
 
-And there are also a shorthand notations for minimum and maximum size. These are equivalent:
+And there are also shorthand notations for minimum and maximum size. These are equivalent:
 
 ```swift
 item >> layoutSize(100, 50).min  // at least 100 by 50
@@ -307,8 +307,8 @@ With Apple's `NSLayoutAnchor`, you can make use of a mysterious "system spacing"
 
 GetLaid exposes the system spacing as two global `CGFLoat` constants. It calls the actual Apple API to calculate the constants the first time you acces them:
 
-1. `systemSiblingSpacing` is the gap the users system wants between sibling views.
-2. `systemParentSpacing` is the inset the users system wants from a view's edge to a contained subview.
+1. `systemSiblingSpacing` is the gap the user's system wants between sibling views.
+2. `systemParentSpacing` is the inset the user's system wants from a view's edge to a contained subview.
 
 It seems that on iOS both these system spacings are always the same. At least, I checked that from iPhone SE up to the newest 13" iPad Pro, and from iOS 12.0 to iOS 13.3. So GetLaid also offers a universal `systemSpacing` which just returns `systemSiblingSpacing`.
 
