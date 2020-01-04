@@ -1,0 +1,10 @@
+platform :ios, '12.0'
+
+target 'GetLaidDevIOS' do
+
+  use_frameworks!
+
+  pod 'GetLaid', :path => '../../'
+  pod 'PureLayout'
+
+end

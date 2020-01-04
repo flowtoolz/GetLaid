@@ -1,11 +1,5 @@
-//
-//  ViewController.swift
-//  GetLaidDevIOS
-//
-//  Created by seb on 04.01.20.
-//  Copyright © 2020 flowtoolz. All rights reserved.
-//
-
+import PureLayout
+import GetLaid
 import UIKit
 
 class ViewController: UIViewController {

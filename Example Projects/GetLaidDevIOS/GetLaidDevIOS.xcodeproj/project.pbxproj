@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		755ABA405502400448B0A987 /* Pods_GetLaidDevIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A7E3CA7E54FF1216060B4A /* Pods_GetLaidDevIOS.framework */; };
 		9674BCC423C14459002B5FB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674BCC323C14459002B5FB5 /* AppDelegate.swift */; };
 		9674BCC623C14459002B5FB5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674BCC523C14459002B5FB5 /* SceneDelegate.swift */; };
 		9674BCC823C14459002B5FB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674BCC723C14459002B5FB5 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91700A1132A64F966ABEC114 /* Pods-GetLaidDevIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetLaidDevIOS.debug.xcconfig"; path = "Target Support Files/Pods-GetLaidDevIOS/Pods-GetLaidDevIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9674BCC023C14459002B5FB5 /* GetLaidDevIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetLaidDevIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9674BCC323C14459002B5FB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9674BCC523C14459002B5FB5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		9674BCCC23C1445A002B5FB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9674BCCF23C1445A002B5FB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9674BCD123C1445A002B5FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C5A7E3CA7E54FF1216060B4A /* Pods_GetLaidDevIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetLaidDevIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24E3A76201650032B0F5114 /* Pods-GetLaidDevIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetLaidDevIOS.release.xcconfig"; path = "Target Support Files/Pods-GetLaidDevIOS/Pods-GetLaidDevIOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				755ABA405502400448B0A987 /* Pods_GetLaidDevIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7375DBAFE8EB14BFFA902DD1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				91700A1132A64F966ABEC114 /* Pods-GetLaidDevIOS.debug.xcconfig */,
+				E24E3A76201650032B0F5114 /* Pods-GetLaidDevIOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9674BCB723C14459002B5FB5 = {
 			isa = PBXGroup;
 			children = (
 				9674BCC223C14459002B5FB5 /* GetLaidDevIOS */,
 				9674BCC123C14459002B5FB5 /* Products */,
+				7375DBAFE8EB14BFFA902DD1 /* Pods */,
+				E018945EB543AF1C02609ADC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +84,14 @@
 			path = GetLaidDevIOS;
 			sourceTree = "<group>";
 		};
+		E018945EB543AF1C02609ADC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5A7E3CA7E54FF1216060B4A /* Pods_GetLaidDevIOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9674BCD423C1445A002B5FB5 /* Build configuration list for PBXNativeTarget "GetLaidDevIOS" */;
 			buildPhases = (
+				5393642E31D5C6DB9CF4E4A8 /* [CP] Check Pods Manifest.lock */,
 				9674BCBC23C14459002B5FB5 /* Sources */,
 				9674BCBD23C14459002B5FB5 /* Frameworks */,
 				9674BCBE23C14459002B5FB5 /* Resources */,
+				54507C9FCC85EECE740E2BBA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +159,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5393642E31D5C6DB9CF4E4A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GetLaidDevIOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		54507C9FCC85EECE740E2BBA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GetLaidDevIOS/Pods-GetLaidDevIOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GetLaidDevIOS/Pods-GetLaidDevIOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetLaidDevIOS/Pods-GetLaidDevIOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9674BCBC23C14459002B5FB5 /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		9674BCD523C1445A002B5FB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91700A1132A64F966ABEC114 /* Pods-GetLaidDevIOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +370,7 @@
 		};
 		9674BCD623C1445A002B5FB5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E24E3A76201650032B0F5114 /* Pods-GetLaidDevIOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

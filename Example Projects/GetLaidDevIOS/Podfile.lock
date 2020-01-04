@@ -1,0 +1,23 @@
+PODS:
+  - GetLaid (3.0.0)
+  - PureLayout (3.1.5)
+
+DEPENDENCIES:
+  - GetLaid (from `../../`)
+  - PureLayout
+
+SPEC REPOS:
+  trunk:
+    - PureLayout
+
+EXTERNAL SOURCES:
+  GetLaid:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  GetLaid: 34fd739272d7086f83d794f00c7f06c0d1305c5f
+  PureLayout: 9b4ad47b2f0388c84ff534af23d96e720c1b875a
+
+PODFILE CHECKSUM: 5fccae04235164ce2216c18d15473a2d2c40a289
+
+COCOAPODS: 1.8.4
