@@ -21,20 +21,20 @@ GetLaid is a lean framework for laying out complex UIs through short readable co
 
 * :white_check_mark: Readability
     - The syntax is close to natural language instead of technically fancy.
-    - All constraining has the form `source.constrain(to: target)`.
+    - All constraining takes the form `source.constrain(to: target)`.
     - The operator `>>` can add further clarity: `source >> target`
 * :white_check_mark: Brevity
     - Code lines are super short and involve few function arguments.
     - A single code line can do a lot, via combined targets like `allButTop` and `size`.
-* :white_check_mark: Integrated Simplicity
+* :white_check_mark: Simplicity / Flexibility
     - Simple consistent systematic design: Understand 1 thing to do everything.
-    - Seemless coverage of parent views, safe areas and system spacings.
+    - Seemless coverage of parent views, safe areas and system spacings
 * :white_check_mark: Easy Advanced Layouting
     - Modify any constrain target with `offset(CGFLoat)`, `min`, `max` and `at(_ factor: CGFloat)`.
-    - Chain target modifications together: `item1 >> item2.size.at(0.5).min`.
-* :white_check_mark: Compatability
-    - Works on iOS, tvOS and macOS
-    - Works on [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide) and [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide) just as well as on views
+    - Chain target modifications together: `item1 >> item2.size.at(0.5).min`
+* :white_check_mark: Compatibility
+    - Works on iOS, tvOS and macOS.
+    - Works on [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide) and [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide) just as well as on views.
 
 ### Why Not Interface Builder?
 
@@ -46,7 +46,7 @@ Programmatic AutoLayout without any such frameworks was never hard. It's all abo
 
 Since iOS/tvOS 9.0 and macOS 10.11, we also have [`NSLayoutAnchor`](https://developer.apple.com/documentation/uikit/nslayoutanchor), which adds a native abstraction layer on top of `NSLayoutConstraint`, further reducing the need for any AutoLayout wrappers at all.
 
-At this point, all an AutoLayout wrapper can do is to make code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that.
+At this point, all an AutoLayout wrapper can do is to make layout code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that.
 
 ### Why Not Other AutoLayout Wrappers?
 
