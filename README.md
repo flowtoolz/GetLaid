@@ -7,9 +7,9 @@ GetLaid is a lean framework for laying out complex UIs through short readable co
 * [Why Oh Why?](#why-oh-why)
 * [Install](#install)
 * [Add Subviews and Layout Guides](#add-subviews-and-layout-guides)
-* [Constrain Positions](#constrain-positions)
+* [Constrain a Position](#constrain-a-position)
 * [Constrain Multiple Positions](#constrain-multiple-positions)
-* [Constrain Dimensions](#constrain-dimensions)
+* [Constrain a Dimension](#constrain-a-dimension)
 * [Constrain Both Dimensions](#constrain-both-dimensions)
 * [Constrain to the Parent](#constrain-to-the-parent)
 * [Constrain to the Safe Area on iOS](#constrain-to-the-safe-area-on-ios)
@@ -141,7 +141,7 @@ There's also a helper function for adding a new layout guide to a view:
 let guide = view.addLayoutGuide()
 ~~~
 
-## Constrain Positions
+## Constrain a Position
 
 You would always call `constrain(to:)` on exactly the thing you want to constrain. And you can always replace that function with the shorthand operator `>>`, which we'll do in the examples. These lines are equivalent :
 
@@ -195,7 +195,7 @@ Available position target combinations are:
 
 All of them take offsets as arguments for exactly the constrained positions, in counter-clockwise order.
 
-## Constrain Dimensions
+## Constrain a Dimension
 
 You constrain width and height just like positions:
 
