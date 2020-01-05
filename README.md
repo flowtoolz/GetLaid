@@ -17,8 +17,6 @@ GetLaid is a lean framework for laying out complex UIs through short readable co
 
 ## Why Oh Why?
 
-### Features
-
 * :white_check_mark: Readability
     - The syntax is close to natural language instead of technically fancy.
     - All constraining takes the form `source.constrain(to: target)`.
