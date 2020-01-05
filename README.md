@@ -35,9 +35,6 @@ GetLaid is a lean framework for laying out complex UIs through short readable co
 * :white_check_mark: Compatability
     - Works on iOS, tvOS and macOS
     - Works on [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide) and [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide) just as well as on views
-* :white_check_mark: Modern Swift Under the Hood
-    - No Objective-c
-    - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
 
 ### Why Not Interface Builder?
 
