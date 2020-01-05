@@ -165,12 +165,13 @@ import GetLaid
 The generic function `addForAutoLayout` adds a subview and prepares it for AutoLayout. It returns the subview it takes as its exact type. Use this function to add subviews:
 
 ~~~swift
-class List: NSView {
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        header.constrainToParentExcludingBottom()
+class List: UIView {
+    // ... other code, including call to addSubviews() ...
+
+    func addSubviews() {
+        addForAutoLayout(header) >> allButBottom  // add header to the top
     }
-    private lazy var header = addForAutoLayout(Header()) // of type Header
+    private let header = Header()
 }
 ~~~
 
