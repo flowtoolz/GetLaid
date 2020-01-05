@@ -313,7 +313,7 @@ class MySuperview: UIView {
     func addSubviews() {
         let subview = addForAutoLayout(UIView())
         subview >> allButBottom                   // constrain 3 edges to parent (self)
-        subview >> height.at(0.2)								  // constrain height to 20% of parent (self)
+        subview >> height.at(0.2)                 // constrain height to 20% of parent (self)
     }
 }
 ```
