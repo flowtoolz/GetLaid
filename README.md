@@ -19,25 +19,22 @@ GetLaid is a lean framework for laying out complex UIs through short readable co
 
 ### Features
 
-GetLaid has some advantages even over classic simple frameworks like [PureLayout](https://github.com/PureLayout/PureLayout):
-
 * :white_check_mark: Readability
-    - Functions are of the principle form "[constrained aspect] constrain to [constraining aspect]"
-    - This semantic naming makes auto completion more valuable, as it quickly and meaningfully narrows down the available options.
-    - All functions have the prefix `constrain` which expresses best what they really do: They constrain some attributes and return the resulting constraints.
-    - PureLayout is much more convoluted with its 6 different function prefixes: `autoPin`, `autoAlign`, `autoMatch`, `autoCenter`, `autoSet` and `autoConstrain`.
+    - The syntax is close to natural language instead of technically fancy.
+    - All constraining has the form `source.constrain(to: target)`.
+    - The operator `>>` can add further clarity: `source >> target`
 * :white_check_mark: Brevity
-    - Shorter lines of code with less function arguments (see comparison below)
-* :white_check_mark: Applicable to Layout Guides
-    - [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide)
-    - [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide)
-* :white_check_mark: Easy Relative Layouting
-    - Relative positioning: `item1.constrainToParentLeft(at: 0.5)`
-    - Relative sizing: `item1.constrain(to: item2.width.at(0.3))`
-    - Aspect ratio: `item.constrainAspectRatio(to: 16/9)`
-* :white_check_mark: Easy Positioning of Items Next to Each Other
-    - `item1.constrain(above: item2, gap: 10)`
-    - `item1.constrain(after: item2)` (localized via leading / trailing)
+    - Code lines are super short and involve few function arguments.
+    - A single code line can do a lot, via combined targets like `allButTop` and `size`.
+* :white_check_mark: Integrated Simplicity
+    - Simple consistent systematic design: Understand 1 thing to do everything.
+    - Seemless coverage of parent views, safe areas and system spacings.
+* :white_check_mark: Easy Advanced Layouting
+    - Modify any constrain target with `offset(CGFLoat)`, `min`, `max` and `at(_ factor: CGFloat)`.
+    - Chain target modifications together: `item1 >> item2.size.at(0.5).min`.
+* :white_check_mark: Compatability
+    - Works on iOS, tvOS and macOS
+    - Works on [UILayoutGuide](https://developer.apple.com/documentation/uikit/uilayoutguide) and [NSLayoutGuide](https://developer.apple.com/documentation/appkit/nslayoutguide) just as well as on views
 * :white_check_mark: Modern Swift Under the Hood
     - No Objective-c
     - Extensive use of [Layout Anchors](https://developer.apple.com/documentation/uikit/nslayoutanchor)
@@ -50,13 +47,13 @@ Well, that [would be insane](https://www.flowtoolz.com/2019/09/27/the-reasons-fo
 
 Programmatic AutoLayout without any such frameworks was never hard. It's all about creating objects of `NSLayoutConstraint`, which has only one [powerful initializer](https://developer.apple.com/documentation/uikit/nslayoutconstraint/1526954-init).
 
-Since iOS 9.0 and macOS 10.11, we also have `NSLayoutAnchor`, which adds a native abstraction layer on top of `NSLayoutConstraint`, further reducing the need for any AutoLayout wrappers at all.
+Since iOS/tvOS 9.0 and macOS 10.11, we also have [`NSLayoutAnchor`](https://developer.apple.com/documentation/uikit/nslayoutanchor), which adds a native abstraction layer on top of `NSLayoutConstraint`, further reducing the need for any AutoLayout wrappers at all.
 
 At this point, all an AutoLayout wrapper can do is to make code even more meaningful, readable and succinct at the point of use. GetLaid does exactly that.
 
 ### Why Not Other AutoLayout Wrappers?
 
-Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) are almost too clever for the simple task at hand. A SnapKit example:
+Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) are almost too clever for the simple task at hand. The first example from the SnapKit README:
 
 ~~~swift
 box.snp.makeConstraints { (make) -> Void in
@@ -72,52 +69,16 @@ box.autoSetDimensions(to: CGSize(width: 50, height: 50))
 box.autoCenterInSuperView()
 ~~~
 
-GetLaid trims AutoLayout further down to the essence. The operator `>>` can be read as "constrain to":
+GetLaid trims AutoLayout further down to the essence. Just read the operator `>>` as "constrain to":
 
 ~~~swift
 box >> 50
 box >> box.parent?.center
 ~~~
 
-Here's a richer comparison against PureLayout:
-
-#### Before (PureLayout)
-
-~~~swift
-item1.autoPinEdgesToSuperviewEdges()
-item1.autoPinEdge(toSuperviewEdge: .top)
-item1.autoSetDimension(.width, toSize: 42)
-item1.autoPinEdge(.left, to: .left, of: item2)
-item1.autoAlignAxis(.vertical, toSameAxisOf: item2)
-item1.autoSetDimensions(to: CGSize(width: 82, height: 42))
-item1.autoPinEdge(.bottom, to: .top, of: item2, withOffset: -20)
-item1.autoSetDimension(.height, toSize: 64, relation: .greaterThanOrEqual)
-item1.autoPinEdgesToSuperviewEdges(with: NSEdgeInsetsZero, excludingEdge: .top)
-item1.autoConstrainAttribute(.left, to: .right, of: parent, withMultiplier: 0.5)
-item1.autoConstrainAttribute(.width, to: .height, of: item1, withMultiplier: 16 / 9)
-item1.autoPinEdgesToSuperViewEdges(with: NSEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
-~~~
-
-#### After (GetLaid)
-
-~~~swift
-item1 >> item1.parent
-item1 >> item1.parent?.top
-item1.width >> 42
-item1 >> item2.left
-item1 >> item2.centerX
-item1 >> (82, 42)
-item1.bottom >> item2.top.offset(-20)
-item1.height >> .min(64)
-item1 >> item1.parent?.allButTop
-item1.left >> item1.parent?.right.at(0.5)
-item1.width >> item1.height.at(16 / 9)
-item1 >> item1.parent?.all(topInset: 10)
-~~~
-
-So, which is prettier, mh?
-
 If you can spare fancyness but appreciate readability, GetLaid might be for you.
+
+Here is also a [richer comparison](Documentation/comparison_to_alternatives.md) of how layout code looks with GetLaid and its alternatives.
 
 ## Install
 
@@ -383,10 +344,6 @@ spacer.width >> .min(systemSpacing)              // minimum spacer width
 ```
 
 Remember that these constants are not hardcoded but dynamically calculated on the actual user device, so they are absolutely true to what Apple intents for sibling gaps and parent insets, on any system and on any iOS/tvOS version. But also note that these two values do not capture the system spacing magic that `NSLayoutAnchor` offers in conjunction with baselines and font sizes and possibly in other contexts.
-
-## TO DOcument
-
-* shorten and update motivational introduction
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
