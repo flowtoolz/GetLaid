@@ -325,7 +325,7 @@ If you find youself constraining many subviews to the safe area, there should pr
 
 With Apple's `NSLayoutAnchor`, you can make use of a mysterious "system spacing". Apple does not disclose how that is calculated and does not offer any concrete values you could access. Using system spacings through the `NSLayoutAnchor` API is a bit awkward, limited in how it is applied and limited in what it can be applied to.
 
-GetLaid exposes the system spacing as two global `CGFLoat` constants. It calls the actual Apple API to calculate the constants the first time you acces them:
+GetLaid exposes the system spacing as two global `CGFLoat` constants. It calls the actual Apple API to calculate the constants the first time you access them:
 
 1. `systemSiblingSpacing` is the gap the user's system wants between sibling views.
 2. `systemParentSpacing` is the inset the user's system wants from a view's edge to a contained subview.
