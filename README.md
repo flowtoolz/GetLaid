@@ -2,7 +2,7 @@
 
 [![badge-pod]](http://cocoapods.org/pods/GetLaid) ![badge-pms] ![badge-languages] ![badge-platforms] ![badge-mit]
 
-GetLaid is a lean framework for laying out complex user interfaces through elegant code.
+GetLaid is a lean framework for laying out complex UIs through short readable code.
 
 * [Why Oh Why?](#why-oh-why)
 * [Install](#install)
