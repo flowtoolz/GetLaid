@@ -319,7 +319,7 @@ class MySuperview: UIView {
 }
 ```
 
-Sometimes, not all superviews are implemented as their own custom view class. In other words, some custom view- or controller classes add and layout not just sibling subviews but whole subview hierarchies. In those contexts, the enclosing custom view or view controller controls the parent-child relation of its subviews and can directly constrain subviews to their parents:
+Sometimes, not all superviews are implemented as their own custom view class. In other words, some custom view- or controller classes add and layout whole subview hierarchies. In those contexts, the enclosing custom view or view controller controls the parent-child relation of its subviews and can directly constrain subviews to their parents:
 
 ```swift
 class MySuperview: UIView {
@@ -334,7 +334,7 @@ class MySuperview: UIView {
 }
 ```
 
-If you still want to explicitly constrain a layout item to its parent, you can use the `parent` property. On a view, `parent` is its `superView`. On a layout guide, `parent` is its `owningView`, Of course, `parent` is optional, but all layout item based constrain targets can just be optional:
+If you still want to explicitly constrain a layout item to its parent, you can use the `parent` property. On a view, `parent` is its `superView`. On a layout guide, `parent` is its `owningView`. Of course, `parent` is optional, but all layout item based constrain targets can just be optional:
 
 ```swift
 item >> item.parent?.top.offset(10)          // constrain top to parent, inset 10
@@ -355,7 +355,7 @@ class MyView: UIView {
     // ... other code, including call to addSubviews() ...
 
     func addSubviews() {
-				addForAutoLayout(MyContentView()) >> safeArea  // constrain content to safe area
+        addForAutoLayout(MyContentView()) >> safeArea  // constrain content to safe area
     }
 }
 ```
