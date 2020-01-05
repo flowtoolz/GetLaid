@@ -11,7 +11,8 @@ GetLaid is a lean framework for laying out complex UIs through short readable co
 * [Constrain Multiple Positions](#constrain-multiple-positions)
 * [Constrain Dimensions](#constrain-dimensions)
 * [Constrain Both Dimensions](#constrain-both-dimensions)
-* [Constrain to Parent](#constrain-to-parent)
+* [Constrain to the Parent](#constrain-to-the-parent)
+* [Constrain to the Safe Area on iOS](#constrain-to-the-safe-area-on-ios)
 * [System Spacing on iOS and tvOS](#system-spacing-on-ios-and-tvos)
 
 ## Why Oh Why?
@@ -302,13 +303,13 @@ item >> layoutSize(100, 50).min  // at least 100 by 50
 item >> .min(100, 50)            // same
 ```
 
-## Constrain to Parent
+## Constrain to the Parent
 
 Normally, in well structured code, views add and layout their own subviews. In those contexts, the parent (superview) of the constrained subviews is `self`, which makes it easy to constrain those subviews to any of their parent's attributes:
 
 ```swift
 class MySuperview: UIView {
-    // ... other code including call to addSubviews() ...
+    // ... other code, including call to addSubviews() ...
   
     func addSubviews() {
         let subview = addForAutoLayout(UIView())
@@ -318,11 +319,11 @@ class MySuperview: UIView {
 }
 ```
 
-Sometimes, not all superviews are implemented as their own custom view class. In other words, some custom view- or controller classes add and layout not just sibling subviews but whole subview hierarchies. In those contexts, the enclosing custom view or view controller controls the parent-child relation of its subviews and can directly constrain suviews to their parents:
+Sometimes, not all superviews are implemented as their own custom view class. In other words, some custom view- or controller classes add and layout not just sibling subviews but whole subview hierarchies. In those contexts, the enclosing custom view or view controller controls the parent-child relation of its subviews and can directly constrain subviews to their parents:
 
 ```swift
 class MySuperview: UIView {
-    // ... other code including call to addSubviews() ...
+    // ... other code, including call to addSubviews() ...
 
     func addSubviews() {
         let subview = addForAutoLayout(UIView())
@@ -337,10 +338,29 @@ If you still want to explicitly constrain a layout item to its parent, you can u
 
 ```swift
 item >> item.parent?.top.offset(10)          // constrain top to parent, inset 10
+item >> item.parent?.allButBottom            // constrain 3 edges to parent
 item >> item.parent?.size.at(0.3)            // constrain width and height to 30% of parent
 item >> item.parent?.all(leadingOffset: 10)  // constrain all edges to parent, leading inset 10
 item >> item.parent                          // constrain all edges to parent
 ```
+
+## Constrain to the Safe Area on iOS
+
+On iOS 11 and above, you can access the safe area of a view via the `safeArea` property and the parent's safe area via the optional `parentSafeArea` property.
+
+Normally, in well structured code where views add and layout their own subviews, you would simply call `safeArea` on `self`:
+
+```swift
+class MyView: UIView {
+    // ... other code, including call to addSubviews() ...
+
+    func addSubviews() {
+				addForAutoLayout(MyContentView()) >> safeArea  // constrain content to safe area
+    }
+}
+```
+
+If you find youself constraining many subviews to the safe area, there should probably be a content view containing them.
 
 ## System Spacing on iOS and tvOS
 
@@ -365,7 +385,6 @@ Remember that these constants are not hardcoded but dynamically calculated on th
 
 ## TO DOcument
 
-* safe areas
 * shorten and update motivational introduction
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
