@@ -35,5 +35,3 @@ item1.left >> item1.parent?.right.at(0.5)
 item1.width >> item1.height.at(16 / 9)
 item1 >> item1.parent?.all(topInset: 10)
 ~~~
-
-So, which is prettier, mh?

@@ -73,7 +73,7 @@ box >> 50
 box >> box.parent?.center
 ~~~
 
-If you can spare fancyness but appreciate readability, GetLaid might be for you.
+So, which is prettier, mh? If you can spare fancyness but appreciate readability, GetLaid might be for you.
 
 Here is also a [richer comparison](Documentation/comparison_to_alternatives.md) of how layout code looks with GetLaid and its alternatives.
 
