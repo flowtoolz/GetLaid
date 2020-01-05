@@ -152,7 +152,7 @@ view1.top >> view2.lastBaseline
 
 All layout attributes can be used in that way, while baselines are not available on layout guides.
 
-If left side (source) and right side (target) refer to the same layout attribute, you may omit one of them. These are equivalent:
+If source and target refer to the same attribute, you may omit the attribute on one side. These are equivalent:
 
 ```swift
 item1.left >> item2.left
@@ -160,7 +160,7 @@ item1.left >> item2
 item1 >> item2.left
 ```
 
-You may modify the constrain target (right side attribute) and also chain these modifications:
+You may modify the constrain target and also chain these modifications:
 
 ```swift
 item1 >> item2.left.offset(8)
