@@ -11,7 +11,8 @@ GetLaid is a lean framework for laying out complex UIs through short readable co
 * [Constrain Multiple Positions](#constrain-multiple-positions)
 * [Constrain Dimensions](#constrain-dimensions)
 * [Constrain Both Dimensions](#constrain-both-dimensions)
-* [System Spacings on iOS and tvOS](#system-spacings-on-ios-and-tvos)
+* [Constrain to Parent](#constrain-to-parent)
+* [System Spacing on iOS and tvOS](#system-spacing-on-ios-and-tvos)
 
 ## Why Oh Why?
 
@@ -301,7 +302,47 @@ item >> layoutSize(100, 50).min  // at least 100 by 50
 item >> .min(100, 50)            // same
 ```
 
-## System Spacings on iOS and tvOS
+## Constrain to Parent
+
+Normally, in well structured code, views add and layout their own subviews. In those contexts, the parent (superview) of the constrained subviews is `self`, which makes it easy to constrain those subviews to any of their parent's attributes:
+
+```swift
+class MySuperview: UIView {
+    // ... other code including call to addSubviews() ...
+  
+    func addSubviews() {
+        let subview = addForAutoLayout(UIView())
+        subview >> allButBottom                   // constrain 3 edges to parent (self)
+        subview >> height.at(0.2)								  // constrain height to 20% of parent (self)
+    }
+}
+```
+
+Sometimes, not all superviews are implemented as their own custom view class. In other words, some custom view- or controller classes add and layout not just sibling subviews but whole subview hierarchies. In those contexts, the enclosing custom view or view controller controls the parent-child relation of its subviews and can directly constrain suviews to their parents:
+
+```swift
+class MySuperview: UIView {
+    // ... other code including call to addSubviews() ...
+
+    func addSubviews() {
+        let subview = addForAutoLayout(UIView())
+        let subsubview = subview.addForAutoLayout(UIView())
+        subsubview >> subview.allButBottom        // constrain 3 edges to parent
+        subsubview >> subview.height.at(0.2)      // constrain height to 20% of parent
+    }
+}
+```
+
+If you still want to explicitly constrain a layout item to its parent, you can use the `parent` property. On a view, `parent` is its `superView`. On a layout guide, `parent` is its `owningView`, Of course, `parent` is optional, but all layout item based constrain targets can just be optional:
+
+```swift
+item >> item.parent?.top.offset(10)          // constrain top to parent, inset 10
+item >> item.parent?.size.at(0.3)            // constrain width and height to 30% of parent
+item >> item.parent?.all(leadingOffset: 10)  // constrain all edges to parent, leading inset 10
+item >> item.parent                          // constrain all edges to parent
+```
+
+## System Spacing on iOS and tvOS
 
 With Apple's `NSLayoutAnchor`, you can make use of a mysterious "system spacing". Apple does not disclose how that is calculated and does not offer any concrete values you could access. Using system spacings through the `NSLayoutAnchor` API is a bit awkward, limited in how it is applied and limited in what it can be applied to.
 
@@ -320,11 +361,11 @@ item >> item.parent?.top.offset(systemSpacing)   // inset to parent
 spacer.width >> .min(systemSpacing)              // minimum spacer width
 ```
 
-Remember that these constants are not hardcoded but dynamically calculated on the actual user device, so they are absolutely true to what Apple intents for sibling gaps and parent insets, on any system and on any iOS/tvOS version. But also note that these two values do not capture the system spacing magic that Apple offers in conjunction with baselines and font sizes and possibly in other contexts.
+Remember that these constants are not hardcoded but dynamically calculated on the actual user device, so they are absolutely true to what Apple intents for sibling gaps and parent insets, on any system and on any iOS/tvOS version. But also note that these two values do not capture the system spacing magic that `NSLayoutAnchor` offers in conjunction with baselines and font sizes and possibly in other contexts.
 
 ## TO DOcument
 
-* safe areas, parent
+* safe areas
 * shorten and update motivational introduction
 
 [badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
