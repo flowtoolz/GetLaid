@@ -1,6 +1,8 @@
-import AppKit.NSView
-import AppKit.NSLayoutGuide
+#if os(macOS)
+import AppKit
+#endif
 
+@available(macOS 10.11, *)
 public extension NSView
 {
     @discardableResult

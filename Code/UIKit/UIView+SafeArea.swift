@@ -1,4 +1,6 @@
+#if os(iOS) || os(tvOS)
 import UIKit
+#endif
 
 @available(iOS 11.0, tvOS 11.0, *)
 public extension UIView
