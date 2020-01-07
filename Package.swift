@@ -5,15 +5,10 @@ import PackageDescription
 let package = Package(
     name: "GetLaid",
     products: [
-        .library(name: "GetLaid",
-                 targets: ["GetLaid"]),
+        .library(name: "GetLaid", targets: ["GetLaid"]),
     ],
     dependencies: [],
     targets: [
-        .target(name: "GetLaid",
-                dependencies: [],
-                sources: ["Code/AllPlatforms",
-                          "Code/AppKit",
-                          "Code/UIKit"]),
+        .target(name: "GetLaid", dependencies: [])
     ]
 )
