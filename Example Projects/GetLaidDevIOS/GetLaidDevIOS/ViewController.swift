@@ -12,5 +12,8 @@ class ViewController: UIViewController {
         box.backgroundColor = .blue
         box >> 50
         box >> view.center
+        
+//        box.autoAlignAxis(.vertical, toSameAxisOf: view)
+//        box.autoAlignAxis(.horizontal, toSameAxisOf: view)
     }
 }

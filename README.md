@@ -53,7 +53,7 @@ Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) ar
 ~~~swift
 box.snp.makeConstraints { (make) -> Void in
     make.width.height.equalTo(50)
-    make.center.equalTo(self.view)
+    make.center.equalTo(view)
 }
 ~~~
 
@@ -68,7 +68,7 @@ GetLaid trims AutoLayout further down to the essence. Just read the operator `>>
 
 ~~~swift
 box >> 50
-box >> box.parent?.center
+box >> view.center
 ~~~
 
 So, which is prettier, mh? If you can spare fancyness but appreciate readability, GetLaid might be for you.
