@@ -1,8 +1,6 @@
 #if os(iOS) || os(tvOS)
 import UIKit
-#endif
 
-@available(iOS 9.0, tvOS 9.0, *)
 public extension UIView
 {
     @discardableResult
@@ -24,3 +22,5 @@ public extension UIView
         return guide
     }
 }
+
+#endif
