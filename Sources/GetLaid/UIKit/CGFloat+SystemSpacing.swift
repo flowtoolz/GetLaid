@@ -1,10 +1,10 @@
 #if os(iOS) || os(tvOS)
 import UIKit
 
-@available(iOS 11.0, *)
+@available(iOS 11.0, tvOS 11.0, *)
 public var systemSpacing: CGFloat { systemSiblingSpacing }
 
-@available(iOS 11.0, *)
+@available(iOS 11.0, tvOS 11.0, *)
 public let systemSiblingSpacing: CGFloat =
 {
     let view = UIView()
@@ -16,7 +16,7 @@ public let systemSiblingSpacing: CGFloat =
                                           multiplier: 1).constant
 }()
 
-@available(iOS 11.0, *)
+@available(iOS 11.0, tvOS 11.0, *)
 public let systemParentSpacing: CGFloat =
 {
     let view = UIView()
