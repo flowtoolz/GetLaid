@@ -8,8 +8,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .green
         
+        let box = view.addForAutoLayout(UIView())
+        box.backgroundColor = .blue
+        box >> 50
+        box >> view.center
     }
-
-
 }
-
