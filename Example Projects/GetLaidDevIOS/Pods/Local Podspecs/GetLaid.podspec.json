@@ -1,6 +1,6 @@
 {
   "name": "GetLaid",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "summary": "Swift AutoLayout Wrapper",
   "description": "The Most Readable & Concise AutoLayout Swift Code",
   "homepage": "http://flowtoolz.com",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/flowtoolz/GetLaid.git",
-    "tag": "3.0.1"
+    "tag": "3.0.2"
   },
   "requires_arc": true,
   "swift_versions": "5.0",
@@ -19,15 +19,15 @@
     "osx": "10.11",
     "tvos": "9.0"
   },
-  "source_files": "Code/AllPlatforms/**/*.swift",
+  "source_files": "Sources/GetLaid/AllPlatforms/**/*.swift",
   "ios": {
-    "source_files": "Code/UIKit/**/*.swift"
+    "source_files": "Sources/GetLaid/UIKit/**/*.swift"
   },
   "tvos": {
-    "source_files": "Code/UIKit/**/*.swift"
+    "source_files": "Sources/GetLaid/UIKit/**/*.swift"
   },
   "osx": {
-    "source_files": "Code/AppKit/**/*.swift"
+    "source_files": "Sources/GetLaid/AppKit/**/*.swift"
   },
   "swift_version": "5.0"
 }
