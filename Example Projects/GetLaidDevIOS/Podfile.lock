@@ -1,5 +1,5 @@
 PODS:
-  - GetLaid (3.0.2)
+  - GetLaid (3.0.3)
   - PureLayout (3.1.5)
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  GetLaid: 6d91806317aac94017e139ea1795411b7ae2f2fd
+  GetLaid: 748a46cdb69828d1930536c587f05364fe21678c
   PureLayout: 9b4ad47b2f0388c84ff534af23d96e720c1b875a
 
 PODFILE CHECKSUM: 5fccae04235164ce2216c18d15473a2d2c40a289
