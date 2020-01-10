@@ -53,7 +53,7 @@ Modern AutoLayout wrappers like [SnapKit](https://github.com/SnapKit/SnapKit) ar
 ~~~swift
 box.snp.makeConstraints { (make) -> Void in
     make.width.height.equalTo(50)
-    make.center.equalTo(view)
+    make.center.equalTo(self.view)
 }
 ~~~
 
