@@ -1,6 +1,0 @@
-framework module Pods_GetLaidDevIOS {
-  umbrella header "Pods-GetLaidDevIOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
