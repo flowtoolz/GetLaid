@@ -1,3 +1,4 @@
 xcuserdata/
 xcuserdata/**
 Package.resolved
+.swiftpm
