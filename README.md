@@ -1,6 +1,6 @@
 # GetLaid
 
-[![badge-pod]](http://cocoapods.org/pods/GetLaid) ![badge-pms] ![badge-languages] ![badge-platforms] ![badge-mit]
+![badge-pms] ![badge-languages] ![badge-platforms] ![badge-mit]
 
 GetLaid is a lean framework for laying out complex UIs through short readable code.
 
@@ -339,8 +339,6 @@ spacer.width >> .min(systemSpacing)              // minimum spacer width
 ```
 
 Remember that these constants are not hardcoded but dynamically calculated on the actual user device, so they are absolutely true to what Apple intents for sibling gaps and parent insets, on any system and on any iOS/tvOS version. But also note that these two values do not capture the system spacing magic that `NSLayoutAnchor` offers in conjunction with baselines and font sizes and possibly in other contexts.
-
-[badge-pod]: https://img.shields.io/cocoapods/v/GetLaid.svg?label=version&style=flat-square
 
 [badge-pms]: https://img.shields.io/badge/supports-SPM%20%7C%20CocoaPods-green.svg?style=flat-square
 
