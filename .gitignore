@@ -1,4 +1,3 @@
-xcuserdata/
-xcuserdata/**
 Package.resolved
-.swiftpm
+.swiftpm/
+.build/

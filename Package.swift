@@ -1,10 +1,10 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.7
 
 import PackageDescription
 
 let package = Package(
     name: "GetLaid",
-    platforms: [.iOS(.v9), .tvOS(.v9), .macOS(.v10_11)],
+    platforms: [.iOS(.v11), .tvOS(.v11), .macOS(.v10_13)],
     products: [
         .library(name: "GetLaid", targets: ["GetLaid"]),
     ],

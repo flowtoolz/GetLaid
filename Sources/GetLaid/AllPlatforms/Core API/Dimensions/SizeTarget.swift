@@ -58,11 +58,6 @@ public extension LayoutItem
     }
 }
 
-public func layoutSize(_ width: CGFloat, _ height: CGFloat) -> SizeTarget
-{
-    .size(width, height)
-}
-
 public struct SizeTarget: Target
 {
     public static func max(_ width: CGFloat, _ height: CGFloat) -> Self

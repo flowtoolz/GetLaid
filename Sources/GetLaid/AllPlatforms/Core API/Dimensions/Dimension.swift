@@ -191,11 +191,6 @@ public extension DimensionAnchor
 
 // MARK: - Types
 
-public func layoutSize(_ size: CGFloat) -> DimensionTarget
-{
-    .size(size)
-}
-
 public struct DimensionTarget: Target
 {
     public static func min(_ constant: CGFloat) -> Self

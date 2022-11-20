@@ -221,21 +221,11 @@ item >> .size(100)  // square with edge length 100
 item >> 100         // same
 ```
 
-You can modify the constant size target like any other target, for one or both dimensions. Unfortunately, for this to work with the `>>` operator, Swift needs the explicit target type as context. There are two workarounds, a more native one and a prettier one:
+You can modify the constant size target like any other target, for one or both dimensions. And there are shorthand notations for minimum and maximum constants. These are equivalent:
 
 ```swift
-item >> .size(100).max                 // WON'T COMPILE❗
-item >> DimensionTarget.size(100).max  // spells out the target type (ugly)
-item >> layoutSize(100).max            // global func makes the target (better)
-```
-
-> **Side Note:** The global function `layoutSize` could not be named just `size` because that would technically produce name collisions and also would not properly establish the AutoLayout context in terms of meaning.
-
-Fortunately, you'll virtually never need the above workaround, thanks to shorthand notations for minimum and maximum constants. These are equivalent:
-
-```swift
-item >> layoutSize(100).max  // width, height <= 100
-item >> .max(100)            // same
+item >> .size(100).max  // width, height <= 100
+item >> .max(100)       // same
 ```
 
 ## Constrain Both Dimensions
@@ -256,8 +246,8 @@ item >> (100, 50)       // same
 And there are also shorthand notations for minimum and maximum size. These are equivalent:
 
 ```swift
-item >> layoutSize(100, 50).min  // at least 100 by 50
-item >> .min(100, 50)            // same
+item >> .size(100, 50).min  // at least 100 by 50
+item >> .min(100, 50)       // same
 ```
 
 ## Constrain to the Parent
